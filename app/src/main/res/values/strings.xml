@@ -1,0 +1,40 @@
+<resources>
+    <string name="app_name">SmartHome</string>
+    <string name="dialog_color_picker">Farbe wählen</string>
+
+    <string name="menu_add">Add</string>
+    <string name="menu_Refresh">Refresh</string>
+    <string name="string_Temperature">Temperatur</string>
+    <string name="string_Volume">Lautstärke:</string>
+    <string name="string_Title">Titel:</string>
+    <string name="string_Password">Passwort:</string>
+    <string name="string_HEX">HEX</string>
+    <string name="string_Time">Startzeit:</string>
+    <string name="string_Arrow">→</string>
+    <string name="string_Intensity">Helligkeit:</string>
+    <string name="string_Scenario">Szenario</string>
+    <string name="string_Settings">Einstellungen</string>
+    <string name="string_Devices">Geräte</string>
+    <string name="string__Room">Raum</string>
+    <string name="string_Timestamp">Timestamp</string>
+    <string name="string_Power">Power</string>
+    <string name="string_Select">Select</string>
+    <string name="string_Delete">Delete</string>
+    <string name="string_IP">Server IP</string>
+    <string name="string_Name">Name:</string>
+    <string name="string_Camera_Title">Frequenz:</string>
+    <string name="string_Water_Intensity">Wasserstärke:</string>
+    <string name="string_Amount">Menge:</string>
+    <string name="string_Clothes">Kleidungsart:</string>
+    <string name="string_Duration">Zeit:</string>
+    <string name="string_Channel">Kanal:</string>
+    <string name="string_Notfallszenario">Notfallszenario:</string>
+    <string name="string_NotfallAutomatik">Automatisch aktivieren</string>
+
+    <string name="string_Menu_Device">Geräteübersicht</string>
+    <string name="string_Menu_Room">Raumübersicht</string>
+    <string name="string_Menu_Scenario">Szenarioübersicht</string>
+    <string name="string_Menu_Settings">Einstellungen</string>
+
+
+</resources>

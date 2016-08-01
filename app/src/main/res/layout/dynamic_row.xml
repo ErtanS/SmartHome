@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    tools:ignore="Overdraw">
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#76afe5"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Large Text"
+        android:id="@+id/txtDeviceRow"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_toStartOf="@+id/imRowNext"
+        android:layout_alignBottom="@+id/imRowNext"
+        android:textAlignment="gravity"
+        android:gravity="center_vertical"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:textColor="#ffffff" />
+
+    <ImageView
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:id="@+id/imRowNext"
+        android:background="#76afe5"
+        android:src="@drawable/arrow"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:paddingLeft="13dp"
+        android:paddingRight="13dp"
+        android:contentDescription="@string/string_Arrow" />
+
+    <Space
+        android:layout_width="fill_parent"
+        android:layout_height="20dp"
+        android:layout_below="@+id/txtDeviceRow"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true" />
+
+</RelativeLayout>

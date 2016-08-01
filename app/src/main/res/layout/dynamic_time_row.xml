@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:ignore="Overdraw"
+    android:background="#ffffff">
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/backgroundcolor"
+        android:layout_below="@+id/txt"
+        android:layout_alignParentStart="true"
+        android:layout_above="@+id/space"
+        android:layout_alignParentEnd="true"
+        android:background="#76afe5" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Large Text"
+        android:id="@+id/txtRow"
+        android:textAlignment="gravity"
+        android:gravity="center_vertical"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:textColor="#ffffff"
+        android:layout_below="@+id/txt"
+        android:layout_alignParentStart="true"
+        android:layout_alignBottom="@+id/imRowPower"
+        android:layout_toStartOf="@+id/imRowSettings"
+        android:layout_alignEnd="@+id/imRowSettings" />
+
+
+    <ImageView
+        android:layout_width="55dp"
+        android:layout_height="48dp"
+        android:id="@+id/imRowDelete"
+        android:src="@drawable/delete"
+        android:layout_below="@+id/txt"
+        android:layout_alignParentEnd="true"
+        android:paddingLeft="13dp"
+        android:paddingRight="13dp"
+        android:contentDescription="@string/string_Delete" />
+
+    <Space
+        android:layout_width="fill_parent"
+        android:layout_height="4dp"
+        android:id="@+id/space"
+        android:layout_below="@+id/txtRow"
+        android:layout_alignParentStart="true" />
+
+    <ImageView
+        android:layout_width="55dp"
+        android:layout_height="48dp"
+        android:id="@+id/imRowPower"
+        android:src="@drawable/lighton"
+        android:layout_below="@+id/txt"
+        android:layout_toStartOf="@+id/imRowDelete"
+        android:paddingLeft="13dp"
+        android:paddingRight="13dp"
+        android:contentDescription="@string/string_Power" />
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="@string/string_Time"
+        android:id="@+id/txt"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignEnd="@+id/imRowDelete"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"/>
+
+    <ImageView
+        android:layout_width="55dp"
+        android:layout_height="48dp"
+        android:id="@+id/imRowSettings"
+        android:src="@drawable/edit"
+        android:layout_below="@+id/txt"
+        android:layout_toStartOf="@+id/imRowPower"
+        android:paddingLeft="13dp"
+        android:paddingRight="13dp"
+        android:contentDescription="@string/string_Settings" />
+
+</RelativeLayout>
