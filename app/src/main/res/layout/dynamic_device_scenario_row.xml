@@ -12,7 +12,6 @@
         android:layout_height="wrap_content"
         android:background="#76afe5"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Large Text"
         android:id="@+id/textView3"
         android:textAlignment="gravity"
         android:gravity="center_vertical"
@@ -28,7 +27,6 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="#76afe5"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Large Text"
         android:id="@+id/txtRow"
@@ -40,7 +38,8 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true"
         android:layout_toStartOf="@+id/relativeLayout"
-        android:minHeight="48dp" />
+        android:minHeight="48dp"
+        android:autoText="false" />
 
     <RelativeLayout
         android:layout_width="165dp"
@@ -54,7 +53,6 @@
             android:layout_width="55dp"
             android:layout_height="fill_parent"
             android:id="@+id/imRowSettings"
-            android:background="#76afe5"
             android:src="@drawable/edit"
             android:layout_alignParentTop="true"
             android:paddingLeft="13dp"
@@ -65,7 +63,6 @@
             android:layout_width="55dp"
             android:layout_height="fill_parent"
             android:id="@+id/imRowSelect"
-            android:background="#76afe5"
             android:src="@drawable/radioon"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
@@ -77,7 +74,6 @@
             android:layout_width="55dp"
             android:layout_height="fill_parent"
             android:id="@+id/imRowPower"
-            android:background="#76afe5"
             android:src="@drawable/lighton"
             android:paddingLeft="13dp"
             android:paddingRight="13dp"

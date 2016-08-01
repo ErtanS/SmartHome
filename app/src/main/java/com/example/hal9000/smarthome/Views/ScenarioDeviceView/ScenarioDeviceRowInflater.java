@@ -298,6 +298,7 @@ public class ScenarioDeviceRowInflater extends Inflater {
      * @param clickedId   Geklickte Id die nicht verändert werden soll
      * @param clickedType Gerätetyp des Geräts das zur Id gehört
      */
+    /*
     public void buttonChanger(int clickedId, String clickedType) {
         manager.manageScenariosWithName(getScenarioName());
         for (int i = 0; i < getParentView().getChildCount(); i++) {
@@ -327,6 +328,66 @@ public class ScenarioDeviceRowInflater extends Inflater {
                                                 DeviceDataSet newDataSet = manager.updateDevice(id, type);
 
                                                 if (newDataSet != null) {
+                                                    buttonTag.setDataSet(newDataSet);
+                                                    powerSwitch.setTag(buttonTag);
+
+                                                    if ((id != clickedId || !type.equals(clickedType)) && buttonTag.getType().equals(Config.STRING_TAG_POWER)) {
+                                                        int state = newDataSet.getState();
+                                                        switchImage(type, state, powerSwitch);
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }*/
+
+    public void buttonChanger(int clickedId, String clickedType) {
+        manager.manageScenariosWithName(getScenarioName());
+
+        for (int i = 0; i < getParentView().getChildCount(); i++) {
+            View v = getParentView().getChildAt(i);
+            if (v instanceof RelativeLayout) {
+                RelativeLayout rlOverview = (RelativeLayout) v;
+
+                for (int l = 0; l < rlOverview.getChildCount(); l++) {
+                    View v1 = rlOverview.getChildAt(l);
+                    if (v1 instanceof LinearLayout) {
+                        LinearLayout llParent = (LinearLayout) v1;
+
+                        for (int m = 0; m < llParent.getChildCount(); m++) {
+                            View v2 = llParent.getChildAt(l);
+                            if (v2 instanceof RelativeLayout) {
+                                RelativeLayout rlRowTop = (RelativeLayout) v2;
+
+                                for (int k = 0; k < rlRowTop.getChildCount(); k++) {
+                                    View v3 = rlRowTop.getChildAt(k);
+                                    if (v3 instanceof RelativeLayout) {
+                                        RelativeLayout rlButton = (RelativeLayout) v3;
+
+                                        for (int j = 0; j < rlButton.getChildCount(); j++) {
+                                            View view = rlButton.getChildAt(j);
+                                            if (view instanceof ImageView && view.getTag() != null && !((Tag) view.getTag()).getType().equals(Config.STRING_TAG_SELECT)) {
+
+                                                ImageView powerSwitch = (ImageView) view;
+                                                Tag buttonTag = (Tag) powerSwitch.getTag();
+                                                DeviceDataSet dataSet = buttonTag.getDataSet();
+                                                int id = dataSet.getId();
+                                                System.out.println("view " + dataSet.getName());
+                                                String type = dataSet.getType();
+                                                DeviceDataSet newDataSet = manager.updateDevice(id, type);
+                                                //
+
+
+                                                if (newDataSet != null) {
+                                                    //System.out.println("view" + dataSet.getName());
+
                                                     buttonTag.setDataSet(newDataSet);
                                                     powerSwitch.setTag(buttonTag);
 
