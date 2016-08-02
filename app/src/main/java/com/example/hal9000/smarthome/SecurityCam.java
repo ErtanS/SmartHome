@@ -60,6 +60,4 @@ public class SecurityCam extends DialogListener {
             }
         };
     }
-
-    // hallo test
 }
