@@ -72,8 +72,10 @@ public class ScenarioDeviceRowInflater extends Inflater {
         for (String room: rooms) {
             ArrayList<DeviceDataSet> devices = manager.getDeviceList(room);
             for (DeviceDataSet device : devices) {
-                LinearLayout currentView = (LinearLayout) getParentView().findViewById(getView(room));
-                currentView.addView(inflateDeviceScenarioRow(device));
+                if(device.getScenarioRoom().equals(room)) {
+                    LinearLayout currentView = (LinearLayout) getParentView().findViewById(getView(room));
+                    currentView.addView(inflateDeviceScenarioRow(device));
+                }
             }
         }
     }

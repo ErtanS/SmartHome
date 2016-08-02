@@ -56,7 +56,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             String[] text = message.split(":");
             String notificaitonText = text[text.length - 1] + " ist fertig.";
             System.out.println("--------------------------------" + notificaitonText);
-            showNotification("SmartHome - Herd", notificaitonText, R.drawable.oven_on);
+            showNotification("SmartHome - Herd", notificaitonText, R.drawable.stove_on);
         }
         else if (message.contains("camera:")){
             String[] text = message.split(":");
