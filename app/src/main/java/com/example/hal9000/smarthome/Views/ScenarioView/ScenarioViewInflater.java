@@ -296,6 +296,20 @@ public class ScenarioViewInflater extends Inflater {
      */
     public void buttonChanger(int clickedID) {
         manager.manageScenarios();
+        ArrayList<View> buttons = findViewWithTagRecursively(getParentView());
+        for (View button:buttons) {
+            ScenarioDataSet dataSet = (ScenarioDataSet) button.getTag();
+            int id = dataSet.getId();
+            ScenarioDataSet newDataSet = manager.updateScenario(id);
+            if (newDataSet != null) {
+                button.setTag(newDataSet);
+                if (id != clickedID) {
+                    int state = newDataSet.getState();
+                    switchImage(STRING_TAG_SWITCH_IMAGE, state, (ImageView) button);
+                }
+            }
+        }
+        /*
         for (int i = 0; i < getParentView().getChildCount(); i++) {
             View v = getParentView().getChildAt(i);
             if (v instanceof RelativeLayout) {
@@ -326,5 +340,7 @@ public class ScenarioViewInflater extends Inflater {
                 }
             }
         }
+        */
     }
+
 }

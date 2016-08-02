@@ -169,7 +169,7 @@ public class DeviceViewInflater extends Inflater {
      * @param clickedId   Geklickte Id die nicht verändert werden soll
      * @param clickedType Gerätetyp des Geräts das zur Id gehört
      */
-    public void buttonChanger(int clickedId, String clickedType) {
+    /*public void buttonChanger(int clickedId, String clickedType) {
         dataManager.updateDataSet(getDeviceRoom(), getDeviceType());
         for (int i = 0; i < getParentView().getChildCount(); i++) {
             View v = getParentView().getChildAt(i);
@@ -201,6 +201,25 @@ public class DeviceViewInflater extends Inflater {
                             }
                         }
                     }
+                }
+            }
+        }
+    }*/
+    public void buttonChanger(int clickedId, String clickedType) {
+        dataManager.updateDataSet(getDeviceRoom(), getDeviceType());
+        ArrayList<View> buttons = findViewWithTagRecursively(getParentView());
+        for (View button:buttons) {
+            Tag buttonTag = (Tag) button.getTag();
+            DeviceDataSet dataSet = buttonTag.getDataSet();
+            int id = dataSet.getId();
+            String type = dataSet.getType();
+            DeviceDataSet newDataSet = dataManager.updateDevice(id, type);
+            if (newDataSet != null) {
+                buttonTag.setDataSet(newDataSet);
+                button.setTag(buttonTag);
+                if ((id != clickedId || !type.equals(clickedType)) && buttonTag.getType().equals(Config.STRING_TAG_POWER)) {
+                    int state = newDataSet.getState();
+                    switchImage(type, state, (ImageView) button);
                 }
             }
         }

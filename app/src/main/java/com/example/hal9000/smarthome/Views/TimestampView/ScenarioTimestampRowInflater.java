@@ -202,7 +202,22 @@ public class ScenarioTimestampRowInflater extends Inflater {
      */
     public void buttonChanger(int clickedId) {
         manager.manageTimestampsOfScenario(getScenarioName());
-        for (int i = 0; i < getParentView().getChildCount(); i++) {
+        ArrayList<View> buttons = findViewWithTagRecursively(getParentView());
+        for (View button:buttons) {
+            Tag buttonTag = (Tag) button.getTag();
+            ScenarioDataSet dataSet = buttonTag.getScenarioDataSet();
+            int id = dataSet.getId();
+            ScenarioDataSet newDataSet = manager.updateScenario(id);
+            if (newDataSet != null) {
+                buttonTag.setScenarioDataSet(newDataSet);
+                button.setTag(buttonTag);
+                if (id != clickedId && buttonTag.getType().equals(STRING_TAG_POWER)) {
+                    int state = newDataSet.getState();
+                    switchImage(STRING_TAG_SWITCH_IMAGE, state, (ImageView) button);
+                }
+            }
+        }
+        /*for (int i = 0; i < getParentView().getChildCount(); i++) {
             View v = getParentView().getChildAt(i);
             if (v instanceof RelativeLayout) {
                 RelativeLayout rl = (RelativeLayout) v;
@@ -227,6 +242,6 @@ public class ScenarioTimestampRowInflater extends Inflater {
                     }
                 }
             }
-        }
+        }*/
     }
 }

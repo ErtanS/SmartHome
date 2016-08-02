@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
@@ -42,6 +43,8 @@ import com.example.hal9000.smarthome.Dialogs.WaterSettings;
 import com.example.hal9000.smarthome.Helper.Config;
 import com.example.hal9000.smarthome.Helper.Tag;
 import com.example.hal9000.smarthome.R;
+
+import java.util.ArrayList;
 
 /**
  * Abstrakte Klasse die Konstruktoren und Methoden den spezifischen Inflatern vererbt
@@ -616,5 +619,24 @@ public abstract class Inflater {
         i = new Intent(oldContext, newClass);
         i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         return i;
+    }
+
+    protected ArrayList<View> findViewWithTagRecursively(ViewGroup root){
+        ArrayList<View> allViews = new ArrayList<>();
+
+        final int childCount = root.getChildCount();
+        for(int i=0; i<childCount; i++){
+            final View childView = root.getChildAt(i);
+            if(childView instanceof ViewGroup){
+                allViews.addAll(findViewWithTagRecursively((ViewGroup)childView));
+            }
+            else{
+                final Object tagView = childView.getTag();
+                if(tagView != null && tagView instanceof Tag) {
+                    allViews.add(childView);
+                }
+            }
+        }
+        return allViews;
     }
 }

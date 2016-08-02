@@ -298,46 +298,51 @@ public class ScenarioDeviceRowInflater extends Inflater {
      * @param clickedId   Geklickte Id die nicht verändert werden soll
      * @param clickedType Gerätetyp des Geräts das zur Id gehört
      */
-    /*
+
     public void buttonChanger(int clickedId, String clickedType) {
         manager.manageScenariosWithName(getScenarioName());
-        for (int i = 0; i < getParentView().getChildCount(); i++) {
+        ArrayList<View> buttons = findViewWithTagRecursively(getParentView());
+        for (View button:buttons) {
+            Tag buttonTag = (Tag) button.getTag();
+            DeviceDataSet dataSet = buttonTag.getDataSet();
+            int id = dataSet.getId();
+            String type = dataSet.getType();
+            DeviceDataSet newDataSet = manager.updateDevice(id, type);
+            if (newDataSet != null) {
+                buttonTag.setDataSet(newDataSet);
+                button.setTag(buttonTag);
+                if ((id != clickedId || !type.equals(clickedType)) && buttonTag.getType().equals(Config.STRING_TAG_POWER)) {
+                    int state = newDataSet.getState();
+                    switchImage(type, state, (ImageView) button);
+                }
+            }
+        }
+
+        /*for (int i = 0; i < getParentView().getChildCount(); i++) {
             View v = getParentView().getChildAt(i);
             if (v instanceof RelativeLayout) {
-                RelativeLayout rl1 = (RelativeLayout) v;
-                for (int l = 0; l < rl1.getChildCount(); l++) {
-                    View v9 = rl1.getChildAt(l);
-                    if (v9 instanceof LinearLayout) {
-                        LinearLayout rl11 = (LinearLayout) v9;
-                        for (int m = 0; m < rl11.getChildCount(); m++) {
-                            View v1 = rl11.getChildAt(l);
-                            if (v1 instanceof RelativeLayout) {
-                                RelativeLayout rl = (RelativeLayout) v1;
-                                for (int k = 0; k < rl.getChildCount(); k++) {
-                                    View viewK = rl.getChildAt(k);
-                                    if (viewK instanceof RelativeLayout) {
-                                        RelativeLayout rl2 = (RelativeLayout) viewK;
-                                        for (int j = 0; j < rl2.getChildCount(); j++) {
-                                            View view = rl2.getChildAt(j);
-                                            if (view instanceof ImageView && view.getTag() != null && !((Tag) view.getTag()).getType().equals(Config.STRING_TAG_SELECT)) {
-                                                ImageView powerSwitch = (ImageView) view;
-                                                Tag buttonTag = (Tag) powerSwitch.getTag();
-                                                DeviceDataSet dataSet = buttonTag.getDataSet();
-                                                int id = dataSet.getId();
-                                                String type = dataSet.getType();
-                                                DeviceDataSet newDataSet = manager.updateDevice(id, type);
+                RelativeLayout rl = (RelativeLayout) v;
+                for (int k = 0; k < rl.getChildCount(); k++) {
+                    View viewK = rl.getChildAt(k);
+                    if (viewK instanceof RelativeLayout) {
+                        RelativeLayout rl2 = (RelativeLayout) viewK;
+                        for (int j = 0; j < rl2.getChildCount(); j++) {
+                            View view = rl2.getChildAt(j);
+                            if (view instanceof ImageView && view.getTag() != null && !((Tag) view.getTag()).getType().equals(Config.STRING_TAG_SELECT)) {
+                                ImageView powerSwitch = (ImageView) view;
+                                Tag buttonTag = (Tag) powerSwitch.getTag();
+                                DeviceDataSet dataSet = buttonTag.getDataSet();
+                                int id = dataSet.getId();
+                                String type = dataSet.getType();
+                                DeviceDataSet newDataSet = manager.updateDevice(id, type);
 
-                                                if (newDataSet != null) {
-                                                    buttonTag.setDataSet(newDataSet);
-                                                    powerSwitch.setTag(buttonTag);
+                                if (newDataSet != null) {
+                                    buttonTag.setDataSet(newDataSet);
+                                    powerSwitch.setTag(buttonTag);
 
-                                                    if ((id != clickedId || !type.equals(clickedType)) && buttonTag.getType().equals(Config.STRING_TAG_POWER)) {
-                                                        int state = newDataSet.getState();
-                                                        switchImage(type, state, powerSwitch);
-                                                    }
-                                                }
-                                            }
-                                        }
+                                    if ((id != clickedId || !type.equals(clickedType)) && buttonTag.getType().equals(Config.STRING_TAG_POWER)) {
+                                        int state = newDataSet.getState();
+                                        switchImage(type, state, powerSwitch);
                                     }
                                 }
                             }
@@ -345,66 +350,8 @@ public class ScenarioDeviceRowInflater extends Inflater {
                     }
                 }
             }
-        }
-    }*/
-
-    public void buttonChanger(int clickedId, String clickedType) {
-        manager.manageScenariosWithName(getScenarioName());
-
-        for (int i = 0; i < getParentView().getChildCount(); i++) {
-            View v = getParentView().getChildAt(i);
-            if (v instanceof RelativeLayout) {
-                RelativeLayout rlOverview = (RelativeLayout) v;
-
-                for (int l = 0; l < rlOverview.getChildCount(); l++) {
-                    View v1 = rlOverview.getChildAt(l);
-                    if (v1 instanceof LinearLayout) {
-                        LinearLayout llParent = (LinearLayout) v1;
-
-                        for (int m = 0; m < llParent.getChildCount(); m++) {
-                            View v2 = llParent.getChildAt(l);
-                            if (v2 instanceof RelativeLayout) {
-                                RelativeLayout rlRowTop = (RelativeLayout) v2;
-
-                                for (int k = 0; k < rlRowTop.getChildCount(); k++) {
-                                    View v3 = rlRowTop.getChildAt(k);
-                                    if (v3 instanceof RelativeLayout) {
-                                        RelativeLayout rlButton = (RelativeLayout) v3;
-
-                                        for (int j = 0; j < rlButton.getChildCount(); j++) {
-                                            View view = rlButton.getChildAt(j);
-                                            if (view instanceof ImageView && view.getTag() != null && !((Tag) view.getTag()).getType().equals(Config.STRING_TAG_SELECT)) {
-
-                                                ImageView powerSwitch = (ImageView) view;
-                                                Tag buttonTag = (Tag) powerSwitch.getTag();
-                                                DeviceDataSet dataSet = buttonTag.getDataSet();
-                                                int id = dataSet.getId();
-                                                System.out.println("view " + dataSet.getName());
-                                                String type = dataSet.getType();
-                                                DeviceDataSet newDataSet = manager.updateDevice(id, type);
-                                                //
-
-
-                                                if (newDataSet != null) {
-                                                    //System.out.println("view" + dataSet.getName());
-
-                                                    buttonTag.setDataSet(newDataSet);
-                                                    powerSwitch.setTag(buttonTag);
-
-                                                    if ((id != clickedId || !type.equals(clickedType)) && buttonTag.getType().equals(Config.STRING_TAG_POWER)) {
-                                                        int state = newDataSet.getState();
-                                                        switchImage(type, state, powerSwitch);
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
+        }*/
     }
+
+
 }

@@ -201,7 +201,23 @@ public class TimestampDeviceRowInflater extends Inflater {
      */
     public void buttonChanger(int clickedId, String clickedType) {
         manager.manageTimestampsWithName(deviceName);
-        for (int i = 0; i < getParentView().getChildCount(); i++) {
+        ArrayList<View> buttons = findViewWithTagRecursively(getParentView());
+        for (View button:buttons) {
+            Tag buttonTag = (Tag) button.getTag();
+            DeviceDataSet dataSet = buttonTag.getDataSet();
+            int id = dataSet.getId();
+            String type = dataSet.getType();
+            DeviceDataSet newDataSet = manager.updateDevice(id, type);
+            if (newDataSet != null) {
+                buttonTag.setDataSet(newDataSet);
+                button.setTag(buttonTag);
+                if ((id != clickedId || !type.equals(clickedType)) && buttonTag.getType().equals(STRING_TAG_POWER)) {
+                    int state = newDataSet.getState();
+                    switchImage(type, state, (ImageView) button);
+                }
+            }
+        }
+        /*for (int i = 0; i < getParentView().getChildCount(); i++) {
             View v = getParentView().getChildAt(i);
             if (v instanceof RelativeLayout) {
                 RelativeLayout rl = (RelativeLayout) v;
@@ -227,6 +243,6 @@ public class TimestampDeviceRowInflater extends Inflater {
                     }
                 }
             }
-        }
+        }*/
     }
 }
