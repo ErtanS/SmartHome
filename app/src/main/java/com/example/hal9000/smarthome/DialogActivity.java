@@ -74,7 +74,7 @@ public class DialogActivity extends DialogFragment {
     private DialogListener dialog;
 
     public DialogActivity(){
-
+//test
     }
     public void setArguments(DeviceDataSet dataSet, Inflater inflater, LayoutInflater layoutInflater) {
         this.dataSet = dataSet;
