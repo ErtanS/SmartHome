@@ -11,6 +11,8 @@ public class Config {
     public static String URL_GET_ALL = "http://"+ip + "/smart/selectAll.php";
     public static String URL_GET_MUSIC_PLAYLIST = ip + "/smart/selectMusicPlaylist.php";
     public static String URL_GET_SCENARIONAMES = "http://"+ip + "/smart/selectScenarioNames.php";
+    public static String URL_GET_ROOMLIST = "http://"+ip + "/smart/getRooms.php";
+
 
     public static String URL_INSERT_FIREBASEID = "http://"+ip + "/smart/insertFirebaseId.php";
     public static String URL_INSERT_CLOCK = "http://"+ip + "/smart/insertClock.php";

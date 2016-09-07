@@ -48,63 +48,33 @@ public class ScenarioDeviceRowInflater extends Inflater {
      */
     public void createRows() {
         ArrayList<String> rooms = manager.getRooms();
-        TextView flur = (TextView) getParentView().findViewById(R.id.txtFlur);
-        TextView kueche = (TextView) getParentView().findViewById(R.id.txtKueche);
-        TextView wohnzimmer = (TextView) getParentView().findViewById(R.id.txtWohnzimmer);
-        TextView bad = (TextView) getParentView().findViewById(R.id.txtBad);
-        TextView waschkueche = (TextView) getParentView().findViewById(R.id.txtWaschkueche);
-        TextView kinderzimmer = (TextView) getParentView().findViewById(R.id.txtKinderzimmer);
-        TextView garage = (TextView) getParentView().findViewById(R.id.txtGarage);
-        TextView buero = (TextView) getParentView().findViewById(R.id.txtBuero);
-        TextView schlafzimmer = (TextView) getParentView().findViewById(R.id.txtSchlafzimmer);
-
-        flur.setOnClickListener(clickRoom((LinearLayout) getParentView().findViewById( getView(Config.STRING_EN_FLUR))));
-        kueche.setOnClickListener(clickRoom((LinearLayout) getParentView().findViewById( getView(Config.STRING_EN_KUECHE))));
-        wohnzimmer.setOnClickListener(clickRoom((LinearLayout) getParentView().findViewById( getView(Config.STRING_EN_WOHNZIMMER))));
-        bad.setOnClickListener(clickRoom((LinearLayout) getParentView().findViewById( getView(Config.STRING_EN_BAD))));
-        waschkueche.setOnClickListener(clickRoom((LinearLayout) getParentView().findViewById( getView(Config.STRING_EN_WASCHKUECHE))));
-        kinderzimmer.setOnClickListener(clickRoom((LinearLayout) getParentView().findViewById( getView(Config.STRING_EN_KINDERZIMMER))));
-        garage.setOnClickListener(clickRoom((LinearLayout) getParentView().findViewById( getView(Config.STRING_EN_GARAGE))));
-        buero.setOnClickListener(clickRoom((LinearLayout) getParentView().findViewById( getView(Config.STRING_EN_BUERO))));
-        schlafzimmer.setOnClickListener(clickRoom((LinearLayout) getParentView().findViewById( getView(Config.STRING_EN_SCHLAFZIMMER))));
-
 
         for (String room: rooms) {
-            ArrayList<DeviceDataSet> devices = manager.getDeviceList(room);
-            for (DeviceDataSet device : devices) {
-                if(device.getScenarioRoom().equals(room)) {
-                    LinearLayout currentView = (LinearLayout) getParentView().findViewById(getView(room));
-                    currentView.addView(inflateDeviceScenarioRow(device));
-                }
+            getParentView().addView(inflateRoomRow(room,R.layout.dynamic_scenario_list_row ));
+        }
+    }
+
+    private View inflateRoomRow(String room, int rowId) {
+
+
+        View rowView = getInflater().inflate(rowId, null);
+
+        LinearLayout parentView = (LinearLayout) rowView.findViewById((R.id.parentRoom));
+        TextView roomName = (TextView) rowView.findViewById(R.id.roomName);
+
+
+        roomName.setOnClickListener(clickRoom(parentView));
+        roomName.setText(room);
+        ArrayList<DeviceDataSet> devices = manager.getDeviceList(room);
+
+        for (DeviceDataSet device : devices) {
+            if(device.getScenarioRoom().equals(room)) {
+                parentView.addView(inflateDeviceScenarioRow(device));
             }
         }
-    }
 
-    private int getView(String room){
-        switch (room){
-            case Config.STRING_EN_FLUR:
-                return R.id.parentCorridor;
-            case Config.STRING_EN_KINDERZIMMER:
-                return R.id.parentNursery;
-            case Config.STRING_EN_WOHNZIMMER:
-                return R.id.parentLivingRoom;
-            case Config.STRING_EN_KUECHE:
-                return R.id.parentKitchen;
-            case Config.STRING_EN_BUERO:
-                return R.id.parentOffice;
-            case Config.STRING_EN_SCHLAFZIMMER:
-                return R.id.parentBedRoom;
-            case Config.STRING_EN_BAD:
-                return R.id.parentBath;
-            case Config.STRING_EN_GARAGE:
-                return R.id.parentGarage;
-            case Config.STRING_EN_WASCHKUECHE:
-                return R.id.parentWashRoom;
-            default:
-                return -1;
-        }
+        return rowView;
     }
-
 
 
     /**
@@ -200,7 +170,6 @@ public class ScenarioDeviceRowInflater extends Inflater {
                 else{
                     layout.setVisibility(LinearLayout.GONE);
                 }
-
             }
         };
     }

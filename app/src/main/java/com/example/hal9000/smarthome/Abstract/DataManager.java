@@ -8,7 +8,13 @@ import com.example.hal9000.smarthome.DataSet.ScenarioDataSet;
 import com.example.hal9000.smarthome.Database.RequestHandler;
 import com.example.hal9000.smarthome.Helper.Config;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
+
+import static com.example.hal9000.smarthome.Helper.ErrorHandler.fatalError;
 
 /**
  * Stellt allgemeine Methoden zur Verfügung die andere Datenmanager erben
@@ -16,6 +22,7 @@ import java.util.ArrayList;
 @SuppressWarnings("unchecked")
 public abstract class DataManager {
     private DataSet dataSet;
+    protected ArrayList<String> rooms;
 
 
     public DataSet getDataSet() {
@@ -79,36 +86,30 @@ public abstract class DataManager {
     /**
      * Hinzufügen aller Raumtypen
      */
-    protected  ArrayList<String> getRoomsGer() {
-        ArrayList<String> rooms=new ArrayList<>();
-        rooms.add(Config.STRING_GER_FLUR);
-        rooms.add(Config.STRING_GER_KUECHE);
-        rooms.add(Config.STRING_GER_WOHNZIMMER);
-        rooms.add(Config.STRING_GER_BUERO);
-        rooms.add(Config.STRING_GER_SCHLAFZIMMER);
-        rooms.add(Config.STRING_GER_BAD);
-        rooms.add(Config.STRING_GER_KINDERZIMMER);
-        rooms.add(Config.STRING_GER_GARAGE);
-        rooms.add(Config.STRING_GER_WASCHKUECHE);
-        return rooms;
+    protected  void fillRoomList(Context context) {
+        rooms=new ArrayList<>();
+        RequestHandler rh = new RequestHandler();
+        String resultMusic = rh.getRoomNames();
+        JSONObject jsonObject;
+        try {
+            jsonObject = new JSONObject(resultMusic);
+            JSONArray result = jsonObject.getJSONArray(Config.TAG_JSON_ARRAY);
+            for (int i = 0; i < result.length(); i++) {
+                JSONObject jo = result.getJSONObject(i);
+                String room = jo.getString(Config.STRING_INTENT_ROOM).trim();
+                rooms.add(room);
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+            fatalError( context);
+
+        }
     }
 
-    protected ArrayList<String> getRoomsEng() {
-        ArrayList<String> rooms=new ArrayList<>();
-        rooms.add(Config.STRING_EN_FLUR);
-        rooms.add(Config.STRING_EN_KUECHE);
-        rooms.add(Config.STRING_EN_WOHNZIMMER);
-        rooms.add(Config.STRING_EN_BUERO);
-        rooms.add(Config.STRING_EN_SCHLAFZIMMER);
-        rooms.add(Config.STRING_EN_BAD);
-        rooms.add(Config.STRING_EN_KINDERZIMMER);
-        rooms.add(Config.STRING_EN_GARAGE);
-        rooms.add(Config.STRING_EN_WASCHKUECHE);
-        return rooms;
-    }
 
     /**
-     * Hinzuifügen aller Gerätetypen
+     * Hinzufügen aller Gerätetypen
      */
     protected ArrayList<String> getTypesGer() {
         ArrayList<String> types=new ArrayList<>();

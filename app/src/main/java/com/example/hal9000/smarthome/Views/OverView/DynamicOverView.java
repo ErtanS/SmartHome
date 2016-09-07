@@ -29,7 +29,7 @@ public class DynamicOverView extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        initializeLists = new OverViewDataManager();
+        initializeLists = new OverViewDataManager(this);
         setContentView(R.layout.activity_dynamic_overview);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 

@@ -93,6 +93,7 @@ public class Settings extends DialogListener {
     public static void setScripts(String newIp){
         ip=newIp;
         URL_GET_ALL ="http://"+ ip + "/smart/selectAll.php";
+        URL_GET_ROOMLIST = "http://"+ip + "/smart/getRooms.php";
         URL_GET_MUSIC_PLAYLIST ="http://"+ ip + "/smart/selectMusicPlaylist.php";
         URL_INSERT_CLOCK = "http://"+ip + "/smart/insertClock.php";
         URL_INSERT_SCENARIO_ROW ="http://"+ ip + "/smart/insertScenarioRow.php";

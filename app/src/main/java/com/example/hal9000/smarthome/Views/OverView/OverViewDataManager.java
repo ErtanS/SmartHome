@@ -1,14 +1,29 @@
 package com.example.hal9000.smarthome.Views.OverView;
 
 
+import android.content.Context;
 import android.support.annotation.Nullable;
 
 import com.example.hal9000.smarthome.Abstract.DataManager;
+import com.example.hal9000.smarthome.Database.RequestHandler;
 import com.example.hal9000.smarthome.Helper.Config;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
+
+import static com.example.hal9000.smarthome.Helper.ErrorHandler.fatalError;
 
 
 class OverViewDataManager extends DataManager{
+
+
+
+    public OverViewDataManager(Context context) {
+        fillRoomList(context);
+    }
 
     /**
      * Liste aller Räume oder Gerätetypen
@@ -22,11 +37,15 @@ class OverViewDataManager extends DataManager{
             case Config.STRING_INTENT_TYPE:
                 return getTypesGer();
             case Config.STRING_INTENT_ROOM:
-                return getRoomsGer();
+                return rooms;
             default:
                 return null;
         }
     }
+
+
+
+
 
 
 
@@ -36,13 +55,14 @@ class OverViewDataManager extends DataManager{
      * @param text Zu übersetzendes Wort
      * @return übersetzter Text
      */
+
     public String uebersetzer(String text) {
         ArrayList<String> wordsEn = new ArrayList<>();
-        wordsEn.addAll(getRoomsEng());
+        wordsEn.addAll(rooms);
         wordsEn.addAll(getTypesEng());
 
         ArrayList<String> wordsGer = new ArrayList<>();
-        wordsGer.addAll(getRoomsGer());
+        wordsGer.addAll(rooms);
         wordsGer.addAll(getTypesGer());
 
         Object[] search;

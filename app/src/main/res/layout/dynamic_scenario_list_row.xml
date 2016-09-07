@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/rect">
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="roomName"
+            android:id="@+id/roomName"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:textSize="22sp"
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="4dp"
+            android:layout_marginTop="4dp" />
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageView2"
+            android:layout_marginLeft="4dp"
+            android:src="@drawable/arrowdownblau"
+            android:layout_marginEnd="32dp"
+            android:layout_alignParentEnd="true" />
+
+        <Space
+            android:layout_width="fill_parent"
+            android:layout_height="15dp"
+            android:layout_marginLeft="4dp"
+            android:layout_below="@+id/roomName"
+            android:layout_alignParentStart="true"
+            android:id="@+id/space11" />
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/parentRoom"
+            android:layout_marginLeft="4dp"
+            android:layout_below="@+id/space11"
+            android:layout_alignParentStart="true"
+            android:visibility="gone"
+            >
+
+        </LinearLayout>
+
+        <Space
+            android:layout_width="fill_parent"
+            android:layout_height="7dp"
+            android:layout_marginLeft="4dp"
+            android:layout_below="@+id/parentRoom"
+            android:layout_alignParentEnd="true" />
+    </RelativeLayout>

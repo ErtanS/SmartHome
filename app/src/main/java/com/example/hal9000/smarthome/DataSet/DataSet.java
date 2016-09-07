@@ -494,7 +494,7 @@ public class DataSet extends ArrayList {
      * @param list zu sortierende Liste
      */
     private void sortData(ArrayList<DeviceDataSet> list) {
-        if (list.size() > 0 && list.get(0).getCategory().equals(CATEGORY_SCENARIO)) {
+        if (list.size() > 0){ //&& list.get(0).getCategory().equals(CATEGORY_SCENARIO)) {
             for (DeviceDataSet item : list) {
                 add(item);
             }

@@ -24,6 +24,7 @@ class ScenarioDeviceManager extends DataManager {
      */
     public ScenarioDeviceManager(String name, Context context) {
         this.context = context;
+        fillRoomList(context);
         manageScenariosWithName(name);
     }
 
@@ -63,7 +64,7 @@ class ScenarioDeviceManager extends DataManager {
     }
 
     public ArrayList<String> getRooms(){
-        return getRoomsEng();
+        return rooms;
     }
 
     public DataSet getAllDevices() {

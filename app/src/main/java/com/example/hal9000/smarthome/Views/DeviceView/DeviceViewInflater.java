@@ -76,7 +76,7 @@ public class DeviceViewInflater extends Inflater {
             positionToDelete = -1;
         }
 
-        String label = StringHelper.stringCutter(name, positionToDelete);
+        String label = name;//StringHelper.stringCutter(name, positionToDelete);
         View rowView = getInflater().inflate(getRowID(), null);
 
         TextView txtName = (TextView) rowView.findViewById(R.id.txtRow);

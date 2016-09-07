@@ -213,6 +213,15 @@ public class RequestHandler {
         this.url = Config.URL_GET_SCENARIONAMES;
         return sendGetRequest();
     }
+    /**
+     * Laden aller Raumnamen aus der Datenbank
+     *
+     * @return Szenarionamen Liste
+     */
+    public String getRoomNames() {
+        this.url = Config.URL_GET_ROOMLIST;
+        return sendGetRequest();
+    }
 
     /**
      * Gerät aus einem Szenario entfernen
