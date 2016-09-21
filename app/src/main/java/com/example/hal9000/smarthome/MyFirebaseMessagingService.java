@@ -34,32 +34,32 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         // TODO: 26.07.2016 Nachrichtentext sollte noch bearbeitet werden z.B. Trockner in der Waschkueche ist fertig 
         String message = remoteMessage.getData().get("message");
         System.out.println("--------------------------------"+message);
-        if(message.contains("washer:")){
-            String[] text = message.split(":");
+        if(message.contains("washer~")){
+            String[] text = message.split("~");
             String notificaitonText = text[text.length-1] + " ist fertig.";
             System.out.println("--------------------------------"+notificaitonText);
             showNotification("SmartHome - Waschmaschine",notificaitonText,R.drawable.washer_on);
         }
-        else if(message.contains("dryer:")){
-            String[] text = message.split(":");
+        else if(message.contains("dryer~")){
+            String[] text = message.split("~");
             String notificaitonText = text[text.length-1] + " ist fertig.";
             System.out.println("--------------------------------"+notificaitonText);
             showNotification("SmartHome - Trockner",notificaitonText,R.drawable.dryer_on);
         }
-        else if(message.contains("oven:")){
-            String[] text = message.split(":");
+        else if(message.contains("oven~")){
+            String[] text = message.split("~");
             String notificaitonText = text[text.length-1] + " ist fertig.";
             System.out.println("--------------------------------"+notificaitonText);
             showNotification("SmartHome - Ofen",notificaitonText,R.drawable.oven_on);
         }
-        else if(message.contains("stove:")) {
-            String[] text = message.split(":");
+        else if(message.contains("stove~")) {
+            String[] text = message.split("~");
             String notificaitonText = text[text.length - 1] + " ist fertig.";
             System.out.println("--------------------------------" + notificaitonText);
             showNotification("SmartHome - Herd", notificaitonText, R.drawable.stove_on);
         }
-        else if (message.contains("camera:")){
-            String[] text = message.split(":");
+        else if (message.contains("camera~")){
+            String[] text = message.split("~");
             String cameraName = text[1];
             String pictureName = text[2];
 

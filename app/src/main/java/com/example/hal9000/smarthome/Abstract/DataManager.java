@@ -23,6 +23,7 @@ import static com.example.hal9000.smarthome.Helper.ErrorHandler.fatalError;
 public abstract class DataManager {
     private DataSet dataSet;
     protected ArrayList<String> rooms;
+    protected ArrayList<String> devices;
 
 
     public DataSet getDataSet() {
@@ -107,48 +108,28 @@ public abstract class DataManager {
         }
     }
 
-
     /**
      * Hinzufügen aller Gerätetypen
      */
-    protected ArrayList<String> getTypesGer() {
-        ArrayList<String> types=new ArrayList<>();
-        types.add( Config.STRING_TYPE_GER_DOOR);
-        types.add(Config.STRING_TYPE_GER_LIGHT);
-        types.add( Config.STRING_TYPE_GER_HEATER);
-        types.add( Config.STRING_TYPE_GER_SPEAKER);
-        types.add(Config.STRING_TYPE_GER_WINDOW);
-        types.add( Config.STRING_TYPE_GER_SHUTTERS);
-        types.add( Config.STRING_TYPE_GER_WASHER);
-        types.add( Config.STRING_TYPE_GER_DRYER);
-        types.add( Config.STRING_TYPE_GER_CAMERA);
-        types.add( Config.STRING_TYPE_GER_STOVE);
-        types.add( Config.STRING_TYPE_GER_OVEN);
-        types.add( Config.STRING_TYPE_GER_WALL);
-        types.add( Config.STRING_TYPE_GER_TV);
-        types.add( Config.STRING_TYPE_GER_PC);
-        types.add( Config.STRING_TYPE_GER_WATER);
-        return types;
-    }
+    protected  void fillDeviceList(Context context) {
+        devices=new ArrayList<>();
+        RequestHandler rh = new RequestHandler();
+        String resultDevices = rh.getDevicesInHouse();
+        JSONObject jsonObject;
+        try {
+            jsonObject = new JSONObject(resultDevices);
+            JSONArray result = jsonObject.getJSONArray(Config.TAG_JSON_ARRAY);
+            for (int i = 0; i < result.length(); i++) {
+                JSONObject jo = result.getJSONObject(i);
+                String room = jo.getString(Config.STRING_TABLE).trim();
+                devices.add(room);
+            }
 
-    protected ArrayList<String> getTypesEng() {
-        ArrayList<String> types=new ArrayList<>();
-        types.add(Config.STRING_TYPE_EN_DOOR);
-        types.add(Config.STRING_TYPE_EN_LIGHT);
-        types.add(Config.STRING_TYPE_EN_HEATER);
-        types.add(Config.STRING_TYPE_EN_SPEAKER);
-        types.add(Config.STRING_TYPE_EN_WINDOW);
-        types.add(Config.STRING_TYPE_EN_SHUTTERS);
-        types.add( Config.STRING_TYPE_EN_WASHER);
-        types.add( Config.STRING_TYPE_EN_DRYER);
-        types.add( Config.STRING_TYPE_EN_CAMERA);
-        types.add( Config.STRING_TYPE_EN_STOVE);
-        types.add( Config.STRING_TYPE_EN_OVEN);
-        types.add( Config.STRING_TYPE_EN_WALL);
-        types.add( Config.STRING_TYPE_EN_TV);
-        types.add( Config.STRING_TYPE_EN_PC);
-        types.add( Config.STRING_TYPE_EN_WATER);
-        return types;
+        } catch (JSONException e) {
+            e.printStackTrace();
+            fatalError( context);
+
+        }
     }
 }
 

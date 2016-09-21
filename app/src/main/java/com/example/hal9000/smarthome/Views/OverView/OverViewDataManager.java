@@ -23,6 +23,7 @@ class OverViewDataManager extends DataManager{
 
     public OverViewDataManager(Context context) {
         fillRoomList(context);
+        fillDeviceList(context);
     }
 
     /**
@@ -35,7 +36,7 @@ class OverViewDataManager extends DataManager{
     public ArrayList<String> getList(String category) {
         switch (category) {
             case Config.STRING_INTENT_TYPE:
-                return getTypesGer();
+                return devices;
             case Config.STRING_INTENT_ROOM:
                 return rooms;
             default:
@@ -57,25 +58,37 @@ class OverViewDataManager extends DataManager{
      */
 
     public String uebersetzer(String text) {
-        ArrayList<String> wordsEn = new ArrayList<>();
-        wordsEn.addAll(rooms);
-        wordsEn.addAll(getTypesEng());
-
-        ArrayList<String> wordsGer = new ArrayList<>();
-        wordsGer.addAll(rooms);
-        wordsGer.addAll(getTypesGer());
-
-        Object[] search;
-        Object[] find;
-
-        search = wordsGer.toArray();
-        find = wordsEn.toArray();
-
-
-        for (int i = 0; i < search.length; i++) {
-            if (text.equals(search[i])) {
-                return (String) find[i];
-            }
+        switch(text){
+            case Config.STRING_TYPE_EN_HEATER:
+                return Config.STRING_TYPE_GER_HEATER;
+            case Config.STRING_TYPE_EN_CAMERA:
+                return Config.STRING_TYPE_GER_CAMERA;
+            case Config.STRING_TYPE_EN_DOOR:
+                return Config.STRING_TYPE_GER_DOOR;
+            case Config.STRING_TYPE_EN_DRYER:
+                return Config.STRING_TYPE_GER_DRYER;
+            case Config.STRING_TYPE_EN_LIGHT:
+                return Config.STRING_TYPE_GER_LIGHT;
+            case Config.STRING_TYPE_EN_OVEN:
+                return Config.STRING_TYPE_GER_OVEN;
+            case Config.STRING_TYPE_EN_PC:
+                return Config.STRING_TYPE_GER_PC;
+            case Config.STRING_TYPE_EN_SHUTTERS:
+                return Config.STRING_TYPE_GER_SHUTTERS;
+            case Config.STRING_TYPE_EN_SPEAKER:
+                return Config.STRING_TYPE_GER_SPEAKER;
+            case Config.STRING_TYPE_EN_STOVE:
+                return Config.STRING_TYPE_GER_STOVE;
+            case Config.STRING_TYPE_EN_TV:
+                return Config.STRING_TYPE_GER_TV;
+            case Config.STRING_TYPE_EN_WALL:
+                return Config.STRING_TYPE_GER_WALL;
+            case Config.STRING_TYPE_EN_WASHER:
+                return Config.STRING_TYPE_GER_WASHER;
+            case Config.STRING_TYPE_EN_WATER:
+                return Config.STRING_TYPE_GER_WATER;
+            case Config.STRING_TYPE_EN_WINDOW:
+                return Config.STRING_TYPE_GER_WINDOW;
         }
         return text;
     }

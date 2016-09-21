@@ -61,7 +61,7 @@ public class DynamicOverView extends AppCompatActivity {
         @SuppressLint("InflateParams") View rowView = inflater.inflate(R.layout.dynamic_row, null);
 
         TextView txtName = (TextView) rowView.findViewById(R.id.txtDeviceRow);
-        txtName.setText(label);
+        txtName.setText(initializeLists.uebersetzer(label));
         txtName.setOnClickListener(onClickListener(category,label));
 
         ImageView imNext = (ImageView) rowView.findViewById(R.id.imRowNext);
@@ -81,8 +81,9 @@ public class DynamicOverView extends AppCompatActivity {
             public void onClick(View v) {
                 Intent nextScreen = new Intent(DynamicOverView.this, DynamicDeviceView.class);
                 Bundle b = new Bundle();
-                b.putString(category, initializeLists.uebersetzer(label));
-                b.putString(Config.STRING_ACTIVITY_TITLE, label);
+                System.out.println(label);
+                b.putString(category, label);
+                b.putString(Config.STRING_ACTIVITY_TITLE, initializeLists.uebersetzer(label));
                 nextScreen.putExtras(b);
                 startActivity(nextScreen);
             }

@@ -110,6 +110,7 @@ public class Settings extends DialogListener {
         URL_IMAGE_SECURITY = "http://"+ip + "/smart/img/";
         URL_EMERGENCY= "http://"+ip + "/smart/emergency.php";
         URL_GET_SCENARIONAMES = "http://"+ip + "/smart/selectScenarioNames.php";
+        URL_GET_DEVICESLIST = "http://"+ip + "/smart/getDevicesInHouse.php";
 
 
     }

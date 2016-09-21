@@ -222,6 +222,16 @@ public class RequestHandler {
         this.url = Config.URL_GET_ROOMLIST;
         return sendGetRequest();
     }
+    /**
+     * Laden aller Gerätetypen in einem Haus aus der Datenbank
+     *
+     * @return Szenarionamen Liste
+     */
+    public String getDevicesInHouse() {
+        this.url = Config.URL_GET_DEVICESLIST;
+        return sendGetRequest();
+    }
+
 
     /**
      * Gerät aus einem Szenario entfernen
