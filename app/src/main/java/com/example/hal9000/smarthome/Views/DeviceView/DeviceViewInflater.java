@@ -76,11 +76,10 @@ public class DeviceViewInflater extends Inflater {
             positionToDelete = -1;
         }
 
-        String label = name;//StringHelper.stringCutter(name, positionToDelete);
         View rowView = getInflater().inflate(getRowID(), null);
 
         TextView txtName = (TextView) rowView.findViewById(R.id.txtRow);
-        txtName.setText(label);
+        txtName.setText(name);
 
         ImageView imEdit = (ImageView) rowView.findViewById(R.id.imRowSettings);
         imEdit.setOnClickListener(clickSettings(type));

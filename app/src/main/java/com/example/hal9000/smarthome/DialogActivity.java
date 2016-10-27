@@ -241,7 +241,7 @@ public class DialogActivity extends DialogFragment {
                     @Override
                     public void onResponse(String s) {
                         //Showing toast message of the response
-                        Toast.makeText(getContext(), s , Toast.LENGTH_LONG).show();
+                        //Toast.makeText(getContext(), s , Toast.LENGTH_LONG).show();
                         System.out.println(s);
 
                         if(dialog instanceof  TvSettings) {
@@ -260,7 +260,7 @@ public class DialogActivity extends DialogFragment {
                     @Override
                     public void onErrorResponse(VolleyError volleyError) {
                         //Showing toast
-                        Toast.makeText(getContext(), volleyError.getMessage().toString(), Toast.LENGTH_LONG).show();
+                        //Toast.makeText(getContext(), volleyError.getMessage().toString(), Toast.LENGTH_LONG).show();
                         System.out.println(volleyError.getMessage().toString());
                         System.out.println("--------------------------------------------------error--------------------------------------------------");
                     }

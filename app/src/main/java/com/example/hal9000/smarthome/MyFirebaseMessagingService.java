@@ -25,6 +25,7 @@ package com.example.hal9000.smarthome;
  */
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
     private Bundle bundle = new Bundle();
+    private static int value = 0;
     /**
      * Aufgerufene Methode, wenn eine Nachricht Empfangen wurde
      * @param remoteMessage Eingehende Nachricht
@@ -92,7 +93,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
         NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 
-        manager.notify(0,builder.build());
+        manager.notify(value++,builder.build());
     }
 
     private void createBundle(String cameraName, String pictureName){

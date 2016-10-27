@@ -65,7 +65,7 @@ private Context context;
             textViewSettings.setOnClickListener(onClickListener(STRING_INTENT_TYPE, STRING_TAG_SETTINGS));
         }
         Bundle b = getIntent().getExtras();
-        if(b != null && b.getString(Config.TAG_NAME) != null){
+        if(b != null && b.getString(Config.TAG_NAME) != null ){
             DialogActivity dialog = new DialogActivity();
             dialog.setArguments(null,null,inflater);
             dialog.setPicture(b.getString(Config.TAG_NAME));
