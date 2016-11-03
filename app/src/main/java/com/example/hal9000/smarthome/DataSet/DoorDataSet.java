@@ -10,7 +10,7 @@ public class DoorDataSet extends DeviceDataSet {
      * @param values   Grunddaten
      * @param password Passwort
      */
-    public DoorDataSet(DeviceDataSet values, String password) {
+    DoorDataSet(DeviceDataSet values, String password) {
         super(values);
         this.password = password;
     }

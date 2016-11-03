@@ -24,7 +24,6 @@ public class ScenarioView extends AppCompatActivity {
 
     /**
      * Activity Start
-     *
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {

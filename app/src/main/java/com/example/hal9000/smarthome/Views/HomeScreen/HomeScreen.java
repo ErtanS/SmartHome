@@ -7,26 +7,18 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.hal9000.smarthome.DataSet.DeviceDataSet;
-import com.example.hal9000.smarthome.DataSet.TvDataSet;
-import com.example.hal9000.smarthome.Database.RequestHandler;
-import com.example.hal9000.smarthome.DialogActivity;
+import com.example.hal9000.smarthome.Dialogs.DialogActivity;
 import com.example.hal9000.smarthome.Dialogs.Settings;
 import com.example.hal9000.smarthome.Helper.Config;
 import com.example.hal9000.smarthome.Views.OverView.DynamicOverView;
 import com.example.hal9000.smarthome.R;
 import com.example.hal9000.smarthome.Views.ScenarioView.ScenarioView;
-import com.google.firebase.iid.FirebaseInstanceId;
-
-import org.w3c.dom.Text;
 
 import static com.example.hal9000.smarthome.Helper.Config.*;
 
 public class HomeScreen extends AppCompatActivity {
-private Context context;
     private LayoutInflater inflater;
     /**
      * Wird ausgeführt beim start der Activity
@@ -41,7 +33,6 @@ private Context context;
         String ip=sharedPrefs.getString(VAL_KEY, STRING_EMPTY);
         Settings.setScripts(ip);
         Settings.deviceRegistationFirebase();
-        context = this;
 
         setContentView(R.layout.test_homescreen);
 
@@ -93,11 +84,6 @@ private Context context;
                     case STRING_TAG_SETTINGS:
                         Settings settings = new Settings(HomeScreen.this, inflater);
                         settings.show();
-
-                        /*
-                        DialogActivity dialog = new DialogActivity();
-                        dialog.setArguments(context,new TvDataSet(new DeviceDataSet(1,"te", 1, "Kitchen", 0, 0, "device","tv"),1,1,1), , inflater);
-                        dialog.show(getSupportFragmentManager(),"missiles");*/
                         break;
                     default:
                         nextScreen = new Intent(HomeScreen.this, DynamicOverView.class);

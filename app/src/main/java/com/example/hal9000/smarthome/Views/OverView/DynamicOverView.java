@@ -62,10 +62,10 @@ public class DynamicOverView extends AppCompatActivity {
 
         TextView txtName = (TextView) rowView.findViewById(R.id.txtDeviceRow);
         txtName.setText(initializeLists.uebersetzer(label));
-        txtName.setOnClickListener(onClickListener(category,label));
+        txtName.setOnClickListener(onClickListener(category, label));
 
         ImageView imNext = (ImageView) rowView.findViewById(R.id.imRowNext);
-        imNext.setOnClickListener(onClickListener(category,label));
+        imNext.setOnClickListener(onClickListener(category, label));
 
         return rowView;
     }
@@ -73,9 +73,8 @@ public class DynamicOverView extends AppCompatActivity {
     /**
      * Wechsel der View beim Klick auf DynamicDeviceView
      * Setzt die Tags für die nächste Activity
-     *
      */
-    private View.OnClickListener onClickListener(final String category, final String label){
+    private View.OnClickListener onClickListener(final String category, final String label) {
         return new View.OnClickListener() {
             @Override
             public void onClick(View v) {

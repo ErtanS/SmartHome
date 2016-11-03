@@ -12,14 +12,13 @@ import java.util.ArrayList;
 
 @SuppressWarnings("unchecked")
 class ScenarioDeviceManager extends DataManager {
-    private DataSet allDevices;
     private final Context context;
 
     /**
      * Konstruktor
      * Füllt das DataSet mit allen Szenarien
      *
-     * @param name Name des Szenarios
+     * @param name    Name des Szenarios
      * @param context aktueller Context
      */
     public ScenarioDeviceManager(String name, Context context) {
@@ -44,7 +43,7 @@ class ScenarioDeviceManager extends DataManager {
      * @return Gerätdatensatz oder null falls keins gefunden wurde
      */
     public DeviceDataSet getScenarioDevice(String name) {
-        ArrayList<DeviceDataSet> devices =getDataSet();
+        ArrayList<DeviceDataSet> devices = getDataSet();
         for (DeviceDataSet item : devices) {
             if (item.getName().equals(name)) {
                 return item;
@@ -55,7 +54,6 @@ class ScenarioDeviceManager extends DataManager {
 
     /**
      * Füllen des Datasets mit Geräten eines Szenarios
-     *
      */
     public DataSet getDeviceList(String room) {
         RequestHandler rh = new RequestHandler();
@@ -63,11 +61,8 @@ class ScenarioDeviceManager extends DataManager {
         return new DataSet(result, context);
     }
 
-    public ArrayList<String> getRooms(){
+    public ArrayList<String> getRooms() {
         return rooms;
     }
 
-    public DataSet getAllDevices() {
-        return allDevices;
-    }
 }

@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">SmartHome</string>
-    <string name="dialog_color_picker">Farbe wählen</string>
 
     <string name="menu_add">Add</string>
     <string name="menu_Refresh">Refresh</string>
@@ -8,14 +7,10 @@
     <string name="string_Volume">Lautstärke:</string>
     <string name="string_Title">Titel:</string>
     <string name="string_Password">Passwort:</string>
-    <string name="string_HEX">HEX</string>
     <string name="string_Time">Startzeit:</string>
     <string name="string_Arrow">→</string>
     <string name="string_Intensity">Helligkeit:</string>
-    <string name="string_Scenario">Szenario</string>
     <string name="string_Settings">Einstellungen</string>
-    <string name="string_Devices">Geräte</string>
-    <string name="string__Room">Raum</string>
     <string name="string_Timestamp">Timestamp</string>
     <string name="string_Power">Power</string>
     <string name="string_Select">Select</string>
@@ -35,6 +30,7 @@
     <string name="string_Menu_Room">Raumübersicht</string>
     <string name="string_Menu_Scenario">Szenarioübersicht</string>
     <string name="string_Menu_Settings">Einstellungen</string>
+    <string name="roomname">roomName</string>
 
 
 </resources>

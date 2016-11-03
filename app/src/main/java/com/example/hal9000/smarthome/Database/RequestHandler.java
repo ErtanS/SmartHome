@@ -62,8 +62,7 @@ public class RequestHandler {
                     sb.append(response);
                 }
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return sb.toString();
@@ -204,6 +203,7 @@ public class RequestHandler {
 
         return sendPostRequest();
     }
+
     /**
      * Laden aller Szenariennamen aus der Datenbank
      *
@@ -213,6 +213,7 @@ public class RequestHandler {
         this.url = Config.URL_GET_SCENARIONAMES;
         return sendGetRequest();
     }
+
     /**
      * Laden aller Raumnamen aus der Datenbank
      *
@@ -222,6 +223,7 @@ public class RequestHandler {
         this.url = Config.URL_GET_ROOMLIST;
         return sendGetRequest();
     }
+
     /**
      * Laden aller Gerätetypen in einem Haus aus der Datenbank
      *
@@ -372,13 +374,12 @@ public class RequestHandler {
      */
     public String insertFirebaseId(String id) {
         this.url = Config.URL_INSERT_FIREBASEID;
-        addPhpVar(Config.TAG_ID,id );
+        addPhpVar(Config.TAG_ID, id);
         return sendPostRequest();
     }
 
     /**
      * Asynchroner PostRequest Task
-     *
      */
     private class SelectAsyncPost extends AsyncTask<Void, Void, String> {
         @Override

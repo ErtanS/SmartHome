@@ -20,13 +20,13 @@ public class DoorSettings extends DialogListener {
     /**
      * Konstruktor
      *
-     * @param context  Kontext
-     * @param password Passwort
-     * @param id       Id
+     * @param context        Kontext
+     * @param password       Passwort
+     * @param id             Id
      * @param layoutInflater Inflater
      */
     public DoorSettings(Context context, String password, int id, LayoutInflater layoutInflater, Inflater inflater) {
-        super(context,inflater);
+        super(context, inflater);
         @SuppressLint("InflateParams") View layout = layoutInflater.inflate(R.layout.door_settings, null);
         EditText input = (EditText) layout.findViewById(R.id.editPassword);
         input.setInputType(InputType.TYPE_CLASS_TEXT);
@@ -39,8 +39,8 @@ public class DoorSettings extends DialogListener {
     /**
      * Erstellen eines OnClickListeners für einen Button
      *
-     * @param input      Passwortfeld
-     * @param id         Geräteid
+     * @param input Passwortfeld
+     * @param id    Geräteid
      * @return OnClickListener
      */
     private DialogInterface.OnClickListener setOkButton(final EditText input, final int id) {

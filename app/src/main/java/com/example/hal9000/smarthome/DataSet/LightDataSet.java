@@ -12,7 +12,7 @@ public class LightDataSet extends DeviceDataSet {
      * @param color     Farbe "#000000" bis "#FFFFFF"
      * @param intensity Helligkeit 0 bis 100
      */
-    public LightDataSet(DeviceDataSet values, String color, int intensity) {
+    LightDataSet(DeviceDataSet values, String color, int intensity) {
         super(values);
         this.color = color;
         this.intensity = intensity;

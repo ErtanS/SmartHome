@@ -3,11 +3,11 @@ package com.example.hal9000.smarthome.Views.DeviceView;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.hal9000.smarthome.Database.RequestHandler;
@@ -31,17 +31,17 @@ public class DeviceViewInflater extends Inflater {
 
     /**
      * Konstruktor
-     * @param parentView       Parentview
-     * @param inflater         Inflater
-     * @param context          Kontext
-     * @param deviceType       soll gesetzt sein, wenn man von der Geräteübersicht diesen Konstruktor aufruft
-*                         ansonsten null
-     * @param deviceRoom       soll gesetzt sein, wenn man von der Raumübersicht diesen Konstruktor aufruft
-*                         ansonsten null
-     * @param positionToDelete Position, an der der Name gekürzt wird
+     *
+     * @param parentView Parentview
+     * @param inflater   Inflater
+     * @param context    Kontext
+     * @param deviceType soll gesetzt sein, wenn man von der Geräteübersicht diesen Konstruktor aufruft
+     *                   ansonsten null
+     * @param deviceRoom soll gesetzt sein, wenn man von der Raumübersicht diesen Konstruktor aufruft
+     *                   ansonsten null
      */
-    public DeviceViewInflater(LinearLayout parentView, LayoutInflater inflater, Context context, String deviceType, String deviceRoom, int positionToDelete,android.support.v4.app.FragmentManager fragmentManager) {
-        super(parentView, inflater, context, deviceType, deviceRoom, positionToDelete,fragmentManager);
+    public DeviceViewInflater(LinearLayout parentView, LayoutInflater inflater, Context context, String deviceType, String deviceRoom, FragmentManager fragmentManager) {
+        super(parentView, inflater, context, deviceType, deviceRoom, fragmentManager);
         dataManager = new DeviceViewDataManager(deviceRoom, deviceType, context);
         rh = new RequestHandler();
         createRows();
@@ -52,7 +52,6 @@ public class DeviceViewInflater extends Inflater {
      */
     private void createRows() {
         ArrayList<DeviceDataSet> devices = dataManager.getDataSet();
-        LinearLayout parentView = getParentView();
         for (DeviceDataSet device : devices) {
             parentView.addView(inflateDeviceRow(device), parentView.getChildCount());
         }
@@ -70,13 +69,7 @@ public class DeviceViewInflater extends Inflater {
         String type = device.getType();
         int state = device.getState();
 
-        int positionToDelete = getPositionToDelete();
-
-        if (getDeviceRoom() != null && getDeviceRoom().equals(Config.STRING_EN_FLUR) && type.equals(Config.STRING_TYPE_EN_DOOR)) {
-            positionToDelete = -1;
-        }
-
-        View rowView = getInflater().inflate(getRowID(), null);
+        View rowView = inflater.inflate(rowID, null);
 
         TextView txtName = (TextView) rowView.findViewById(R.id.txtRow);
         txtName.setText(name);
@@ -111,15 +104,15 @@ public class DeviceViewInflater extends Inflater {
         return new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent nextScreen = new Intent(getContext(), DynamicTimeView.class);
+                Intent nextScreen = new Intent(context, DynamicTimeView.class);
                 Bundle b = new Bundle();
                 b.putString(Config.TAG_NAME, name);
                 String title = StringHelper.stringCutter(name, -1);
                 b.putString(Config.STRING_ACTIVITY_TITLE, title);
                 b.putString(Config.STRING_INTENT_TYPE, type);
-                b.putString(Config.STRING_INTENT_CATEGORY, getCategory());
+                b.putString(Config.STRING_INTENT_CATEGORY, category);
                 nextScreen.putExtras(b);
-                getContext().startActivity(nextScreen);
+                context.startActivity(nextScreen);
             }
         };
     }
@@ -148,7 +141,7 @@ public class DeviceViewInflater extends Inflater {
                     }
 
                     String msgState = rh.updateSingleValue(type, Config.TAG_STATE, Integer.toString(state), id);
-                    if (!catchError(getContext(), msgState)) {
+                    if (!catchError(context, msgState)) {
                         switchImage(type, state, (ImageView) v);
                         dataSet.setState(state);
                         buttonTag.setDataSet(dataSet);
@@ -160,54 +153,10 @@ public class DeviceViewInflater extends Inflater {
         };
     }
 
-    /**
-     * Durchläuft alle Elemente im Relativlayout und aktualisiert die Werte
-     * (z.B. Bild, DataSet) mit denen im Tag stehenden Informationen
-     * Das DataSet wird hierbei mit aktuellen Werten aus der Datenbank gefüllt
-     *
-     * @param clickedId   Geklickte Id die nicht verändert werden soll
-     * @param clickedType Gerätetyp des Geräts das zur Id gehört
-     */
-    /*public void buttonChanger(int clickedId, String clickedType) {
-        dataManager.updateDataSet(getDeviceRoom(), getDeviceType());
-        for (int i = 0; i < getParentView().getChildCount(); i++) {
-            View v = getParentView().getChildAt(i);
-            if (v instanceof RelativeLayout) {
-                RelativeLayout rl = (RelativeLayout) v;
-                for (int k = 0; k < rl.getChildCount(); k++) {
-                    View viewK = rl.getChildAt(k);
-                    if (viewK instanceof RelativeLayout) {
-                        RelativeLayout rl2 = (RelativeLayout) viewK;
-                        for (int j = 0; j < rl2.getChildCount(); j++) {
-                            View view = rl2.getChildAt(j);
-                            if (view instanceof ImageView && view.getTag() != null) {
-                                ImageView powerSwitch = (ImageView) view;
-                                Tag buttonTag = (Tag) powerSwitch.getTag();
-                                DeviceDataSet dataSet = buttonTag.getDataSet();
-                                int id = dataSet.getId();
-                                String type = dataSet.getType();
-
-                                DeviceDataSet newDataSet = dataManager.updateDevice(id, type);
-                                if (newDataSet != null) {
-                                    buttonTag.setDataSet(newDataSet);
-                                    powerSwitch.setTag(buttonTag);
-
-                                    if ((id != clickedId || !type.equals(clickedType)) && buttonTag.getType().equals(Config.STRING_TAG_POWER)) {
-                                        int state = newDataSet.getState();
-                                        switchImage(type, state, powerSwitch);
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }*/
     public void buttonChanger(int clickedId, String clickedType) {
-        dataManager.updateDataSet(getDeviceRoom(), getDeviceType());
-        ArrayList<View> buttons = findViewWithTagRecursively(getParentView());
-        for (View button:buttons) {
+        dataManager.updateDataSet(deviceRoom, deviceType);
+        ArrayList<View> buttons = findViewWithTagRecursively(parentView);
+        for (View button : buttons) {
             Tag buttonTag = (Tag) button.getTag();
             DeviceDataSet dataSet = buttonTag.getDataSet();
             int id = dataSet.getId();

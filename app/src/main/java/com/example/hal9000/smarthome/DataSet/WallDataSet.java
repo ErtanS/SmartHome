@@ -1,13 +1,16 @@
 package com.example.hal9000.smarthome.DataSet;
 
-/**
- * Created by Ertan on 14.07.2016.
- */
-public class WallDataSet extends DeviceDataSet {
-    private String color;
-    private int pictureid;
 
-    public WallDataSet(DeviceDataSet values, String color, int pictureid) {
+public class WallDataSet extends DeviceDataSet {
+    private final String color;
+    private final String pictureid;
+
+    /**
+     * @param values
+     * @param color
+     * @param pictureid
+     */
+    WallDataSet(DeviceDataSet values, String color, String pictureid) {
         super(values);
         this.color = color;
         this.pictureid = pictureid;
@@ -17,7 +20,7 @@ public class WallDataSet extends DeviceDataSet {
         return color;
     }
 
-    public int getPictureid() {
+    public String getPictureid() {
         return pictureid;
     }
 }

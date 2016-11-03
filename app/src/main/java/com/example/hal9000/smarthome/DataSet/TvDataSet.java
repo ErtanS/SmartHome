@@ -1,15 +1,19 @@
 package com.example.hal9000.smarthome.DataSet;
 
-/**
- * Created by Ertan on 14.07.2016.
- */
+
 public class TvDataSet extends DeviceDataSet {
-    private int channel;
-    private int pictureid;
-    private int volume;
+    private final int channel;
+    private final String pictureid;
+    private final int volume;
 
 
-    public TvDataSet(DeviceDataSet values, int channel, int pictureid, int volume) {
+    /**
+     * @param values
+     * @param channel
+     * @param pictureid
+     * @param volume
+     */
+    TvDataSet(DeviceDataSet values, int channel, String pictureid, int volume) {
         super(values);
         this.channel = channel;
         this.pictureid = pictureid;
@@ -20,7 +24,7 @@ public class TvDataSet extends DeviceDataSet {
         return channel;
     }
 
-    public int getPictureid() {
+    public String getPictureid() {
         return pictureid;
     }
 

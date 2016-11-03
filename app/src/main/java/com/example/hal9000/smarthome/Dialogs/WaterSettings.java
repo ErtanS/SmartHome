@@ -10,6 +10,7 @@ import android.widget.SeekBar;
 
 import com.example.hal9000.smarthome.Abstract.Inflater;
 import com.example.hal9000.smarthome.Database.RequestHandler;
+
 import static com.example.hal9000.smarthome.Helper.Config.*;
 
 import com.example.hal9000.smarthome.Helper.Config;
@@ -25,13 +26,13 @@ public class WaterSettings extends DialogListener {
     /**
      * Konstruktor
      *
-     * @param context     Kontext
-     * @param temperature Temepratur
-     * @param id          ID
-     * @param layoutInflater    Inflater
+     * @param context        Kontext
+     * @param temperature    Temepratur
+     * @param id             ID
+     * @param layoutInflater Inflater
      */
-    public WaterSettings(Context context, int temperature,int intensity, int id, LayoutInflater layoutInflater, Inflater inflater) {
-        super(context,inflater);
+    public WaterSettings(Context context, int temperature, int intensity, int id, LayoutInflater layoutInflater, Inflater inflater) {
+        super(context, inflater);
         rh = new RequestHandler();
         @SuppressLint("InflateParams") View layout = layoutInflater.inflate(R.layout.water_settings, null);
         NumberPicker input = (NumberPicker) layout.findViewById(R.id.np_Water);
@@ -39,7 +40,7 @@ public class WaterSettings extends DialogListener {
         input.setMaxValue(80);
         input.setValue(temperature);
         input.setWrapSelectorWheel(false);
-        createIntensityBar(layout,id,intensity);
+        createIntensityBar(layout, id, intensity);
         setView(layout);
         setPositiveButton(BUTTON_OK, setOkButton(input, id));
         setNegativeButton(BUTTON_ABBRUCH, setCancelButton());
@@ -48,8 +49,8 @@ public class WaterSettings extends DialogListener {
     /**
      * OnClicklistener hinzufügen
      *
-     * @param input      Numberpicker aus dem Dialog das die akutelle Temperatur beinhaltet
-     * @param id         Id
+     * @param input Numberpicker aus dem Dialog das die akutelle Temperatur beinhaltet
+     * @param id    Id
      * @return OnClickListener
      */
     private DialogInterface.OnClickListener setOkButton(final NumberPicker input, final int id) {
@@ -71,8 +72,8 @@ public class WaterSettings extends DialogListener {
     }
 
     /**
-     * Zuweisung des Lautstärkereglers an ein layout Element
-     * Übertragung der aktuellen Lautstärke an die Datenbank nachdem der Regler benutzt wurde
+     * Zuweisung des Wasserstärkereglers an ein Layout Element
+     * Übertragung der aktuellen Lautstärke an die Datenbank, nachdem der Regler benutzt wurde
      *
      * @param layout    aktuelle View
      * @param id        Id

@@ -19,7 +19,7 @@ class ScenarioViewDataManager extends DataManager {
      * Fehler abfangen und bearbeiten
      */
     public void manageScenarios() {
-        fillDataSet(Config.TAG_SCENARIO,Config.STRING_EMPTY,Config.STRING_EMPTY,Config.CATEGORY_SCENARIO,ctx);
+        fillDataSet(Config.TAG_SCENARIO, Config.STRING_EMPTY, Config.STRING_EMPTY, Config.CATEGORY_SCENARIO, ctx);
     }
 
 

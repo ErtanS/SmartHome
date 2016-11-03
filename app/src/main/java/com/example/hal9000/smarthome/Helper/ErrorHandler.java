@@ -17,8 +17,8 @@ public class ErrorHandler {
      *
      * @param ctx aktueller Context
      * @param msg Text zur Überprüfung
-     * @return  true, wenn die Datei nicht korrekt ausgeführt werden konnte(Fehler)
-     *          false, ohne Fehler
+     * @return true, wenn die Datei nicht korrekt ausgeführt werden konnte(Fehler)
+     * false, ohne Fehler
      */
     public static boolean catchError(Context ctx, String msg) {
         if (msg.contains(Config.ERROR)) {

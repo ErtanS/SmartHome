@@ -7,7 +7,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="roomName"
+            android:text="@string/roomname"
             android:id="@+id/roomName"
             android:layout_alignParentTop="true"
             android:layout_alignParentStart="true"

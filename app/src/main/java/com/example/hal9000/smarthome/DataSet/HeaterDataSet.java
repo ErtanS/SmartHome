@@ -10,7 +10,7 @@ public class HeaterDataSet extends DeviceDataSet {
      * @param values      Grunddaten
      * @param temperature Temperatur
      */
-    public HeaterDataSet(DeviceDataSet values, int temperature) {
+    HeaterDataSet(DeviceDataSet values, int temperature) {
         super(values);
         this.temperature = temperature;
     }

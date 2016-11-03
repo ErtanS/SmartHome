@@ -14,7 +14,7 @@ public class SpeakerDataSet extends DeviceDataSet {
      * @param volume Lautstärke
      * @param songid Songid des aktuellen Songs
      */
-    public SpeakerDataSet(DeviceDataSet values, int volume, int songid) {
+    SpeakerDataSet(DeviceDataSet values, int volume, int songid) {
         super(values);
         this.volume = volume;
         this.songid = songid;

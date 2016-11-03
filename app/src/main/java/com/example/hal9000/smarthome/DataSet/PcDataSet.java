@@ -1,30 +1,25 @@
 package com.example.hal9000.smarthome.DataSet;
 
-/**
- * Created by Ertan on 14.07.2016.
- */
 public class PcDataSet extends DeviceDataSet {
-    private int videoid;
-    private int pictureid;
-    private int volume;
+    private final String pictureid;
+    private final int videoid;
+    private final int volume;
 
-
-    public PcDataSet(DeviceDataSet values, int videoid, int pictureid, int volume) {
+    /**
+     * @param values
+     * @param videoid
+     * @param pictureid
+     * @param volume
+     */
+    PcDataSet(DeviceDataSet values, int videoid, String pictureid, int volume) {
         super(values);
         this.videoid = videoid;
         this.pictureid = pictureid;
         this.volume = volume;
     }
 
-    public int getVideoid() {
-        return videoid;
-    }
-
-    public int getPictureid() {
+    public String getPictureid() {
         return pictureid;
     }
 
-    public int getVolume() {
-        return volume;
-    }
 }

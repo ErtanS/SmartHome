@@ -1,18 +1,21 @@
 package com.example.hal9000.smarthome.DataSet;
 
-/**
- * Created by Ertan on 14.07.2016.
- */
+
 public class CameraDataSet extends DeviceDataSet {
-    private int emergency;
-    private int autoEmergency;
-    private int frequency;
+    private final int emergency;
+    private final int autoEmergency;
+    private final int frequency;
 
-
-    public CameraDataSet(DeviceDataSet values, int emergency, int rotation, int frequency) {
+    /**
+     * @param values        Kameraeigenschaften
+     * @param emergency     Notfallszenario
+     * @param autoEmergency Szenario wird automatisch geschaltet
+     * @param frequency     Frequenz
+     */
+    CameraDataSet(DeviceDataSet values, int emergency, int autoEmergency, int frequency) {
         super(values);
         this.emergency = emergency;
-        this.autoEmergency = rotation;
+        this.autoEmergency = autoEmergency;
         this.frequency = frequency;
     }
 

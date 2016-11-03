@@ -31,8 +31,7 @@ class DeviceViewDataManager extends DataManager {
     public void updateDataSet(String room, String type) {
         if (type != null) {
             fillDataSet(type, Config.STRING_EMPTY, Config.STRING_EMPTY, Config.CATEGORY_DEVICE, context);
-        }
-        else {
+        } else {
             fillDataSet(Config.STRING_EMPTY, Config.STRING_EMPTY, room, Config.CATEGORY_DEVICE, context);
         }
     }

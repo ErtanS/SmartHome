@@ -15,7 +15,7 @@ public class DeviceTimestampManager extends DataManager {
     /**
      * Konstruktor
      *
-     * @param name Name des gerätes
+     * @param name    Name des gerätes
      * @param context aktueller Context
      */
     public DeviceTimestampManager(String name, Context context) {
@@ -35,7 +35,7 @@ public class DeviceTimestampManager extends DataManager {
     /**
      * Überprüft ob die angegebene Zeit für dieses Szenario schon verwendet wird
      *
-     * @param hour Stunde
+     * @param hour   Stunde
      * @param minute Minute
      * @return true wenn Zeit noch nicht belegt
      * false wenn Zeit schon belegt

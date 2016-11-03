@@ -29,7 +29,6 @@ public class DynamicTimeView extends AppCompatActivity {
     /**
      * Activity Start
      * Initialisierung der Elemente in der View und Unterscheidung von wo es gestartet wurde
-     *
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,8 +81,7 @@ public class DynamicTimeView extends AppCompatActivity {
             case R.id.menuAdd:
                 if (departure.equals(Config.CATEGORY_SCENARIO)) {
                     ((ScenarioTimestampRowInflater) rowInflater).addTimestamp();
-                }
-                else {
+                } else {
                     ((TimestampDeviceRowInflater) rowInflater).addTimestamp(type);
                 }
                 return true;
@@ -99,8 +97,7 @@ public class DynamicTimeView extends AppCompatActivity {
 
         if (departure.equals(Config.CATEGORY_SCENARIO)) {
             return rowInflater.getParentActivityIntentImpl(this, ScenarioView.class);
-        }
-        else {
+        } else {
             return rowInflater.getParentActivityIntentImpl(this, DynamicDeviceView.class);
         }
     }
@@ -109,8 +106,7 @@ public class DynamicTimeView extends AppCompatActivity {
     public Intent getParentActivityIntent() {
         if (departure.equals(Config.CATEGORY_SCENARIO)) {
             return rowInflater.getParentActivityIntentImpl(this, ScenarioView.class);
-        }
-        else {
+        } else {
             return rowInflater.getParentActivityIntentImpl(this, DynamicDeviceView.class);
         }
     }
@@ -124,8 +120,7 @@ public class DynamicTimeView extends AppCompatActivity {
         if (!firstCreate) {
             if (departure.equals(Config.CATEGORY_SCENARIO)) {
                 ((ScenarioTimestampRowInflater) rowInflater).buttonChanger(Config.INT_UNSET_ID);
-            }
-            else {
+            } else {
                 ((TimestampDeviceRowInflater) rowInflater).buttonChanger(Config.INT_UNSET_ID, Config.STRING_EMPTY);
             }
         }

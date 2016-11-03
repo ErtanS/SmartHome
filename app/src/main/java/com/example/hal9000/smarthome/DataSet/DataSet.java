@@ -33,38 +33,39 @@ public class DataSet extends ArrayList {
         try {
             jsonObject = new JSONObject(result);
             JSONArray resultArray = jsonObject.getJSONArray(TAG_JSON_ARRAY);
-            ArrayList<DoorDataSet> doors=addDoor(resultArray.getJSONObject(INT_JSON_ID_DOOR));
-            ArrayList<LightDataSet> lights=addLight(resultArray.getJSONObject(INT_JSON_ID_LIGHT));
-            ArrayList<HeaterDataSet> heaters=addHeater(resultArray.getJSONObject(INT_JSON_ID_HEATER));
-            ArrayList<SpeakerDataSet> speakers=addSpeaker(resultArray.getJSONObject(INT_JSON_ID_SPEAKER));
-            ArrayList<WindowDataSet> windows=addWindow(resultArray.getJSONObject(INT_JSON_ID_WINDOW));
-            ArrayList<ShuttersDataSet> shutters=addShutters(resultArray.getJSONObject(INT_JSON_ID_SHUTTERS));
-            ArrayList<CameraDataSet> cameras=addCamera(resultArray.getJSONObject(INT_JSON_ID_CAMERA));
-            ArrayList<DryerDataSet> dryers=addDryer(resultArray.getJSONObject(INT_JSON_ID_DRYER));
-            ArrayList<OvenDataSet> ovens=addOven(resultArray.getJSONObject(INT_JSON_ID_OVEN));
-            ArrayList<PcDataSet> pcs=addPc(resultArray.getJSONObject(INT_JSON_ID_PC));
-            ArrayList<StoveDataSet> stoves=addStove(resultArray.getJSONObject(INT_JSON_ID_STOVE));
-            ArrayList<TvDataSet> tvs=addTv(resultArray.getJSONObject(INT_JSON_ID_TV));
-            ArrayList<WallDataSet> walls=addWall(resultArray.getJSONObject(INT_JSON_ID_WALL));
-            ArrayList<WasherDataSet> washers=addWasher(resultArray.getJSONObject(INT_JSON_ID_WASHER));
-            ArrayList<WaterDataSet> water=addWater(resultArray.getJSONObject(INT_JSON_ID_WATER));
-            if (doors != null && lights != null && heaters != null && speakers != null && windows != null && shutters != null && cameras != null&& dryers != null&& ovens != null&& pcs != null&& stoves != null&& tvs != null&& walls != null&& washers != null&& water != null) {
+            ArrayList<DoorDataSet> doors = addDoor(resultArray.getJSONObject(INT_JSON_ID_DOOR));
+            ArrayList<LightDataSet> lights = addLight(resultArray.getJSONObject(INT_JSON_ID_LIGHT));
+            ArrayList<HeaterDataSet> heaters = addHeater(resultArray.getJSONObject(INT_JSON_ID_HEATER));
+            ArrayList<SpeakerDataSet> speakers = addSpeaker(resultArray.getJSONObject(INT_JSON_ID_SPEAKER));
+            ArrayList<WindowDataSet> windows = addWindow(resultArray.getJSONObject(INT_JSON_ID_WINDOW));
+            ArrayList<ShuttersDataSet> shutters = addShutters(resultArray.getJSONObject(INT_JSON_ID_SHUTTERS));
+            ArrayList<CameraDataSet> cameras = addCamera(resultArray.getJSONObject(INT_JSON_ID_CAMERA));
+            ArrayList<DryerDataSet> dryers = addDryer(resultArray.getJSONObject(INT_JSON_ID_DRYER));
+            ArrayList<OvenDataSet> ovens = addOven(resultArray.getJSONObject(INT_JSON_ID_OVEN));
+            ArrayList<PcDataSet> pcs = addPc(resultArray.getJSONObject(INT_JSON_ID_PC));
+            ArrayList<StoveDataSet> stoves = addStove(resultArray.getJSONObject(INT_JSON_ID_STOVE));
+            ArrayList<TvDataSet> tvs = addTv(resultArray.getJSONObject(INT_JSON_ID_TV));
+            ArrayList<WallDataSet> walls = addWall(resultArray.getJSONObject(INT_JSON_ID_WALL));
+            ArrayList<WasherDataSet> washers = addWasher(resultArray.getJSONObject(INT_JSON_ID_WASHER));
+            ArrayList<WaterDataSet> water = addWater(resultArray.getJSONObject(INT_JSON_ID_WATER));
+
+            if (doors != null && lights != null && heaters != null && speakers != null && windows != null && shutters != null && cameras != null && dryers != null && ovens != null && pcs != null && stoves != null && tvs != null && walls != null && washers != null && water != null) {
                 ArrayList<DeviceDataSet> list = new ArrayList<>();
                 list.addAll(doors);
                 list.addAll(lights);
                 list.addAll(heaters);
                 list.addAll(speakers);
+                list.addAll(cameras);
+                list.addAll(walls);
+                list.addAll(water);
+                list.addAll(tvs);
+                list.addAll(pcs);
+                list.addAll(ovens);
+                list.addAll(stoves);
+                list.addAll(washers);
+                list.addAll(dryers);
                 list.addAll(windows);
                 list.addAll(shutters);
-                list.addAll(cameras);
-                list.addAll(dryers);
-                list.addAll(ovens);
-                list.addAll(pcs);
-                list.addAll(stoves);
-                list.addAll(tvs);
-                list.addAll(walls);
-                list.addAll(washers);
-                list.addAll(water);
                 sortData(list);
             }
         } catch (JSONException e) {
@@ -79,7 +80,7 @@ public class DataSet extends ArrayList {
      * @param result  Mehrdimensionales JSON Array
      * @param context Kontext
      */
-    public DataSet(Context context,String result) {
+    public DataSet(Context context, String result) {
         this.context = context;
         JSONObject jsonObject;
         try {
@@ -104,9 +105,9 @@ public class DataSet extends ArrayList {
                 int id = jo.getInt(Config.TAG_ID);
                 String name = jo.getString(Config.TAG_NAME).trim();
                 int state = jo.getInt(Config.TAG_STATE);
-                int hour= jo.getInt(Config.TAG_HOUR);
+                int hour = jo.getInt(Config.TAG_HOUR);
                 int minute = jo.getInt(Config.TAG_MINUTE);
-                ScenarioDataSet data = new ScenarioDataSet(id, name, state,hour,minute);
+                ScenarioDataSet data = new ScenarioDataSet(id, name, state, hour, minute);
                 add(data);
             }
         } catch (JSONException e) {
@@ -270,7 +271,12 @@ public class DataSet extends ArrayList {
         }
     }
 
-
+    /**
+     * Fügt Kameras zum DataSet hinzu
+     *
+     * @param jsonObject aktuelles JSON Array
+     * @return Arrayliste aller Kameras oder beim Fehler null
+     */
     private ArrayList<CameraDataSet> addCamera(JSONObject jsonObject) {
         try {
             JSONArray result = jsonObject.getJSONArray(Config.TAG_JSON_ARRAY_CAMERA);
@@ -282,7 +288,7 @@ public class DataSet extends ArrayList {
                 int emergency = jo.getInt(TAG_EMERGENCY);
                 int autoEmergency = jo.getInt(TAG_AUTOEMERGENCY);
                 int frequency = jo.getInt(TAG_FREQUENCY);
-                data = new CameraDataSet(jsonData,emergency,autoEmergency,frequency);
+                data = new CameraDataSet(jsonData, emergency, autoEmergency, frequency);
                 list.add(data);
             }
             return list;
@@ -293,6 +299,12 @@ public class DataSet extends ArrayList {
         }
     }
 
+    /**
+     * Fügt Trockner zum DataSet hinzu
+     *
+     * @param jsonObject aktuelles JSON Array
+     * @return Arrayliste aller Trockner oder beim Fehler null
+     */
     private ArrayList<DryerDataSet> addDryer(JSONObject jsonObject) {
         try {
             JSONArray result = jsonObject.getJSONArray(Config.TAG_JSON_ARRAY_DRYER);
@@ -306,7 +318,7 @@ public class DataSet extends ArrayList {
                 int rpm = jo.getInt(TAG_RPM);
                 int amount = jo.getInt(TAG_AMOUNT);
                 int clothes = jo.getInt(TAG_CLOTHES);
-                data = new DryerDataSet(jsonData,temperature,duration,rpm,amount,clothes);
+                data = new DryerDataSet(jsonData, temperature, duration, rpm, amount, clothes);
                 list.add(data);
             }
             return list;
@@ -316,6 +328,13 @@ public class DataSet extends ArrayList {
             return null;
         }
     }
+
+    /**
+     * Fügt Ofen zum DataSet hinzu
+     *
+     * @param jsonObject aktuelles JSON Array
+     * @return Arrayliste aller Ofen oder beim Fehler null
+     */
     private ArrayList<OvenDataSet> addOven(JSONObject jsonObject) {
         try {
             JSONArray result = jsonObject.getJSONArray(Config.TAG_JSON_ARRAY_OVEN);
@@ -326,28 +345,7 @@ public class DataSet extends ArrayList {
                 DeviceDataSet jsonData = jsonExtension(jo, STRING_TYPE_EN_OVEN);
                 int temperature = jo.getInt(TAG_TEMPERATURE);
                 int duration = jo.getInt(TAG_DURATION);
-                data = new OvenDataSet(jsonData,temperature,duration);
-                list.add(data);
-            }
-            return list;
-        } catch (JSONException e) {
-            e.printStackTrace();
-            fatalError(context);
-            return null;
-        }
-    }
-    private ArrayList<PcDataSet> addPc(JSONObject jsonObject) {
-        try {
-            JSONArray result = jsonObject.getJSONArray(Config.TAG_JSON_ARRAY_PC);
-            PcDataSet data;
-            ArrayList<PcDataSet> list = new ArrayList<>();
-            for (int i = 0; i < result.length(); i++) {
-                JSONObject jo = result.getJSONObject(i);
-                DeviceDataSet jsonData = jsonExtension(jo, STRING_TYPE_EN_PC);
-                int videoid = jo.getInt(TAG_VIDEOID);
-                int pictureid = jo.getInt(TAG_PICTUREID);
-                int volume = jo.getInt(TAG_VOLUME);
-                data = new PcDataSet(jsonData,videoid,pictureid,volume);
+                data = new OvenDataSet(jsonData, temperature, duration);
                 list.add(data);
             }
             return list;
@@ -358,6 +356,40 @@ public class DataSet extends ArrayList {
         }
     }
 
+    /**
+     * Fügt PCs zum DataSet hinzu
+     *
+     * @param jsonObject aktuelles JSON Array
+     * @return Arrayliste aller PCs oder beim Fehler null
+     */
+    private ArrayList<PcDataSet> addPc(JSONObject jsonObject) {
+        try {
+            JSONArray result = jsonObject.getJSONArray(Config.TAG_JSON_ARRAY_PC);
+            PcDataSet data;
+            ArrayList<PcDataSet> list = new ArrayList<>();
+            for (int i = 0; i < result.length(); i++) {
+                JSONObject jo = result.getJSONObject(i);
+                DeviceDataSet jsonData = jsonExtension(jo, STRING_TYPE_EN_PC);
+                int videoid = jo.getInt(TAG_VIDEOID);
+                String pictureid = jo.getString(TAG_PICTUREID);
+                int volume = jo.getInt(TAG_VOLUME);
+                data = new PcDataSet(jsonData, videoid, pictureid, volume);
+                list.add(data);
+            }
+            return list;
+        } catch (JSONException e) {
+            e.printStackTrace();
+            fatalError(context);
+            return null;
+        }
+    }
+
+    /**
+     * Fügt Herde zum DataSet hinzu
+     *
+     * @param jsonObject aktuelles JSON Array
+     * @return Arrayliste aller Herde oder beim Fehler null
+     */
     private ArrayList<StoveDataSet> addStove(JSONObject jsonObject) {
         try {
             JSONArray result = jsonObject.getJSONArray(Config.TAG_JSON_ARRAY_STOVE);
@@ -368,7 +400,7 @@ public class DataSet extends ArrayList {
                 DeviceDataSet jsonData = jsonExtension(jo, STRING_TYPE_EN_STOVE);
                 int duration = jo.getInt(TAG_DURATION);
                 int temperature = jo.getInt(TAG_TEMPERATURE);
-                data = new StoveDataSet(jsonData,temperature,duration);
+                data = new StoveDataSet(jsonData, temperature, duration);
                 list.add(data);
             }
             return list;
@@ -379,6 +411,12 @@ public class DataSet extends ArrayList {
         }
     }
 
+    /**
+     * Fügt TVs zum DataSet hinzu
+     *
+     * @param jsonObject aktuelles JSON Array
+     * @return Arrayliste aller TVs oder beim Fehler null
+     */
     private ArrayList<TvDataSet> addTv(JSONObject jsonObject) {
         try {
             JSONArray result = jsonObject.getJSONArray(Config.TAG_JSON_ARRAY_TV);
@@ -388,9 +426,9 @@ public class DataSet extends ArrayList {
                 JSONObject jo = result.getJSONObject(i);
                 DeviceDataSet jsonData = jsonExtension(jo, STRING_TYPE_EN_TV);
                 int channel = jo.getInt(TAG_CHANNEL);
-                int pictureid = jo.getInt(TAG_PICTUREID);
+                String pictureid = jo.getString(TAG_PICTUREID);
                 int volume = jo.getInt(TAG_VOLUME);
-                data = new TvDataSet(jsonData,channel,pictureid,volume);
+                data = new TvDataSet(jsonData, channel, pictureid, volume);
                 list.add(data);
             }
             return list;
@@ -401,6 +439,12 @@ public class DataSet extends ArrayList {
         }
     }
 
+    /**
+     * Fügt Leinwände zum DataSet hinzu
+     *
+     * @param jsonObject aktuelles JSON Array
+     * @return Arrayliste aller Leinwände oder beim Fehler null
+     */
     private ArrayList<WallDataSet> addWall(JSONObject jsonObject) {
         try {
             JSONArray result = jsonObject.getJSONArray(Config.TAG_JSON_ARRAY_WALL);
@@ -410,8 +454,8 @@ public class DataSet extends ArrayList {
                 JSONObject jo = result.getJSONObject(i);
                 DeviceDataSet jsonData = jsonExtension(jo, STRING_TYPE_EN_WALL);
                 String color = jo.getString(TAG_COLOR);
-                int pictureid = jo.getInt(TAG_PICTUREID);
-                data = new WallDataSet(jsonData,color,pictureid);
+                String pictureid = jo.getString(TAG_PICTUREID);
+                data = new WallDataSet(jsonData, color, pictureid);
                 list.add(data);
             }
             return list;
@@ -422,6 +466,12 @@ public class DataSet extends ArrayList {
         }
     }
 
+    /**
+     * Fügt Waschmachinen zum DataSet hinzu
+     *
+     * @param jsonObject aktuelles JSON Array
+     * @return Arrayliste aller Waschmachinen oder beim Fehler null
+     */
     private ArrayList<WasherDataSet> addWasher(JSONObject jsonObject) {
         try {
             JSONArray result = jsonObject.getJSONArray(Config.TAG_JSON_ARRAY_WASHER);
@@ -435,7 +485,7 @@ public class DataSet extends ArrayList {
                 int rpm = jo.getInt(TAG_RPM);
                 int amount = jo.getInt(TAG_AMOUNT);
                 int clothes = jo.getInt(TAG_CLOTHES);
-                data = new WasherDataSet(jsonData,temperature,duration,rpm,amount,clothes);
+                data = new WasherDataSet(jsonData, temperature, duration, rpm, amount, clothes);
                 list.add(data);
             }
             return list;
@@ -445,6 +495,13 @@ public class DataSet extends ArrayList {
             return null;
         }
     }
+
+    /**
+     * Fügt Wasser zum DataSet hinzu
+     *
+     * @param jsonObject aktuelles JSON Array
+     * @return Arrayliste aller Wasser oder beim Fehler null
+     */
     private ArrayList<WaterDataSet> addWater(JSONObject jsonObject) {
         try {
             JSONArray result = jsonObject.getJSONArray(Config.TAG_JSON_ARRAY_WATER);
@@ -455,7 +512,7 @@ public class DataSet extends ArrayList {
                 DeviceDataSet jsonData = jsonExtension(jo, STRING_TYPE_EN_WATER);
                 int intensity = jo.getInt(TAG_INTENSITY);
                 int temperature = jo.getInt(TAG_TEMPERATURE);
-                data = new WaterDataSet(jsonData,intensity,temperature);
+                data = new WaterDataSet(jsonData, intensity, temperature);
                 list.add(data);
             }
             return list;
@@ -478,7 +535,7 @@ public class DataSet extends ArrayList {
         int id = jo.getInt(TAG_ID);
         String name = jo.getString(TAG_NAME).trim();
         int state = 0;
-        if(!type.equals(STRING_TYPE_EN_WALL)) {
+        if (!type.equals(STRING_TYPE_EN_WALL)) {
             state = jo.getInt(TAG_STATE);
         }
         String scenarioRoom = jo.getString(TAG_SCENARIOROOM).trim();
@@ -494,61 +551,9 @@ public class DataSet extends ArrayList {
      * @param list zu sortierende Liste
      */
     private void sortData(ArrayList<DeviceDataSet> list) {
-        if (list.size() > 0){ //&& list.get(0).getCategory().equals(CATEGORY_SCENARIO)) {
+        if (list.size() > 0) {
             for (DeviceDataSet item : list) {
                 add(item);
-            }
-        }
-        else if (list.size() > 0 && list.get(0).getCategory().equals(CATEGORY_TIMESTAMP)) {
-            for (DeviceDataSet item : list) {
-                add(item);
-            }
-        }
-        else {
-            for (DeviceDataSet item : list) {
-                if (item.getScenarioRoom().equals(STRING_EN_FLUR) || item.getScenarioRoom().equals(STRING_EINGANG)) {
-                    add(item);
-                }
-            }
-            for (DeviceDataSet item : list) {
-                if (item.getScenarioRoom().equals(STRING_EN_KUECHE)) {
-                    add(item);
-                }
-            }
-            for (DeviceDataSet item : list) {
-                if (item.getScenarioRoom().equals(STRING_EN_WOHNZIMMER)) {
-                    add(item);
-                }
-            }
-            for (DeviceDataSet item : list) {
-                if (item.getScenarioRoom().equals(STRING_EN_BUERO)) {
-                    add(item);
-                }
-            }
-            for (DeviceDataSet item : list) {
-                if (item.getScenarioRoom().equals(STRING_EN_SCHLAFZIMMER)) {
-                    add(item);
-                }
-            }
-            for (DeviceDataSet item : list) {
-                if (item.getScenarioRoom().equals(STRING_EN_BAD)) {
-                    add(item);
-                }
-            }
-            for (DeviceDataSet item : list) {
-                if (item.getScenarioRoom().equals(STRING_EN_KINDERZIMMER)) {
-                    add(item);
-                }
-            }
-            for (DeviceDataSet item : list) {
-                if (item.getScenarioRoom().equals(STRING_EN_GARAGE)) {
-                    add(item);
-                }
-            }
-            for (DeviceDataSet item : list) {
-                if (item.getScenarioRoom().equals(STRING_EN_WASCHKUECHE)) {
-                    add(item);
-                }
             }
         }
     }

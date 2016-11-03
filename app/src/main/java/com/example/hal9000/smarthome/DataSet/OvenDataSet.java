@@ -1,13 +1,16 @@
 package com.example.hal9000.smarthome.DataSet;
 
-/**
- * Created by Ertan on 14.07.2016.
- */
-public class OvenDataSet extends DeviceDataSet {
-    private int temperature;
-    private int duration;
 
-    public OvenDataSet(DeviceDataSet values, int temperature, int duration) {
+public class OvenDataSet extends DeviceDataSet {
+    private final int temperature;
+    private final int duration;
+
+    /**
+     * @param values
+     * @param temperature
+     * @param duration
+     */
+    OvenDataSet(DeviceDataSet values, int temperature, int duration) {
         super(values);
         this.temperature = temperature;
         this.duration = duration;

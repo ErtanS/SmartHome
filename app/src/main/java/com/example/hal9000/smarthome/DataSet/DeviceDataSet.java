@@ -82,7 +82,7 @@ public class DeviceDataSet {
         return minute;
     }
 
-    public String getCategory() {
+    private String getCategory() {
         return category;
     }
 

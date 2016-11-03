@@ -11,10 +11,11 @@ import java.util.ArrayList;
 @SuppressWarnings("unchecked")
 public class ScenarioTimestampManager extends DataManager {
     private final Context context;
+
     /**
      * Konstruktor
      *
-     * @param name Name des Szenarios
+     * @param name    Name des Szenarios
      * @param context aktueller Context
      */
     public ScenarioTimestampManager(String name, Context context) {
@@ -34,7 +35,7 @@ public class ScenarioTimestampManager extends DataManager {
     /**
      * Überprüft ob die angegebene Zeit für dieses Szenario schon verwendet wird
      *
-     * @param hour Stunde
+     * @param hour   Stunde
      * @param minute Minute
      * @return true wenn Zeit noch nicht belegt
      * false wenn Zeit schon belegt

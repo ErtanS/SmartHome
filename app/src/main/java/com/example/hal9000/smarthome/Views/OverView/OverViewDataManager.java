@@ -5,20 +5,12 @@ import android.content.Context;
 import android.support.annotation.Nullable;
 
 import com.example.hal9000.smarthome.Abstract.DataManager;
-import com.example.hal9000.smarthome.Database.RequestHandler;
 import com.example.hal9000.smarthome.Helper.Config;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-import static com.example.hal9000.smarthome.Helper.ErrorHandler.fatalError;
 
-
-class OverViewDataManager extends DataManager{
-
+class OverViewDataManager extends DataManager {
 
 
     public OverViewDataManager(Context context) {
@@ -44,12 +36,6 @@ class OverViewDataManager extends DataManager{
         }
     }
 
-
-
-
-
-
-
     /**
      * Übersetzt Wörter von Deutsch nach Englisch und umgekehrt
      *
@@ -58,7 +44,7 @@ class OverViewDataManager extends DataManager{
      */
 
     public String uebersetzer(String text) {
-        switch(text){
+        switch (text) {
             case Config.STRING_TYPE_EN_HEATER:
                 return Config.STRING_TYPE_GER_HEATER;
             case Config.STRING_TYPE_EN_CAMERA:

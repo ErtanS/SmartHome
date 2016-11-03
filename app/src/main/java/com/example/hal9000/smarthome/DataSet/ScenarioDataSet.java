@@ -23,7 +23,7 @@ public class ScenarioDataSet {
      * @param hour   Zeitschaltung Stunde
      * @param minute Zeitschaltung Minute
      */
-    public ScenarioDataSet(int id, String name, int state, int hour, int minute) {
+    ScenarioDataSet(int id, String name, int state, int hour, int minute) {
         this.id = id;
         this.name = name;
         this.state = state;

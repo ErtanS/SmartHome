@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import static com.example.hal9000.smarthome.Helper.ErrorHandler.fatalError;
 
 /**
- * Stellt allgemeine Methoden zur Verfügung die andere Datenmanager erben
+ * Stellt allgemeine Methoden zur Verfügung, die andere Datenmanager erben
  */
 @SuppressWarnings("unchecked")
 public abstract class DataManager {

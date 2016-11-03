@@ -21,7 +21,7 @@ import static com.example.hal9000.smarthome.Helper.ErrorHandler.fatalError;
 
 public class DialogListener extends AlertDialog.Builder {
     private Inflater inflater;
-    private boolean error=false;
+    private boolean error = false;
 
     /**
      * Creates a builder for an alert dialog that uses the default alert
@@ -33,10 +33,11 @@ public class DialogListener extends AlertDialog.Builder {
      *
      * @param context the parent context
      */
-    public DialogListener(Context context, Inflater inflater) {
+    DialogListener(Context context, Inflater inflater) {
         super(context);
         this.inflater = inflater;
     }
+
     public DialogListener(Context context) {
         super(context);
     }
@@ -55,8 +56,8 @@ public class DialogListener extends AlertDialog.Builder {
         return error;
     }
 
-    public void setError(boolean error) {
-        this.error = error;
+    void setError() {
+        this.error = true;
     }
 
     /**
@@ -92,7 +93,7 @@ public class DialogListener extends AlertDialog.Builder {
         };
     }
 
-    public void updateDatasets(){
+    void updateDatasets() {
         if (inflater instanceof DeviceViewInflater) {
             ((DeviceViewInflater) inflater).buttonChanger(Config.INT_UNSET_ID, Config.STRING_EMPTY);
         }
@@ -124,11 +125,11 @@ public class DialogListener extends AlertDialog.Builder {
             }
         };
     }
+
     /**
      * Verarbeitung des Strings der die Musikliste beinhaltet
-     *
      */
-    public String[] addPlaylist(String table) {
+    String[] addPlaylist(String table) {
         RequestHandler rh = new RequestHandler();
         String resultMusic = rh.getPlayList(table);
         JSONObject jsonObject;

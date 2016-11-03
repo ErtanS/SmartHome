@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.hal9000.smarthome.DataSet.DeviceDataSet;
@@ -42,7 +41,7 @@ public class TimestampDeviceRowInflater extends Inflater {
     public void createRows() {
         ArrayList<DeviceDataSet> timeList = manager.getDataSet();
         for (DeviceDataSet device : timeList) {
-            getParentView().addView(inflateTimestampRow(device));
+            parentView.addView(inflateTimestampRow(device));
         }
 
     }
@@ -54,7 +53,7 @@ public class TimestampDeviceRowInflater extends Inflater {
      * @return Zeile die Inflatet werden soll
      */
     private View inflateTimestampRow(DeviceDataSet device) {
-        View rowView = getInflater().inflate(getRowID(), null);
+        View rowView = inflater.inflate(rowID, null);
         int id = device.getId();
         String type = device.getType();
         int state = device.getState();
@@ -92,14 +91,14 @@ public class TimestampDeviceRowInflater extends Inflater {
         return new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                DialogListener builder = new DialogListener(getContext());
+                DialogListener builder = new DialogListener(context);
                 builder.setMessage(DELETE_TIMESTAMP);
                 builder.setPositiveButton(BUTTON_YES, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         String msg = rh.deleteTimestamp(id, type);
-                        if (!catchError(getContext(), msg)) {
-                            getParentView().removeView((View) v.getParent());
+                        if (!catchError(context, msg)) {
+                            parentView.removeView((View) v.getParent());
                         }
                         buttonChanger(INT_UNSET_ID, STRING_EMPTY);
                     }
@@ -136,7 +135,7 @@ public class TimestampDeviceRowInflater extends Inflater {
                         state = INT_STATUS_AUS;
                     }
                     String msgState = rh.updateSingleValue(type, TAG_STATE, Integer.toString(state), id);
-                    if (!catchError(getContext(), msgState)) {
+                    if (!catchError(context, msgState)) {
                         switchImage(type, state, (ImageView) v);
                         dataSet.setState(state);
                         buttonTag.setDataSet(dataSet);
@@ -171,7 +170,7 @@ public class TimestampDeviceRowInflater extends Inflater {
     private void createDismissListener(View v) {
         Tag tag = (Tag) v.getTag();
         DeviceDataSet dataSet = tag.getDataSet();
-        TimeSettings editTime = new TimeSettings(getContext(), dataSet, getInflater(), (TextView) v, manager, this);
+        TimeSettings editTime = new TimeSettings(context, dataSet, inflater, (TextView) v, manager, this);
         editTime.setOnDismissListener(this);
         editTime.show();
     }
@@ -181,12 +180,12 @@ public class TimestampDeviceRowInflater extends Inflater {
      */
     public void addTimestamp(String type) {
         String insertReply = rh.insertTimestamp(deviceName, type);
-        if (!catchError(getContext(), insertReply)) {
+        if (!catchError(context, insertReply)) {
             int nextId = Integer.parseInt(insertReply);
             manager.manageTimestampsWithName(deviceName);
             DeviceDataSet newRow = manager.updateDevice(nextId, type);
-            if(newRow!=null){
-                getParentView().addView(inflateTimestampRow(newRow));
+            if (newRow != null) {
+                parentView.addView(inflateTimestampRow(newRow));
             }
         }
         //buttonChanger(Config.INT_UNSET_ID, Config.STRING_EMPTY);
@@ -201,8 +200,8 @@ public class TimestampDeviceRowInflater extends Inflater {
      */
     public void buttonChanger(int clickedId, String clickedType) {
         manager.manageTimestampsWithName(deviceName);
-        ArrayList<View> buttons = findViewWithTagRecursively(getParentView());
-        for (View button:buttons) {
+        ArrayList<View> buttons = findViewWithTagRecursively(parentView);
+        for (View button : buttons) {
             Tag buttonTag = (Tag) button.getTag();
             DeviceDataSet dataSet = buttonTag.getDataSet();
             int id = dataSet.getId();
@@ -217,32 +216,5 @@ public class TimestampDeviceRowInflater extends Inflater {
                 }
             }
         }
-        /*for (int i = 0; i < getParentView().getChildCount(); i++) {
-            View v = getParentView().getChildAt(i);
-            if (v instanceof RelativeLayout) {
-                RelativeLayout rl = (RelativeLayout) v;
-                for (int j = 0; j < rl.getChildCount(); j++) {
-                    View view = rl.getChildAt(j);
-                    if (view.getTag() != null) {
-
-                        Tag buttonTag = (Tag) view.getTag();
-                        DeviceDataSet dataSet = buttonTag.getDataSet();
-                        int id = dataSet.getId();
-                        String type = dataSet.getType();
-
-                        DeviceDataSet newDataSet = manager.updateDevice(id, type);
-                        if (newDataSet != null) {
-                            buttonTag.setDataSet(newDataSet);
-                            view.setTag(buttonTag);
-
-                            if ((id != clickedId || !type.equals(clickedType)) && buttonTag.getType().equals(STRING_TAG_POWER)) {
-                                int state = newDataSet.getState();
-                                switchImage(type, state, (ImageView) view);
-                            }
-                        }
-                    }
-                }
-            }
-        }*/
     }
 }
