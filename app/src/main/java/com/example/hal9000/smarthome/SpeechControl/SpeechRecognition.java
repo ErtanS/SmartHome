@@ -73,29 +73,6 @@ public class SpeechRecognition {
         return null;
     }
 
-//    public void sortWordsIntoCategories(){
-//        deviceTypes = findDeviceTypes();
-//        roomList = getRoomList();
-//        devices = getDevices();
-//        otherWords=getOtherWords();
-//        printText();
-//        if(devices!=null && devices.size()>0){
-//            if(devices.size()==1){
-//
-//            }
-//        }
-//        if(deviceTypes!=null){
-//            for (String device: deviceTypes) {
-//                text += device+", ";
-//            }
-//            ErrorHandler.createToast(this,text);
-//            if(!deviceTypes.isEmpty()){
-//                openDeviceView(deviceTypes.get(0));
-//            }
-//        }
-//    }
-
-
     public ArrayList<Statement> getSpokenWords(){
         return statements;
     }
