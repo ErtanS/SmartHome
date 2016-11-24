@@ -17,15 +17,20 @@ import java.util.ArrayList;
 import static com.example.hal9000.smarthome.Helper.ErrorHandler.fatalError;
 
 /**
- * Stellt allgemeine Methoden zur Verfügung die andere Datenmanager erben
+ * Stellt allgemeine Methoden zur Verfügung, die andere Datenmanager erben
  */
 @SuppressWarnings("unchecked")
 public abstract class DataManager {
+
     private DataSet dataSet;
     protected ArrayList<String> rooms;
     protected ArrayList<String> devices;
 
-
+    /**
+     * Gets data set.
+     *
+     * @return the data set
+     */
     public DataSet getDataSet() {
         return dataSet;
     }
@@ -72,6 +77,7 @@ public abstract class DataManager {
      * @param name         Gerätename
      * @param scenarioRoom Raumbezeichnung oder Scenarioname
      * @param category     Kategoriebezeichnung z.B. 'device', 'scenario', 'timestamp'
+     * @param context      the context
      */
     protected void fillDataSet(String table, String name, String scenarioRoom, String category, Context context) {
         RequestHandler rh = new RequestHandler();
@@ -86,6 +92,8 @@ public abstract class DataManager {
 
     /**
      * Hinzufügen aller Raumtypen
+     *
+     * @param context the context
      */
     protected  void fillRoomList(Context context) {
         rooms=new ArrayList<>();
@@ -110,6 +118,8 @@ public abstract class DataManager {
 
     /**
      * Hinzufügen aller Gerätetypen
+     *
+     * @param context the context
      */
     protected  void fillDeviceList(Context context) {
         devices=new ArrayList<>();

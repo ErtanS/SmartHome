@@ -1,5 +1,8 @@
 package com.example.hal9000.smarthome.Helper;
 
+/**
+ * The type String helper.
+ */
 public abstract class StringHelper {
 
     /**

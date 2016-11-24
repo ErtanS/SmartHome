@@ -6,6 +6,9 @@ import com.example.hal9000.smarthome.Abstract.DataManager;
 import com.example.hal9000.smarthome.Helper.Config;
 
 
+/**
+ * The type Device view data manager.
+ */
 class DeviceViewDataManager extends DataManager {
     private final Context context;
 
@@ -16,7 +19,7 @@ class DeviceViewDataManager extends DataManager {
      * @param type    Typ
      * @param context Kontext
      */
-    public DeviceViewDataManager(String room, String type, Context context) {
+    DeviceViewDataManager(String room, String type, Context context) {
         this.context = context;
         updateDataSet(room, type);
     }
@@ -28,11 +31,10 @@ class DeviceViewDataManager extends DataManager {
      * @param room Raum
      * @param type Typ
      */
-    public void updateDataSet(String room, String type) {
+    void updateDataSet(String room, String type) {
         if (type != null) {
             fillDataSet(type, Config.STRING_EMPTY, Config.STRING_EMPTY, Config.CATEGORY_DEVICE, context);
-        }
-        else {
+        } else {
             fillDataSet(Config.STRING_EMPTY, Config.STRING_EMPTY, room, Config.CATEGORY_DEVICE, context);
         }
     }

@@ -1,17 +1,27 @@
 package com.example.hal9000.smarthome.DataSet;
 
+
 /**
- * Created by Ertan on 14.07.2016.
+ * The type Washer data set.
  */
 public class WasherDataSet extends DeviceDataSet {
-    private int temperature;
-    private int duration;
-    private int rpm;
-    private int amount;
-    private int clothes;
+    private final int amount;
+    private final int clothes;
+    private final int temperature;
+    private final int duration;
+    private final int rpm;
 
-
-    public WasherDataSet(DeviceDataSet values, int temperature, int duration, int rpm, int amount,int clothes) {
+    /**
+     * Instantiates a new Washer data set.
+     *
+     * @param values      the values
+     * @param temperature the temperature
+     * @param duration    the duration
+     * @param rpm         the rpm
+     * @param amount      the amount
+     * @param clothes     the clothes
+     */
+    WasherDataSet(DeviceDataSet values, int temperature, int duration, int rpm, int amount, int clothes) {
         super(values);
         this.temperature = temperature;
         this.duration = duration;
@@ -20,22 +30,20 @@ public class WasherDataSet extends DeviceDataSet {
         this.clothes = clothes;
     }
 
-    public int getTemperature() {
-        return temperature;
-    }
-
-    public int getDuration() {
-        return duration;
-    }
-
-    public int getRpm() {
-        return rpm;
-    }
-
+    /**
+     * Gets amount.
+     *
+     * @return the amount
+     */
     public int getAmount() {
         return amount;
     }
 
+    /**
+     * Gets clothes.
+     *
+     * @return the clothes
+     */
     public int getClothes() {
         return clothes;
     }

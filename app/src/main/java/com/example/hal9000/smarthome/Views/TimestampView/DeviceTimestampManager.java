@@ -8,6 +8,9 @@ import com.example.hal9000.smarthome.Helper.Config;
 
 import java.util.ArrayList;
 
+/**
+ * The type Device timestamp manager.
+ */
 @SuppressWarnings("unchecked")
 public class DeviceTimestampManager extends DataManager {
     private final Context context;
@@ -15,10 +18,10 @@ public class DeviceTimestampManager extends DataManager {
     /**
      * Konstruktor
      *
-     * @param name Name des gerätes
+     * @param name    Name des gerätes
      * @param context aktueller Context
      */
-    public DeviceTimestampManager(String name, Context context) {
+    DeviceTimestampManager(String name, Context context) {
         this.context = context;
         manageTimestampsWithName(name);
     }
@@ -28,17 +31,16 @@ public class DeviceTimestampManager extends DataManager {
      *
      * @param name Name des Geräts
      */
-    public void manageTimestampsWithName(String name) {
+    void manageTimestampsWithName(String name) {
         fillDataSet(Config.STRING_EMPTY, name, Config.STRING_EMPTY, Config.CATEGORY_TIMESTAMP, context);
     }
 
     /**
      * Überprüft ob die angegebene Zeit für dieses Szenario schon verwendet wird
      *
-     * @param hour Stunde
+     * @param hour   Stunde
      * @param minute Minute
-     * @return true wenn Zeit noch nicht belegt
-     * false wenn Zeit schon belegt
+     * @return true wenn Zeit noch nicht belegt false wenn Zeit schon belegt
      */
     public boolean compareTime(int hour, int minute) {
         ArrayList<DeviceDataSet> timeList = getDataSet();

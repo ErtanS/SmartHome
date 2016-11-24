@@ -13,33 +13,30 @@ import android.widget.SeekBar;
 import com.example.hal9000.smarthome.Abstract.Inflater;
 import com.example.hal9000.smarthome.Database.RequestHandler;
 import com.example.hal9000.smarthome.Helper.Config;
-import com.example.hal9000.smarthome.Helper.ErrorHandler;
 import com.example.hal9000.smarthome.R;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import static com.example.hal9000.smarthome.Helper.ErrorHandler.catchError;
 import static com.example.hal9000.smarthome.Helper.ErrorHandler.createToast;
-import static com.example.hal9000.smarthome.Helper.ErrorHandler.fatalError;
 
+/**
+ * The type Music settings.
+ */
 public class MusicSettings extends DialogListener {
 
     private final RequestHandler rh;
-    private String[] playList;
 
     /**
      * Konstruktor
      *
-     * @param context   Kontext
-     * @param intensity Lautstärke
-     * @param songId    Songid
-     * @param id        Id des Geräts
-     * @param layoutInflater  inflater
+     * @param context        Kontext
+     * @param intensity      Lautstärke
+     * @param songId         Songid
+     * @param id             Id des Geräts
+     * @param layoutInflater inflater
+     * @param inflater       the inflater
      */
     public MusicSettings(Context context, int intensity, int songId, int id, LayoutInflater layoutInflater, Inflater inflater) {
-        super(context,inflater);
+        super(context, inflater);
         @SuppressLint("InflateParams") View layout = layoutInflater.inflate(R.layout.music_settings, null);
         createVolumeBar(layout, id, intensity);
         createSongList(layout, id, context, songId);
@@ -84,14 +81,13 @@ public class MusicSettings extends DialogListener {
     /**
      * Auflistung der Musiktitelliste
      * Sendet Update an die Datenbank, wenn ein Titel ausgewählt wurde
-     *
      */
     private void createSongList(View layout, final int dataId, final Context context, int songId) {
         ListView songList = (ListView) layout.findViewById(R.id.listView);
-        playList = addPlaylist(Config.TAG_MUSIC);
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(context, android.R.layout.simple_list_item_activated_1,playList);
+        String[] playList = addPlaylist(Config.TAG_MUSIC);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(context, android.R.layout.simple_list_item_activated_1, playList);
 
-        if (songList != null && playList!=null && playList.length>0) {
+        if (songList != null && playList.length > 0) {
             songList.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
             songList.setAdapter(adapter);
             songList.setItemChecked(songId, true);
@@ -116,10 +112,9 @@ public class MusicSettings extends DialogListener {
 
                 }
             });
-        }
-        else{
-            createToast(context,Config.ERROR_MUSIC);
-            setError(true);
+        } else {
+            createToast(context, Config.ERROR_MUSIC);
+            setError();
         }
     }
 

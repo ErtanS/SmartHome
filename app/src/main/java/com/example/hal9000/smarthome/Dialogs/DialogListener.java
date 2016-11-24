@@ -19,9 +19,12 @@ import org.json.JSONObject;
 
 import static com.example.hal9000.smarthome.Helper.ErrorHandler.fatalError;
 
+/**
+ * The type Dialog listener.
+ */
 public class DialogListener extends AlertDialog.Builder {
     private Inflater inflater;
-    private boolean error=false;
+    private boolean error = false;
 
     /**
      * Creates a builder for an alert dialog that uses the default alert
@@ -31,12 +34,19 @@ public class DialogListener extends AlertDialog.Builder {
      * {@link android.R.attr#alertDialogTheme} within the parent
      * {@code context}'s theme.
      *
-     * @param context the parent context
+     * @param context  the parent context
+     * @param inflater the inflater
      */
-    public DialogListener(Context context, Inflater inflater) {
+    DialogListener(Context context, Inflater inflater) {
         super(context);
         this.inflater = inflater;
     }
+
+    /**
+     * Instantiates a new Dialog listener.
+     *
+     * @param context the context
+     */
     public DialogListener(Context context) {
         super(context);
     }
@@ -51,12 +61,20 @@ public class DialogListener extends AlertDialog.Builder {
         setOnDismissListener(setDismissListener(inflater));
     }
 
+    /**
+     * Is error boolean.
+     *
+     * @return the boolean
+     */
     public boolean isError() {
         return error;
     }
 
-    public void setError(boolean error) {
-        this.error = error;
+    /**
+     * Sets error.
+     */
+    void setError() {
+        this.error = true;
     }
 
     /**
@@ -73,26 +91,15 @@ public class DialogListener extends AlertDialog.Builder {
              */
             @Override
             public void onDismiss(DialogInterface dialog) {
-                if (inflater instanceof DeviceViewInflater) {
-                    ((DeviceViewInflater) inflater).buttonChanger(Config.INT_UNSET_ID, Config.STRING_EMPTY);
-                }
-                if (inflater instanceof ScenarioViewInflater) {
-                    ((ScenarioViewInflater) inflater).buttonChanger(Config.INT_UNSET_ID);
-                }
-                if (inflater instanceof TimestampDeviceRowInflater) {
-                    ((TimestampDeviceRowInflater) inflater).buttonChanger(Config.INT_UNSET_ID, Config.STRING_EMPTY);
-                }
-                if (inflater instanceof ScenarioTimestampRowInflater) {
-                    ((ScenarioTimestampRowInflater) inflater).buttonChanger(Config.INT_UNSET_ID);
-                }
-                if (inflater instanceof ScenarioDeviceRowInflater) {
-                    ((ScenarioDeviceRowInflater) inflater).buttonChanger(Config.INT_UNSET_ID, Config.STRING_EMPTY);
-                }
+                updateDatasets();
             }
         };
     }
 
-    public void updateDatasets(){
+    /**
+     * Update datasets.
+     */
+    void updateDatasets() {
         if (inflater instanceof DeviceViewInflater) {
             ((DeviceViewInflater) inflater).buttonChanger(Config.INT_UNSET_ID, Config.STRING_EMPTY);
         }
@@ -113,7 +120,7 @@ public class DialogListener extends AlertDialog.Builder {
     /**
      * Beim Schließen des Dialogs wird keine weitere Aktion ausgeführt
      *
-     * @return OnClickListener
+     * @return OnClickListener cancel button
      */
     public DialogInterface.OnClickListener setCancelButton() {
         return new DialogInterface.OnClickListener() {
@@ -124,11 +131,14 @@ public class DialogListener extends AlertDialog.Builder {
             }
         };
     }
+
     /**
      * Verarbeitung des Strings der die Musikliste beinhaltet
      *
+     * @param table the table
+     * @return the string [ ]
      */
-    public String[] addPlaylist(String table) {
+    String[] addPlaylist(String table) {
         RequestHandler rh = new RequestHandler();
         String resultMusic = rh.getPlayList(table);
         JSONObject jsonObject;

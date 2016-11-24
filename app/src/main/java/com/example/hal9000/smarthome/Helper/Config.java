@@ -7,31 +7,31 @@ public class Config {
     public static final String VAL_KEY = "ValueKey";
 
     //Adressen der Skripte die genutzt werden
-    public static String ip="";
-    public static String URL_GET_ALL = "http://"+ip + "/smart/selectAll.php";
+    public static String ip = "";
+    public static String URL_GET_ALL = "http://" + ip + "/smart/selectAll.php";
     public static String URL_GET_MUSIC_PLAYLIST = ip + "/smart/selectMusicPlaylist.php";
-    public static String URL_GET_SCENARIONAMES = "http://"+ip + "/smart/selectScenarioNames.php";
-    public static String URL_GET_ROOMLIST = "http://"+ip + "/smart/getRooms.php";
-    public static String URL_GET_DEVICESLIST = "http://"+ip + "/smart/getDevicesInHouse.php";
+    public static String URL_GET_SCENARIONAMES = "http://" + ip + "/smart/selectScenarioNames.php";
+    public static String URL_GET_ROOMLIST = "http://" + ip + "/smart/getRooms.php";
+    public static String URL_GET_DEVICESLIST = "http://" + ip + "/smart/getDevicesInHouse.php";
 
 
-    public static String URL_INSERT_FIREBASEID = "http://"+ip + "/smart/insertFirebaseId.php";
-    public static String URL_INSERT_CLOCK = "http://"+ip + "/smart/insertClock.php";
-    public static String URL_INSERT_SCENARIO_ROW = "http://"+ip + "/smart/insertScenarioRow.php";
-    public static String URL_INSERT_SCENARIO = "http://"+ip + "/smart/insertScenario.php";
+    public static String URL_INSERT_FIREBASEID = "http://" + ip + "/smart/insertFirebaseId.php";
+    public static String URL_INSERT_CLOCK = "http://" + ip + "/smart/insertClock.php";
+    public static String URL_INSERT_SCENARIO_ROW = "http://" + ip + "/smart/insertScenarioRow.php";
+    public static String URL_INSERT_SCENARIO = "http://" + ip + "/smart/insertScenario.php";
 
-    public static String URL_DELETE_SCENARIO_ROW ="http://"+ip + "/smart/deleteScenarioRow.php";
-    public static String URL_DELETE_SCENARIO ="http://"+ ip + "/smart/deleteScenario.php";
-    public static String URL_DELETE_CLOCK = "http://"+ip + "/smart/deleteTimestamp.php";
+    public static String URL_DELETE_SCENARIO_ROW = "http://" + ip + "/smart/deleteScenarioRow.php";
+    public static String URL_DELETE_SCENARIO = "http://" + ip + "/smart/deleteScenario.php";
+    public static String URL_DELETE_CLOCK = "http://" + ip + "/smart/deleteTimestamp.php";
 
-    public static String URL_UPDATE = "http://"+ip + "/smart/update.php";
-    public static String URL_UPDATE_SCENARIO ="http://"+ ip + "/smart/updateScenariosInDevices.php";
-    public static String URL_UPDATE_SCENARIO_NAME ="http://"+ ip + "/smart/changeScenarioname.php";
-    public static String URL_EMERGENCY = "http://"+ip + "/smart/emergency.php";
+    public static String URL_UPDATE = "http://" + ip + "/smart/update.php";
+    public static String URL_UPDATE_SCENARIO = "http://" + ip + "/smart/updateScenariosInDevices.php";
+    public static String URL_UPDATE_SCENARIO_NAME = "http://" + ip + "/smart/changeScenarioname.php";
+    public static String URL_EMERGENCY = "http://" + ip + "/smart/emergency.php";
 
-    public static String URL_IMAGE_FOLDER = "http://"+ip + "/smart/picture/";
-    public static String URL_IMAGE_SECURITY = "http://"+ip + "/smart/img/";
-    public static String UPLOAD_URL ="http://"+ ip +"/smart/uploadImage.php";
+    public static String URL_IMAGE_FOLDER = "http://" + ip + "/smart/picture/";
+    public static String URL_IMAGE_SECURITY = "http://" + ip + "/smart/img/";
+    public static String UPLOAD_URL = "http://" + ip + "/smart/uploadImage.php";
 
     //JSON Tags
     public static final String TAG_JSON_ARRAY = "result";
@@ -51,8 +51,6 @@ public class Config {
     public static final String TAG_JSON_ARRAY_WASHER = "resultWasher";
     public static final String TAG_JSON_ARRAY_WATER = "resultWater";
 
-
-    public static final String TAG_JSON_MUSIC_ID = "musicid";
 
     //JSON ID TAGS
     public static final int INT_JSON_ID_LIGHT = 2;
@@ -87,7 +85,6 @@ public class Config {
     public static final String TAG_MINUTE = "minute";
     public static final String TAG_ID = "id";
     public static final String TAG_STOP = "stop";
-    public static final String TAG_MUSIC_TITLE = "title";
     public static final String TAG_PICTUREID = "pictureid";
     public static final String TAG_VIDEOID = "videoid";
     public static final String TAG_DURATION = "duration";
@@ -102,7 +99,6 @@ public class Config {
     public static final String TAG_MUSIC = "music";
 
 
-
     //Kategorien
     public static final String CATEGORY_TIMESTAMP = "timestamp";
     public static final String CATEGORY_DEVICE = "device";
@@ -113,31 +109,6 @@ public class Config {
     public static final String TAG_SCENARIO_OLD = "oldscenario";
     public static final String TAG_TABLE = "table";
 
-    //Räume Deutsch
-    public static final String STRING_GER_WOHNZIMMER = "Wohnzimmer";
-    public static final String STRING_GER_KUECHE = "Küche";
-    public static final String STRING_GER_FLUR = "Flur";
-    public static final String STRING_GER_SCHLAFZIMMER = "Schlafzimmer";
-    public static final String STRING_GER_BAD = "Bad";
-    public static final String STRING_GER_KINDERZIMMER = "Kinderzimmer";
-    public static final String STRING_GER_GARAGE = "Garage";
-    public static final String STRING_GER_WASCHKUECHE = "Waschküche";
-    public static final String STRING_GER_BUERO = "Büro";
-    public static final String STRING_EINGANG ="Eingang";
-
-    //Räume Englisch
-    public static final String STRING_EN_WOHNZIMMER = "LivingRoom";
-    public static final String STRING_EN_KUECHE = "Kitchen";
-    public static final String STRING_EN_FLUR = "Corridor";
-    public static final String STRING_EN_SCHLAFZIMMER = "BedRoom";
-    public static final String STRING_EN_BAD = "Bath";
-    public static final String STRING_EN_KINDERZIMMER = "Nursery";
-    public static final String STRING_EN_GARAGE = "Garage";
-    public static final String STRING_EN_WASCHKUECHE = "WashRoom";
-    public static final String STRING_EN_BUERO = "Office";
-
-    //Titel
-    public static final String STRING_COLOR_PICKER_TITLE = "Farbe ändern";
     public static final String STRING_ACTIVITY_TITLE = "title";
     public static final String STRING_TITLE_ROOM_VIEW = "Raumübersicht";
     public static final String STRING_TITLE_DEVICE_VIEW = "Geräteübersicht";
@@ -153,8 +124,10 @@ public class Config {
     public static final String STRING_SPACE = " ";
     public static final int INT_UNSET_ID = -1;
     public static final String STRING_TAG_SWITCH_IMAGE = "switch";
-
-
+    public static final int SPEECHINTENT_REQ_CODE = 11;
+    public static final int STATEMENT_PRIORITY_HIGH=3;
+    public static final int STATEMENT_PRIORITY_NORMAL=2;
+    public static final int STATEMENT_PRIORITY_LOW=1;
 
     public static final String STRING_TABLE = "table";
     public static final String STRING_WHERE_VALUE = "where_value";
@@ -198,7 +171,6 @@ public class Config {
     public static final String STRING_TYPE_GER_WATER = "Wasser";
 
 
-
     //Buttons
     public static final String STRING_TAG_POWER = "power";
     public static final String STRING_TAG_CLOCK = "clock";
@@ -211,17 +183,20 @@ public class Config {
     public static final String ERROR_SAME_TIME = "Für dieses Gerät ist zu diesem Zeitpunkt bereits ein Event eingerichtet";
     public static final String ERROR = "Fehler";
     public static final String ERROR_NO_CONNECTION = "Fehler: Es konnte keine Verbindung zur Datenbank hergestellt werden. Bitte überprüfen Sie ihre Einstellungen";
-    public static final String ERROR_INVALID_IP ="Sie müssen eine gültige IPv4-Adresse angeben (XXX.XXX.XXX.XXX).";
-    public static final String ERROR_MUSIC ="Die Musikliste konnte nicht geladen werden.";
-    public static final String BUTTON_OK ="OK";
-    public static final String BUTTON_ABBRUCH ="Abbrechen";
-    public static final String DELETE_SCENARIO ="Sind Sie sicher, dass Sie das Szenario löschen wollen?";
-    public static final String DELETE_TIMESTAMP ="Sind Sie sicher, dass Sie diesen Zeitstempel löschen wollen?";
-    public static final String DELETE_PICTURE ="Sind Sie sicher, dass Sie dieses Bild löschen wollen?";
-    public static final String BUTTON_YES ="Ja";
-    public static final String BUTTON_NO ="Nein";
-    public static final String BUTTON_NOTFALL ="Notfall!";
-    public static final String BUTTON_IGNORIEREN ="Ignorieren";
+    public static final String ERROR_INVALID_IP = "Sie müssen eine gültige IPv4-Adresse angeben (XXX.XXX.XXX.XXX).";
+    public static final String ERROR_MUSIC = "Die Musikliste konnte nicht geladen werden.";
+    public static final String BUTTON_OK = "OK";
+    public static final String BUTTON_ABBRUCH = "Abbrechen";
+    public static final String DELETE_SCENARIO = "Sind Sie sicher, dass Sie das Szenario löschen wollen?";
+    public static final String DELETE_TIMESTAMP = "Sind Sie sicher, dass Sie diesen Zeitstempel löschen wollen?";
+    public static final String DELETE_PICTURE = "Sind Sie sicher, dass Sie dieses Bild löschen wollen?";
+    public static final String BUTTON_YES = "Ja";
+    public static final String BUTTON_NO = "Nein";
+    public static final String BUTTON_NOTFALL = "Notfall!";
+    public static final String BUTTON_IGNORIEREN = "Ignorieren";
+    public static final String NO_SCENARIO = "Kein Szenario";
+
+    public static final String PNG_FILE_EXTENSION = ".png";
 
 }
 

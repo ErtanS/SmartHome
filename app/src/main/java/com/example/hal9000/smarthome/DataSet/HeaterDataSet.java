@@ -1,6 +1,9 @@
 package com.example.hal9000.smarthome.DataSet;
 
 
+/**
+ * The type Heater data set.
+ */
 public class HeaterDataSet extends DeviceDataSet {
     private final int temperature;
 
@@ -10,11 +13,16 @@ public class HeaterDataSet extends DeviceDataSet {
      * @param values      Grunddaten
      * @param temperature Temperatur
      */
-    public HeaterDataSet(DeviceDataSet values, int temperature) {
+    HeaterDataSet(DeviceDataSet values, int temperature) {
         super(values);
         this.temperature = temperature;
     }
 
+    /**
+     * Gets temperature.
+     *
+     * @return the temperature
+     */
     public int getTemperature() {
         return temperature;
     }

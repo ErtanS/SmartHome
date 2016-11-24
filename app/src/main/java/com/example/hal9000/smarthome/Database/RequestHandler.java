@@ -20,6 +20,9 @@ import java.util.concurrent.ExecutionException;
 
 import javax.net.ssl.HttpsURLConnection;
 
+/**
+ * The type Request handler.
+ */
 public class RequestHandler {
 
     private final HashMap<String, String> phpVars = new HashMap<>();
@@ -62,8 +65,7 @@ public class RequestHandler {
                     sb.append(response);
                 }
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return sb.toString();
@@ -196,7 +198,8 @@ public class RequestHandler {
     /**
      * Laden der Gesamten Musikliste aus der Datenbank
      *
-     * @return Musikliste
+     * @param table the table
+     * @return Musikliste play list
      */
     public String getPlayList(String table) {
         this.url = Config.URL_GET_MUSIC_PLAYLIST;
@@ -204,6 +207,7 @@ public class RequestHandler {
 
         return sendPostRequest();
     }
+
     /**
      * Laden aller Szenariennamen aus der Datenbank
      *
@@ -213,6 +217,7 @@ public class RequestHandler {
         this.url = Config.URL_GET_SCENARIONAMES;
         return sendGetRequest();
     }
+
     /**
      * Laden aller Raumnamen aus der Datenbank
      *
@@ -222,6 +227,7 @@ public class RequestHandler {
         this.url = Config.URL_GET_ROOMLIST;
         return sendGetRequest();
     }
+
     /**
      * Laden aller Gerätetypen in einem Haus aus der Datenbank
      *
@@ -304,6 +310,7 @@ public class RequestHandler {
     /**
      * Szenariostatus aktualisieren
      *
+     * @param camName the cam name
      * @return Erfolgsmeldung oder Fehler
      */
     public String triggerEmergencyScenario(String camName) {
@@ -368,17 +375,17 @@ public class RequestHandler {
     /**
      * Hinzufügen der Firebase id in die Datenbank um später die Berechtigung zu haben, Pushnachrichten auf das Gerät zu senden
      *
+     * @param id the id
      * @return Id des eingefügten Timestamps oder Fehlermeldung
      */
     public String insertFirebaseId(String id) {
         this.url = Config.URL_INSERT_FIREBASEID;
-        addPhpVar(Config.TAG_ID,id );
+        addPhpVar(Config.TAG_ID, id);
         return sendPostRequest();
     }
 
     /**
      * Asynchroner PostRequest Task
-     *
      */
     private class SelectAsyncPost extends AsyncTask<Void, Void, String> {
         @Override

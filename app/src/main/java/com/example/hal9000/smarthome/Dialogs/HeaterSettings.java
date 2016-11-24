@@ -9,23 +9,29 @@ import android.widget.NumberPicker;
 
 import com.example.hal9000.smarthome.Abstract.Inflater;
 import com.example.hal9000.smarthome.Database.RequestHandler;
+
 import static com.example.hal9000.smarthome.Helper.Config.*;
+
 import com.example.hal9000.smarthome.R;
 
 import static com.example.hal9000.smarthome.Helper.ErrorHandler.catchError;
 
+/**
+ * The type Heater settings.
+ */
 public class HeaterSettings extends DialogListener {
 
     /**
      * Konstruktor
      *
-     * @param context     Kontext
-     * @param temperature Temepratur
-     * @param id          ID
-     * @param layoutInflater    Inflater
+     * @param context        Kontext
+     * @param temperature    Temepratur
+     * @param id             ID
+     * @param layoutInflater Inflater
+     * @param inflater       Inflater
      */
-    public HeaterSettings(Context context, int temperature, int id, LayoutInflater layoutInflater,Inflater inflater) {
-        super(context,inflater);
+    public HeaterSettings(Context context, int temperature, int id, LayoutInflater layoutInflater, Inflater inflater) {
+        super(context, inflater);
         @SuppressLint("InflateParams") View layout = layoutInflater.inflate(R.layout.heater_settings, null);
         NumberPicker input = (NumberPicker) layout.findViewById(R.id.np_Temperature);
         input.setMinValue(15);
@@ -40,8 +46,8 @@ public class HeaterSettings extends DialogListener {
     /**
      * OnClicklistener hinzufügen
      *
-     * @param input      Numberpicker aus dem Dialog das die akutelle Temperatur beinhaltet
-     * @param id         Id
+     * @param input Numberpicker aus dem Dialog das die akutelle Temperatur beinhaltet
+     * @param id    Id
      * @return OnClickListener
      */
     private DialogInterface.OnClickListener setOkButton(final NumberPicker input, final int id) {

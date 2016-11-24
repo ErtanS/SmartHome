@@ -11,6 +11,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.LinearLayout;
 
+import com.example.hal9000.smarthome.Abstract.ViewActivity;
 import com.example.hal9000.smarthome.Views.DeviceView.DynamicDeviceView;
 import com.example.hal9000.smarthome.Helper.Config;
 import com.example.hal9000.smarthome.Abstract.Inflater;
@@ -18,8 +19,11 @@ import com.example.hal9000.smarthome.R;
 import com.example.hal9000.smarthome.Views.ScenarioView.ScenarioView;
 
 
+/**
+ * The type Dynamic time view.
+ */
 @SuppressWarnings("ConstantConditions")
-public class DynamicTimeView extends AppCompatActivity {
+public class DynamicTimeView extends ViewActivity {
 
     private String type;
     private String departure;
@@ -29,7 +33,6 @@ public class DynamicTimeView extends AppCompatActivity {
     /**
      * Activity Start
      * Initialisierung der Elemente in der View und Unterscheidung von wo es gestartet wurde
-     *
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,8 +85,7 @@ public class DynamicTimeView extends AppCompatActivity {
             case R.id.menuAdd:
                 if (departure.equals(Config.CATEGORY_SCENARIO)) {
                     ((ScenarioTimestampRowInflater) rowInflater).addTimestamp();
-                }
-                else {
+                } else {
                     ((TimestampDeviceRowInflater) rowInflater).addTimestamp(type);
                 }
                 return true;
@@ -99,8 +101,7 @@ public class DynamicTimeView extends AppCompatActivity {
 
         if (departure.equals(Config.CATEGORY_SCENARIO)) {
             return rowInflater.getParentActivityIntentImpl(this, ScenarioView.class);
-        }
-        else {
+        } else {
             return rowInflater.getParentActivityIntentImpl(this, DynamicDeviceView.class);
         }
     }
@@ -109,8 +110,7 @@ public class DynamicTimeView extends AppCompatActivity {
     public Intent getParentActivityIntent() {
         if (departure.equals(Config.CATEGORY_SCENARIO)) {
             return rowInflater.getParentActivityIntentImpl(this, ScenarioView.class);
-        }
-        else {
+        } else {
             return rowInflater.getParentActivityIntentImpl(this, DynamicDeviceView.class);
         }
     }
@@ -124,8 +124,7 @@ public class DynamicTimeView extends AppCompatActivity {
         if (!firstCreate) {
             if (departure.equals(Config.CATEGORY_SCENARIO)) {
                 ((ScenarioTimestampRowInflater) rowInflater).buttonChanger(Config.INT_UNSET_ID);
-            }
-            else {
+            } else {
                 ((TimestampDeviceRowInflater) rowInflater).buttonChanger(Config.INT_UNSET_ID, Config.STRING_EMPTY);
             }
         }

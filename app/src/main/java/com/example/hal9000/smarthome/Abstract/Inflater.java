@@ -1,10 +1,8 @@
 package com.example.hal9000.smarthome.Abstract;
 
-import android.app.FragmentManager;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
-import android.support.annotation.NonNull;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,19 +23,15 @@ import com.example.hal9000.smarthome.DataSet.TvDataSet;
 import com.example.hal9000.smarthome.DataSet.WallDataSet;
 import com.example.hal9000.smarthome.DataSet.WasherDataSet;
 import com.example.hal9000.smarthome.DataSet.WaterDataSet;
-import com.example.hal9000.smarthome.DialogActivity;
+import com.example.hal9000.smarthome.Dialogs.DialogActivity;
 import com.example.hal9000.smarthome.Dialogs.CameraSettings;
 import com.example.hal9000.smarthome.Dialogs.DialogListener;
 import com.example.hal9000.smarthome.Dialogs.DoorSettings;
 import com.example.hal9000.smarthome.Dialogs.DryerSettings;
 import com.example.hal9000.smarthome.Dialogs.HeaterSettings;
-import com.example.hal9000.smarthome.Dialogs.LightSettings;
 import com.example.hal9000.smarthome.Dialogs.MusicSettings;
 import com.example.hal9000.smarthome.Dialogs.OvenSettings;
-import com.example.hal9000.smarthome.Dialogs.PcSettings;
 import com.example.hal9000.smarthome.Dialogs.StoveSettings;
-import com.example.hal9000.smarthome.Dialogs.TvSettings;
-import com.example.hal9000.smarthome.Dialogs.WallSettings;
 import com.example.hal9000.smarthome.Dialogs.WasherSettings;
 import com.example.hal9000.smarthome.Dialogs.WaterSettings;
 import com.example.hal9000.smarthome.Helper.Config;
@@ -49,46 +43,44 @@ import java.util.ArrayList;
 /**
  * Abstrakte Klasse die Konstruktoren und Methoden den spezifischen Inflatern vererbt
  */
-@SuppressWarnings("JavaDoc")
+
 public abstract class Inflater {
 
-    private final int rowID;
-    private final LinearLayout parentView;
-    private final Context context;
-    private final String category;
-    private final LayoutInflater inflater;
-    private String deviceType;
-    private String deviceRoom;
-    private int positionToDelete;
-    private String scenarioName;
-
-    private android.support.v4.app.FragmentManager fragmentManager;
+    protected final int rowID;
+    protected final LinearLayout parentView;
+    protected final Context context;
+    protected final String category;
+    protected final LayoutInflater inflater;
+    protected String deviceType;
+    protected String deviceRoom;
+    protected String scenarioName;
+    private final android.support.v4.app.FragmentManager fragmentManager;
 
     /**
      * Konstruktor
      *
-     * @param parentView       obergeordete View
-     * @param inflater         altueller Inflater
-     * @param context          aktueller Kontext
-     * @param deviceType       Gerätetyp speaker/light/etc...
-     * @param deviceRoom       Geräteraum z.B. BedRoom/Office/etc..
-     * @param positionToDelete Position vom kürzen des Strings
+     * @param parentView      obergeordete View
+     * @param inflater        altueller Inflater
+     * @param context         aktueller Kontext
+     * @param deviceType      Gerätetyp speaker/light/etc...
+     * @param deviceRoom      Geräteraum z.B. BedRoom/Office/etc..
+     * @param fragmentManager the fragment manager
      */
-    protected Inflater(LinearLayout parentView, LayoutInflater inflater, Context context, String deviceType, String deviceRoom, int positionToDelete,android.support.v4.app.FragmentManager fragmentManager){
-        this(R.layout.dynamic_device_row, parentView, inflater, context, Config.CATEGORY_DEVICE,fragmentManager);
+    protected Inflater(LinearLayout parentView, LayoutInflater inflater, Context context, String deviceType, String deviceRoom, FragmentManager fragmentManager) {
+        this(R.layout.dynamic_device_row, parentView, inflater, context, Config.CATEGORY_DEVICE, fragmentManager);
         this.deviceType = deviceType;
         this.deviceRoom = deviceRoom;
-        this.positionToDelete = positionToDelete;
     }
 
     /**
      * Konstruktor
      *
-     * @param rowID      rowid
-     * @param parentView obergeordete View
-     * @param inflater   altueller Inflater
-     * @param context    aktueller Context
-     * @param category   device oder timestamp oder scenario
+     * @param rowID           rowid
+     * @param parentView      obergeordete View
+     * @param inflater        altueller Inflater
+     * @param context         aktueller Context
+     * @param category        device oder timestamp oder scenario
+     * @param fragmentManager the fragment manager
      */
     protected Inflater(int rowID, LinearLayout parentView, LayoutInflater inflater, Context context, String category, android.support.v4.app.FragmentManager fragmentManager) {
         this.rowID = rowID;
@@ -103,97 +95,16 @@ public abstract class Inflater {
     /**
      * Konstruktor
      *
-     * @param rowID
-     * @param parentView
-     * @param inflater
-     * @param context
-     * @param scenarioName
+     * @param rowID           the row id
+     * @param parentView      the parent view
+     * @param inflater        the inflater
+     * @param scenarioName    the scenario name
+     * @param context         the context
+     * @param fragmentManager the fragment manager
      */
-    protected Inflater(int rowID, LinearLayout parentView, LayoutInflater inflater, String scenarioName, Context context,android.support.v4.app.FragmentManager fragmentManager) {
-        this(rowID, parentView, inflater, context, Config.CATEGORY_SCENARIO,fragmentManager);
+    protected Inflater(int rowID, LinearLayout parentView, LayoutInflater inflater, String scenarioName, Context context, android.support.v4.app.FragmentManager fragmentManager) {
+        this(rowID, parentView, inflater, context, Config.CATEGORY_SCENARIO, fragmentManager);
         this.scenarioName = scenarioName;
-    }
-
-    /**
-     * getter RowID
-     *
-     * @return RowID
-     */
-    protected int getRowID() {
-        return rowID;
-    }
-
-    /**
-     * getter deviceType
-     *
-     * @return deviceType
-     */
-    protected String getDeviceType() {
-        return deviceType;
-    }
-
-    /**
-     * getter deviceRoom
-     *
-     * @return deviceRoom
-     */
-    protected String getDeviceRoom() {
-        return deviceRoom;
-    }
-
-    /**
-     * getter ParentView
-     *
-     * @return parentView
-     */
-    protected LinearLayout getParentView() {
-        return parentView;
-    }
-
-    /**
-     * getter Context
-     *
-     * @return context
-     */
-    protected Context getContext() {
-        return context;
-    }
-
-    /**
-     * getter Category
-     *
-     * @return category
-     */
-    protected String getCategory() {
-        return category;
-    }
-
-    /**
-     * getter Inflater
-     *
-     * @return inflater
-     */
-    protected LayoutInflater getInflater() {
-        return inflater;
-    }
-
-    /**
-     * getter PositionToDelete
-     * Position an der der String geschnitten werden soll
-     *
-     * @return
-     */
-    protected int getPositionToDelete() {
-        return positionToDelete;
-    }
-
-    /**
-     * getter ScenarioName
-     *
-     * @return scenarioName
-     */
-    protected String getScenarioName() {
-        return scenarioName;
     }
 
     /**
@@ -291,7 +202,6 @@ public abstract class Inflater {
                 }
             case Config.STRING_TYPE_EN_WALL:
                 return -1;
-            // TODO: 21.07.2016 löschen des buttons
             case Config.STRING_TYPE_EN_WASHER:
                 if (status == Config.INT_STATUS_EIN) {
                     return R.drawable.washer_on;
@@ -321,8 +231,7 @@ public abstract class Inflater {
         int imageId = getImageId(typ, status);
         if (imageId != -1) {
             imSwitch.setImageResource(imageId);
-        }
-        else{
+        } else {
             imSwitch.setVisibility(View.INVISIBLE);
         }
     }
@@ -371,16 +280,9 @@ public abstract class Inflater {
      * @param light Lampendatensatz
      */
     private void clickSettingsLight(LightDataSet light) {
-        /*String currentColor = light.getColor();
-        int id = light.getId();
-        int currentIntensity = light.getIntensity();
-        LightSettings editLight = new LightSettings(context, Color.parseColor(currentColor), currentIntensity, id,this);
-        editLight.setOnDismissListener(this);
-        editLight.show();
-        */
         DialogActivity dialog = new DialogActivity();
-        dialog.setArguments(light,this,inflater );
-        dialog.show(fragmentManager,"missiles");
+        dialog.setArguments(light, this, inflater);
+        dialog.show(fragmentManager, "missiles");
     }
 
     /**
@@ -389,14 +291,12 @@ public abstract class Inflater {
      * @param cam Kamera
      */
     private void clickSettingsCamera(CameraDataSet cam) {
-        int id = cam.getId();
-        int frequency = cam.getFrequency();
         CameraSettings editCamera = new CameraSettings(context, cam, inflater, this);
         createDialog(editCamera);
     }
 
     /**
-     * Klicken des Einstellungsbuttons bei den Sicherheitskameras
+     * Klicken des Einstellungsbuttons bei den Wasserhähnen
      *
      * @param water wasserstrahlen
      */
@@ -411,115 +311,89 @@ public abstract class Inflater {
     /**
      * Klicken des Einstellungsbuttons bei den Trocknern
      *
-     * @param
-     *
+     * @param dryer Trockner
      */
     private void clickSettingsDryer(DryerDataSet dryer) {
         int id = dryer.getId();
         int amount = dryer.getAmount();
         int clothes = dryer.getClothes();
-        // TODO: 21.07.2016 wird momentan noch als zahl behandelt
-        DryerSettings editDryer = new DryerSettings(context,amount,clothes,id,inflater, this);
+        DryerSettings editDryer = new DryerSettings(context, amount, clothes, id, inflater, this);
         createDialog(editDryer);
     }
+
     /**
-     * Klicken des Einstellungsbuttons bei den Trocknern
+     * Klicken des Einstellungsbuttons bei den Öfen
      *
-     * @param
-     *
+     * @param oven Ofen
      */
     private void clickSettingsOven(OvenDataSet oven) {
         int id = oven.getId();
         int temperature = oven.getTemperature();
         int duration = oven.getDuration();
-        OvenSettings editOven = new OvenSettings(context,temperature,duration,id,inflater, this);
+        OvenSettings editOven = new OvenSettings(context, temperature, duration, id, inflater, this);
         createDialog(editOven);
     }
 
     /**
-     * Klicken des Einstellungsbuttons bei den Trocknern
+     * Klicken des Einstellungsbuttons bei den Pcs
      *
-     * @param
-     *
+     * @param pc PC
      */
     private void clickSettingsPc(PcDataSet pc) {
-        /*int id = pc.getId();
-        int videoId = pc.getVideoid();
-        int pictureId = pc.getPictureid();
-        int volume = pc.getVolume();
-        PcSettings editPc = new PcSettings(context,videoId,pictureId,volume,id,inflater, this);
-        createDialog(editPc);*/
         DialogActivity dialog = new DialogActivity();
-        dialog.setArguments(pc,this,inflater );
-        dialog.show(fragmentManager,"missiles");
+        dialog.setArguments(pc, this, inflater);
+        dialog.show(fragmentManager, "missiles");
     }
 
     /**
-     * Klicken des Einstellungsbuttons bei den Trocknern
+     * Klicken des Einstellungsbuttons bei den Herden
      *
-     * @param
-     *
+     * @param stove Herd
      */
     private void clickSettingsStove(StoveDataSet stove) {
         int id = stove.getId();
         int temperature = stove.getTemperature();
         int duration = stove.getDuration();
-        StoveSettings editStove = new StoveSettings(context,temperature,duration,id,inflater, this);
+        StoveSettings editStove = new StoveSettings(context, temperature, duration, id, inflater, this);
         createDialog(editStove);
     }
+
     /**
-     * Klicken des Einstellungsbuttons bei den Trocknern
+     * Klicken des Einstellungsbuttons bei den TVs
      *
-     * @param
-     *
+     * @param tv Fernseher
      */
     private void clickSettingsTv(TvDataSet tv) {
-        /*int id = tv.getId();
-        int channel = tv.getChannel();
-        int pictureid = tv.getPictureid();
-        int volume = tv.getVolume();
-        TvSettings editTv = new TvSettings(context,channel,pictureid,volume,id,inflater);
-        createDialog(editTv);*/
-
         DialogActivity dialog = new DialogActivity();
-        dialog.setArguments(tv,this,inflater );
-        dialog.show(fragmentManager,"missiles");
+        dialog.setArguments(tv, this, inflater);
+        dialog.show(fragmentManager, "missiles");
 
     }
 
     /**
-     * Klicken des Einstellungsbuttons bei den Trocknern
+     * Klicken des Einstellungsbuttons bei den Wänden
      *
-     * @param
-     *
+     * @param wall Wand
      */
     private void clickSettingsWall(WallDataSet wall) {
-        /*int id = wall.getId();
-        String color = wall.getColor();
-        int pictureid = wall.getPictureid();
-        WallSettings editWall = new WallSettings(context,Color.parseColor(color),pictureid,id);
-        editWall.setOnDismissListener(this);
-        editWall.show();
-        */
         DialogActivity dialog = new DialogActivity();
-        dialog.setArguments(wall,this,inflater );
-        dialog.show(fragmentManager,"missiles");
+        dialog.setArguments(wall, this, inflater);
+        dialog.show(fragmentManager, "missiles");
 
     }
+
     /**
-     * Klicken des Einstellungsbuttons bei den Trocknern
+     * Klicken des Einstellungsbuttons bei den Waschmaschinen
      *
-     * @param
-     *
+     * @param washer Waschmachine
      */
     private void clickSettingsWasher(WasherDataSet washer) {
         int id = washer.getId();
         int amount = washer.getAmount();
         int clothes = washer.getClothes();
-        WasherSettings editDryer = new WasherSettings(context,amount,clothes,id,inflater, this);
+        WasherSettings editDryer = new WasherSettings(context, amount, clothes, id, inflater, this);
         createDialog(editDryer);
     }
-
 
 
     /**
@@ -528,7 +402,7 @@ public abstract class Inflater {
      * @param settings dialoglistener
      */
     private void createDialog(DialogListener settings) {
-        if(!settings.isError()) {
+        if (!settings.isError()) {
             settings.setOnDismissListener(this);
             settings.show();
         }
@@ -576,7 +450,7 @@ public abstract class Inflater {
                         clickSettingsHeater((HeaterDataSet) dataSet);
                         break;
                     case Config.STRING_TYPE_EN_CAMERA:
-                        clickSettingsCamera((CameraDataSet)dataSet);
+                        clickSettingsCamera((CameraDataSet) dataSet);
                         break;
                     case Config.STRING_TYPE_EN_WATER:
                         clickSettingsWater((WaterDataSet) dataSet);
@@ -612,7 +486,7 @@ public abstract class Inflater {
      *
      * @param oldContext aktueller Kontext
      * @param newClass   Klasse zu der gewechselt werden soll
-     * @return parentActivity
+     * @return parentActivity parent activity intent
      */
     public Intent getParentActivityIntentImpl(Context oldContext, Class newClass) {
         Intent i;
@@ -621,18 +495,23 @@ public abstract class Inflater {
         return i;
     }
 
-    protected ArrayList<View> findViewWithTagRecursively(ViewGroup root){
+    /**
+     * Find view with tag recursively array list.
+     *
+     * @param root the root
+     * @return the array list
+     */
+    protected ArrayList<View> findViewWithTagRecursively(ViewGroup root) {
         ArrayList<View> allViews = new ArrayList<>();
 
         final int childCount = root.getChildCount();
-        for(int i=0; i<childCount; i++){
+        for (int i = 0; i < childCount; i++) {
             final View childView = root.getChildAt(i);
-            if(childView instanceof ViewGroup){
-                allViews.addAll(findViewWithTagRecursively((ViewGroup)childView));
-            }
-            else{
+            if (childView instanceof ViewGroup) {
+                allViews.addAll(findViewWithTagRecursively((ViewGroup) childView));
+            } else {
                 final Object tagView = childView.getTag();
-                if(tagView != null && tagView instanceof Tag) {
+                if (tagView != null && tagView instanceof Tag) {
                     allViews.add(childView);
                 }
             }

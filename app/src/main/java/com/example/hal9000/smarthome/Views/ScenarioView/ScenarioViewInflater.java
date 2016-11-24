@@ -11,7 +11,6 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,6 +27,9 @@ import java.util.ArrayList;
 import static com.example.hal9000.smarthome.Helper.Config.*;
 import static com.example.hal9000.smarthome.Helper.ErrorHandler.catchError;
 
+/**
+ * The type Scenario view inflater.
+ */
 @SuppressWarnings("unchecked")
 public class ScenarioViewInflater extends Inflater {
 
@@ -36,11 +38,13 @@ public class ScenarioViewInflater extends Inflater {
 
     /**
      * Konstruktor
-     * @param inflater   Inflater
-     * @param parentView ParenView
-     * @param context    Kontext
+     *
+     * @param inflater        Inflater
+     * @param parentView      ParenView
+     * @param context         Kontext
+     * @param fragmentManager the fragment manager
      */
-    public ScenarioViewInflater(LayoutInflater inflater, LinearLayout parentView, Context context, android.support.v4.app.FragmentManager fragmentManager) {
+    ScenarioViewInflater(LayoutInflater inflater, LinearLayout parentView, Context context, android.support.v4.app.FragmentManager fragmentManager) {
         super(R.layout.dynamic_scenario_row, parentView, inflater, context, CATEGORY_SCENARIO, fragmentManager);
         rh = new RequestHandler();
         manager = new ScenarioViewDataManager(context);
@@ -49,8 +53,7 @@ public class ScenarioViewInflater extends Inflater {
     /**
      * Alle Szenarien durchlaufen und Inflaten
      */
-    public void createRows() {
-        LinearLayout parentView = getParentView();
+    void createRows() {
         ArrayList<ScenarioDataSet> scenarios = manager.getDataSet();
         for (ScenarioDataSet scenario : scenarios) {
             parentView.addView(inflateScenarioRow(scenario));
@@ -66,7 +69,7 @@ public class ScenarioViewInflater extends Inflater {
     private View inflateScenarioRow(ScenarioDataSet scenario) {
         String name = scenario.getName();
         int state = scenario.getState();
-        View rowView = getInflater().inflate(getRowID(), null);
+        View rowView = inflater.inflate(rowID, null);
 
         TextView txtName = (TextView) rowView.findViewById(R.id.txtRow);
         txtName.setText(name);
@@ -102,14 +105,14 @@ public class ScenarioViewInflater extends Inflater {
         return new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                DialogListener builder = new DialogListener(getContext());
+                DialogListener builder = new DialogListener(context);
                 builder.setMessage(DELETE_SCENARIO);
                 builder.setPositiveButton(BUTTON_YES, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         String msg = rh.deleteScenario(name);
-                        if (!catchError(getContext(), msg)) {
-                            getParentView().removeView((View) v.getParent().getParent());
+                        if (!catchError(context, msg)) {
+                            parentView.removeView((View) v.getParent().getParent());
                         }
                         buttonChanger(INT_UNSET_ID);
                     }
@@ -132,12 +135,12 @@ public class ScenarioViewInflater extends Inflater {
             @Override
             public void onClick(View v) {
                 Intent nextScreen;
-                nextScreen = new Intent(getContext(), DynamicScenarioDeviceView.class);
+                nextScreen = new Intent(context, DynamicScenarioDeviceView.class);
                 Bundle b = new Bundle();
                 b.putString(TAG_NAME, scenarioName);
                 b.putString(STRING_ACTIVITY_TITLE, scenarioName);
                 nextScreen.putExtras(b);
-                getContext().startActivity(nextScreen);
+                context.startActivity(nextScreen);
             }
         };
     }
@@ -153,14 +156,14 @@ public class ScenarioViewInflater extends Inflater {
         return new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent nextScreen = new Intent(getContext(), DynamicTimeView.class);
+                Intent nextScreen = new Intent(context, DynamicTimeView.class);
                 Bundle b = new Bundle();
                 b.putString(TAG_NAME, name);
                 b.putString(STRING_ACTIVITY_TITLE, name);
                 b.putString(STRING_INTENT_TYPE, STRING_EMPTY);
-                b.putString(STRING_INTENT_CATEGORY, getCategory());
+                b.putString(STRING_INTENT_CATEGORY, category);
                 nextScreen.putExtras(b);
-                getContext().startActivity(nextScreen);
+                context.startActivity(nextScreen);
             }
         };
     }
@@ -187,11 +190,11 @@ public class ScenarioViewInflater extends Inflater {
      *
      * @param scenarioName Szenarioname
      */
-    public void showDialog(final String scenarioName) {
-        DialogListener builder = new DialogListener(getContext());
+    void showDialog(final String scenarioName) {
+        DialogListener builder = new DialogListener(context);
 
         // Set up the input
-        @SuppressLint("InflateParams") View layout = getInflater().inflate(R.layout.door_settings, null);
+        @SuppressLint("InflateParams") View layout = inflater.inflate(R.layout.door_settings, null);
         final EditText input = (EditText) layout.findViewById(R.id.editPassword);
         TextView title = (TextView) layout.findViewById(R.id.txtPassword);
         title.setText(R.string.string_Name);
@@ -216,32 +219,29 @@ public class ScenarioViewInflater extends Inflater {
                             break;
                         }
                     }
-                    if (newScenarioName.trim().length() == 0  || containsName) {
+                    if (newScenarioName.trim().length() == 0 || containsName) {
                         Toast toast;
                         if (containsName) {
-                            toast = Toast.makeText(getParentView().getContext(), ERROR_SAME_NAME, Toast.LENGTH_LONG);
-                        }
-                        else {
-                            toast = Toast.makeText(getParentView().getContext(), ERROR_NO_NAME, Toast.LENGTH_LONG);
+                            toast = Toast.makeText(parentView.getContext(), ERROR_SAME_NAME, Toast.LENGTH_LONG);
+                        } else {
+                            toast = Toast.makeText(parentView.getContext(), ERROR_NO_NAME, Toast.LENGTH_LONG);
                         }
                         toast.show();
-                    }
-                    else {
+                    } else {
                         if (scenarioName.equals(STRING_EMPTY)) {
                             String msg = rh.insertScenario(newScenarioName);
-                            error=catchError(getContext(), msg);
+                            error = catchError(context, msg);
                             if (!error) {
                                 manager.manageScenarios();
                                 int id = Integer.parseInt(msg);
-                                getParentView().addView(inflateScenarioRow(manager.updateScenario(id)));
+                                parentView.addView(inflateScenarioRow(manager.updateScenario(id)));
                             }
-                        }
-                        else {
+                        } else {
                             String msg = rh.changeScenarioName(newScenarioName, scenarioName);
-                            error=catchError(getContext(), msg);
+                            error = catchError(context, msg);
 
                         }
-                        if(!error) {
+                        if (!error) {
                             input.setText(newScenarioName);
                         }
                     }
@@ -267,15 +267,15 @@ public class ScenarioViewInflater extends Inflater {
                     ScenarioDataSet scenarioDataSet = (ScenarioDataSet) v.getTag();
                     int state = scenarioDataSet.getState();
                     String scenarioName = scenarioDataSet.getName();
-                    int id=scenarioDataSet.getId();
-
+                    int id = scenarioDataSet.getId();
                     state++;
-                    //scenario off
+
                     if (state > INT_STATUS_EIN) {
                         state = INT_STATUS_AUS;
                     }
+
                     String msg = rh.updateScenarioState(scenarioName, state);
-                    if (!catchError(getContext(), msg)) {
+                    if (!catchError(context, msg)) {
                         scenarioDataSet.setState(state);
                         v.setTag(scenarioDataSet);
                         switchImage(STRING_TAG_SWITCH_IMAGE, state, (ImageView) v);
@@ -296,8 +296,8 @@ public class ScenarioViewInflater extends Inflater {
      */
     public void buttonChanger(int clickedID) {
         manager.manageScenarios();
-        ArrayList<View> buttons = findViewWithTagRecursively(getParentView());
-        for (View button:buttons) {
+        ArrayList<View> buttons = findViewWithTagRecursively(parentView);
+        for (View button : buttons) {
             ScenarioDataSet dataSet = (ScenarioDataSet) button.getTag();
             int id = dataSet.getId();
             ScenarioDataSet newDataSet = manager.updateScenario(id);
@@ -309,38 +309,6 @@ public class ScenarioViewInflater extends Inflater {
                 }
             }
         }
-        /*
-        for (int i = 0; i < getParentView().getChildCount(); i++) {
-            View v = getParentView().getChildAt(i);
-            if (v instanceof RelativeLayout) {
-                RelativeLayout rl = (RelativeLayout) v;
-                for (int k = 0; k < rl.getChildCount(); k++) {
-                    View viewK = rl.getChildAt(k);
-                    if (viewK instanceof RelativeLayout) {
-                        RelativeLayout rl2 = (RelativeLayout) viewK;
-                        for (int j = 0; j < rl2.getChildCount(); j++) {
-                            View view = rl2.getChildAt(j);
-                            if (view instanceof ImageView && view.getTag() != null) {
-                                ImageView powerSwitch = (ImageView) view;
-                                ScenarioDataSet dataSet = (ScenarioDataSet) powerSwitch.getTag();
-                                int id = dataSet.getId();
-
-                                ScenarioDataSet newDataSet = manager.updateScenario(id);
-                                if (newDataSet != null) {
-                                    powerSwitch.setTag(newDataSet);
-
-                                    if (id!=clickedID) {
-                                        int state = newDataSet.getState();
-                                        switchImage(STRING_TAG_SWITCH_IMAGE, state, powerSwitch);
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        */
     }
 
 }

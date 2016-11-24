@@ -7,6 +7,14 @@
         android:icon="@drawable/refresh"
         android:orderInCategory="100"
         android:title="@string/menu_Refresh"
-        myapp:showAsAction="always"
+        myapp:showAsAction="ifRoom"
+        />
+
+    <item
+        android:id="@+id/menuSpeak"
+        android:icon="@drawable/mic"
+        android:orderInCategory="100"
+        android:title="@string/menu_Speech_Recognation"
+        myapp:showAsAction="ifRoom"
         />
 </menu>

@@ -1,23 +1,41 @@
 package com.example.hal9000.smarthome.DataSet;
 
+
 /**
- * Created by Ertan on 14.07.2016.
+ * The type Wall data set.
  */
 public class WallDataSet extends DeviceDataSet {
-    private String color;
-    private int pictureid;
+    private final String color;
+    private final String pictureid;
 
-    public WallDataSet(DeviceDataSet values, String color, int pictureid) {
+    /**
+     * Instantiates a new Wall data set.
+     *
+     * @param values    the values
+     * @param color     the color
+     * @param pictureid the pictureid
+     */
+    WallDataSet(DeviceDataSet values, String color, String pictureid) {
         super(values);
         this.color = color;
         this.pictureid = pictureid;
     }
 
+    /**
+     * Gets color.
+     *
+     * @return the color
+     */
     public String getColor() {
         return color;
     }
 
-    public int getPictureid() {
+    /**
+     * Gets pictureid.
+     *
+     * @return the pictureid
+     */
+    public String getPictureid() {
         return pictureid;
     }
 }

@@ -9,76 +9,82 @@ import android.widget.NumberPicker;
 
 import com.example.hal9000.smarthome.Abstract.Inflater;
 import com.example.hal9000.smarthome.Database.RequestHandler;
+
 import static com.example.hal9000.smarthome.Helper.Config.*;
+
 import com.example.hal9000.smarthome.R;
 
 import static com.example.hal9000.smarthome.Helper.ErrorHandler.catchError;
 
+/**
+ * The type Dryer settings.
+ */
 public class DryerSettings extends DialogListener {
 
     /**
      * Konstruktor
      *
-     * @param context     Kontext
-     * @param temperature Temepratur
-     * @param id          ID
-     * @param layoutInflater    Inflater
+     * @param context        Kontext
+     * @param amount         Menge
+     * @param clothes        Art der Kleidung
+     * @param id             ID
+     * @param layoutInflater Inflater
+     * @param inflater       the inflater
      */
-    public DryerSettings(Context context, int amount,int clothes, int id, LayoutInflater layoutInflater,Inflater inflater) {
-        super(context,inflater);
+    public DryerSettings(Context context, int amount, int clothes, int id, LayoutInflater layoutInflater, Inflater inflater) {
+        super(context, inflater);
         @SuppressLint("InflateParams") View layout = layoutInflater.inflate(R.layout.dryer_settings, null);
         NumberPicker inputAmount = (NumberPicker) layout.findViewById(R.id.np_amount);
         NumberPicker inputClothes = (NumberPicker) layout.findViewById(R.id.np_Clothes);
 
-        inputAmount.setDisplayedValues( new String[] { "Wenig", "Normal", "Viel" } );
+        inputAmount.setDisplayedValues(new String[]{"Wenig", "Normal", "Viel"});
 
         inputAmount.setMinValue(0);
         inputAmount.setMaxValue(2);
         inputAmount.setValue(amount);
         inputAmount.setWrapSelectorWheel(false);
 
-        inputClothes.setDisplayedValues( new String[] { "Kochwäsche", "Buntwäsche", "Pflegeleicht", "Feinwäsche","Baumwolle" } );
+        inputClothes.setDisplayedValues(new String[]{"Kochwäsche", "Buntwäsche", "Pflegeleicht", "Feinwäsche", "Baumwolle"});
         inputClothes.setMinValue(0);
         inputClothes.setMaxValue(4);
         inputClothes.setValue(clothes);
         inputClothes.setWrapSelectorWheel(false);
 
         setView(layout);
-        setPositiveButton(BUTTON_OK, setOkButton(inputAmount,inputClothes, id));
+        setPositiveButton(BUTTON_OK, setOkButton(inputAmount, inputClothes, id));
         setNegativeButton(BUTTON_ABBRUCH, setCancelButton());
     }
 
     /**
      * OnClicklistener hinzufügen
      *
-     * @param amount      Numberpicker aus dem Dialog das die akutelle Temperatur beinhaltet
-     * @param clothes 
-     * @param id         Id
+     * @param amount  Numberpicker aus dem Dialog, Menge der Kleidung
+     * @param clothes Numberpicker aus dem Dialog, Art der Kleidung
+     * @param id      Id
      * @return OnClickListener
      */
-    private DialogInterface.OnClickListener setOkButton(final NumberPicker amount,final NumberPicker clothes, final int id) {
-        //noinspection JavaDoc
+    private DialogInterface.OnClickListener setOkButton(final NumberPicker amount, final NumberPicker clothes, final int id) {
         return new DialogInterface.OnClickListener() {
             /**
              * Aktualisierung der Werte beim Klick des Buttons
              * @param dialog Dialog in dem sich die Elemente befinden
-             * @param which
+             * @param which Which
              */
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                int rpm=-1;
-                int temperature=-1;
-                int duration=-1;
+                int rpm = -1;
+                int temperature = -1;
+                int duration = -1;
                 int currentAmount = amount.getValue();
                 int currentClothes = clothes.getValue();
                 String resultAmount = Integer.toString(currentAmount);
                 String resultClothes = Integer.toString(currentClothes);
-                switch (currentClothes){
+                switch (currentClothes) {
                     case 0:
                     case 1:
-                        rpm=1000;
+                        rpm = 1000;
                         temperature = 100;
-                        switch (currentAmount){
+                        switch (currentAmount) {
                             case 0:
                                 duration = 45;
                                 break;
@@ -93,7 +99,7 @@ public class DryerSettings extends DialogListener {
                     case 2:
                         rpm = 900;
                         temperature = 90;
-                        switch (currentAmount){
+                        switch (currentAmount) {
                             case 0:
                                 duration = 35;
                                 break;
@@ -108,7 +114,7 @@ public class DryerSettings extends DialogListener {
                     case 3:
                         rpm = 800;
                         temperature = 60;
-                        switch (currentAmount){
+                        switch (currentAmount) {
                             case 0:
                                 duration = 30;
                                 break;
@@ -123,7 +129,7 @@ public class DryerSettings extends DialogListener {
                     case 4:
                         rpm = 1000;
                         temperature = 80;
-                        switch (currentAmount){
+                        switch (currentAmount) {
                             case 0:
                                 duration = 35;
                                 break;
@@ -136,9 +142,6 @@ public class DryerSettings extends DialogListener {
                         }
                         break;
                 }
-
-
-
 
                 RequestHandler rh = new RequestHandler();
                 String msgSingleAmount = rh.updateSingleValue(STRING_TYPE_EN_DRYER, TAG_AMOUNT, resultAmount, id);

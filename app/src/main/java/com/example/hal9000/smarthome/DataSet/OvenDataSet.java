@@ -1,22 +1,40 @@
 package com.example.hal9000.smarthome.DataSet;
 
+
 /**
- * Created by Ertan on 14.07.2016.
+ * The type Oven data set.
  */
 public class OvenDataSet extends DeviceDataSet {
-    private int temperature;
-    private int duration;
+    private final int temperature;
+    private final int duration;
 
-    public OvenDataSet(DeviceDataSet values, int temperature, int duration) {
+    /**
+     * Instantiates a new Oven data set.
+     *
+     * @param values      the values
+     * @param temperature the temperature
+     * @param duration    the duration
+     */
+    OvenDataSet(DeviceDataSet values, int temperature, int duration) {
         super(values);
         this.temperature = temperature;
         this.duration = duration;
     }
 
+    /**
+     * Gets temperature.
+     *
+     * @return the temperature
+     */
     public int getTemperature() {
         return temperature;
     }
 
+    /**
+     * Gets duration.
+     *
+     * @return the duration
+     */
     public int getDuration() {
         return duration;
     }

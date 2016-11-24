@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.hal9000.smarthome.DataSet.DeviceDataSet;
@@ -16,13 +15,14 @@ import com.example.hal9000.smarthome.Helper.Tag;
 import com.example.hal9000.smarthome.Abstract.Inflater;
 import com.example.hal9000.smarthome.R;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 
 import static com.example.hal9000.smarthome.Helper.ErrorHandler.catchError;
 
 
+/**
+ * The type Scenario device row inflater.
+ */
 @SuppressWarnings("unchecked")
 public class ScenarioDeviceRowInflater extends Inflater {
 
@@ -31,13 +31,15 @@ public class ScenarioDeviceRowInflater extends Inflater {
 
     /**
      * Konstruktor
-     * @param inflater         Inflater
-     * @param parentView       Parentview
-     * @param context          Kontext
-     * @param scenarioName     Szenarioname
+     *
+     * @param inflater        Inflater
+     * @param parentView      Parentview
+     * @param context         Kontext
+     * @param scenarioName    Szenarioname
+     * @param fragmentManager the fragment manager
      */
-    public ScenarioDeviceRowInflater(LayoutInflater inflater, LinearLayout parentView, Context context, String scenarioName, android.support.v4.app.FragmentManager fragmentManager) {
-        super(R.layout.dynamic_device_scenario_row, parentView, inflater, scenarioName,context, fragmentManager);
+    ScenarioDeviceRowInflater(LayoutInflater inflater, LinearLayout parentView, Context context, String scenarioName, android.support.v4.app.FragmentManager fragmentManager) {
+        super(R.layout.dynamic_device_scenario_row, parentView, inflater, scenarioName, context, fragmentManager);
         manager = new ScenarioDeviceManager(scenarioName, context);
         rh = new RequestHandler();
     }
@@ -46,18 +48,18 @@ public class ScenarioDeviceRowInflater extends Inflater {
      * Durchlaufen aller Geräte
      * Geräte zu der View hinzufügen
      */
-    public void createRows() {
+    void createRows() {
         ArrayList<String> rooms = manager.getRooms();
 
-        for (String room: rooms) {
-            getParentView().addView(inflateRoomRow(room,R.layout.dynamic_scenario_list_row ));
+        for (String room : rooms) {
+            parentView.addView(inflateRoomRow(room));
         }
     }
 
-    private View inflateRoomRow(String room, int rowId) {
+    private View inflateRoomRow(String room) {
 
 
-        View rowView = getInflater().inflate(rowId, null);
+        View rowView = inflater.inflate(R.layout.dynamic_scenario_list_row, null);
 
         LinearLayout parentView = (LinearLayout) rowView.findViewById((R.id.parentRoom));
         TextView roomName = (TextView) rowView.findViewById(R.id.roomName);
@@ -68,7 +70,7 @@ public class ScenarioDeviceRowInflater extends Inflater {
         ArrayList<DeviceDataSet> devices = manager.getDeviceList(room);
 
         for (DeviceDataSet device : devices) {
-            if(device.getScenarioRoom().equals(room)) {
+            if (device.getScenarioRoom().equals(room)) {
                 parentView.addView(inflateDeviceScenarioRow(device));
             }
         }
@@ -91,7 +93,7 @@ public class ScenarioDeviceRowInflater extends Inflater {
         String type = device.getType();
 
         String label = StringHelper.stringCutter(name, -1);
-        View rowView = getInflater().inflate(getRowID(), null);
+        View rowView = inflater.inflate(rowID, null);
 
         DeviceDataSet scenarioDevice = manager.getScenarioDevice(name);
         int selectState;
@@ -147,7 +149,7 @@ public class ScenarioDeviceRowInflater extends Inflater {
                     String msgSingle = rh.updateSingleValue(type, Config.TAG_STATE, Integer.toString(state), id);
                     //String msgTimestamp = rh.updateTimestampOfScenario(type, Config.TAG_STATE, Integer.toString(state), id);
                     //String msgDevice = rh.updateDeviceOfScenario(type, Config.TAG_STATE, Integer.toString(state), id);
-                    if (!catchError(getContext(), msgSingle)){ // && !catchError(getContext(), msgTimestamp) && !catchError(getContext(), msgDevice)) {
+                    if (!catchError(context, msgSingle)) { // && !catchError(getContext(), msgTimestamp) && !catchError(getContext(), msgDevice)) {
                         switchImage(type, state, (ImageView) v);
                         dataSet.setState(state);
                         buttonTag.setDataSet(dataSet);
@@ -164,10 +166,9 @@ public class ScenarioDeviceRowInflater extends Inflater {
         return new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(layout.getVisibility() == LinearLayout.GONE){
+                if (layout.getVisibility() == LinearLayout.GONE) {
                     layout.setVisibility(LinearLayout.VISIBLE);
-                }
-                else{
+                } else {
                     layout.setVisibility(LinearLayout.GONE);
                 }
             }
@@ -180,7 +181,7 @@ public class ScenarioDeviceRowInflater extends Inflater {
      * Gerät in der Datenbank zu dem Szenario hinzufügen
      *
      * @param imSettings Settings-Button
-     * @param imPower Power-Button
+     * @param imPower    Power-Button
      * @return OnClickListener
      */
     private View.OnClickListener clickSelect(final ImageView imSettings, final ImageView imPower) {
@@ -194,22 +195,21 @@ public class ScenarioDeviceRowInflater extends Inflater {
                     String name = dataSet.getName();
                     int state = buttonTag.getState();
                     String type = dataSet.getType();
-                    String scenario = getScenarioName();
+                    String scenario = scenarioName;
                     state++;
                     if (state > Config.INT_STATUS_EIN) {
                         state = Config.INT_STATUS_AUS;
                     }
                     if (state == Config.INT_STATUS_AUS) {
                         String msg = rh.deleteDeviceFromScenario(name, scenario, type);
-                        error = catchError(getContext(), msg);
+                        error = catchError(context, msg);
                         if (!error) {
                             manager.manageScenariosWithName(scenario);
                             deleteButtons(imSettings, imPower, true, Config.INT_UNSET_ID, Config.STRING_EMPTY);
                         }
-                    }
-                    else {
+                    } else {
                         String msg = rh.insertDeviceInScenario(name, scenario, type);
-                        error = catchError(getContext(), msg);
+                        error = catchError(context, msg);
                         if (!error) {
                             int id = Integer.parseInt(msg);
                             manager.manageScenariosWithName(scenario);
@@ -230,11 +230,11 @@ public class ScenarioDeviceRowInflater extends Inflater {
     /**
      * Löschen/Ausblenden der Buttons aus der momentanen View
      *
-     * @param imSettings Settings-Button
-     * @param imPower Power-Button
+     * @param imSettings  Settings-Button
+     * @param imPower     Power-Button
      * @param deleteImage ob Buttons entfenrt werden sollen
-     * @param id id des Gerätes
-     * @param type Typ des Gerätes
+     * @param id          id des Gerätes
+     * @param type        Typ des Gerätes
      */
     private void deleteButtons(ImageView imSettings, ImageView imPower, boolean deleteImage, int id, String type) {
         if (deleteImage) {
@@ -243,10 +243,9 @@ public class ScenarioDeviceRowInflater extends Inflater {
             imPower.setTag(null);
             imSettings.setTag(null);
 
-        }
-        else {
+        } else {
             DeviceDataSet newDataSet = manager.updateDevice(id, type);
-            if(newDataSet!=null) {
+            if (newDataSet != null) {
                 if (!type.equals(Config.STRING_TYPE_EN_WINDOW) && !type.equals(Config.STRING_TYPE_EN_SHUTTERS)) {
                     imSettings.setTag(new Tag(Config.STRING_TAG_SETTINGS, newDataSet));
                     imSettings.setVisibility(View.VISIBLE);
@@ -269,11 +268,10 @@ public class ScenarioDeviceRowInflater extends Inflater {
      * @param clickedId   Geklickte Id die nicht verändert werden soll
      * @param clickedType Gerätetyp des Geräts das zur Id gehört
      */
-
     public void buttonChanger(int clickedId, String clickedType) {
-        manager.manageScenariosWithName(getScenarioName());
-        ArrayList<View> buttons = findViewWithTagRecursively(getParentView());
-        for (View button:buttons) {
+        manager.manageScenariosWithName(scenarioName);
+        ArrayList<View> buttons = findViewWithTagRecursively(parentView);
+        for (View button : buttons) {
             Tag buttonTag = (Tag) button.getTag();
             DeviceDataSet dataSet = buttonTag.getDataSet();
             int id = dataSet.getId();
@@ -288,40 +286,6 @@ public class ScenarioDeviceRowInflater extends Inflater {
                 }
             }
         }
-
-        /*for (int i = 0; i < getParentView().getChildCount(); i++) {
-            View v = getParentView().getChildAt(i);
-            if (v instanceof RelativeLayout) {
-                RelativeLayout rl = (RelativeLayout) v;
-                for (int k = 0; k < rl.getChildCount(); k++) {
-                    View viewK = rl.getChildAt(k);
-                    if (viewK instanceof RelativeLayout) {
-                        RelativeLayout rl2 = (RelativeLayout) viewK;
-                        for (int j = 0; j < rl2.getChildCount(); j++) {
-                            View view = rl2.getChildAt(j);
-                            if (view instanceof ImageView && view.getTag() != null && !((Tag) view.getTag()).getType().equals(Config.STRING_TAG_SELECT)) {
-                                ImageView powerSwitch = (ImageView) view;
-                                Tag buttonTag = (Tag) powerSwitch.getTag();
-                                DeviceDataSet dataSet = buttonTag.getDataSet();
-                                int id = dataSet.getId();
-                                String type = dataSet.getType();
-                                DeviceDataSet newDataSet = manager.updateDevice(id, type);
-
-                                if (newDataSet != null) {
-                                    buttonTag.setDataSet(newDataSet);
-                                    powerSwitch.setTag(buttonTag);
-
-                                    if ((id != clickedId || !type.equals(clickedType)) && buttonTag.getType().equals(Config.STRING_TAG_POWER)) {
-                                        int state = newDataSet.getState();
-                                        switchImage(type, state, powerSwitch);
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }*/
     }
 
 

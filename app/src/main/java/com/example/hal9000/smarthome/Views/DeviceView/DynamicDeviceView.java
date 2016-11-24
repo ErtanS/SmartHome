@@ -12,13 +12,17 @@ import android.view.MenuItem;
 
 import android.widget.LinearLayout;
 
+import com.example.hal9000.smarthome.Abstract.ViewActivity;
 import com.example.hal9000.smarthome.Views.OverView.DynamicOverView;
 import com.example.hal9000.smarthome.Helper.Config;
 import com.example.hal9000.smarthome.R;
 
 
+/**
+ * The type Dynamic device view.
+ */
 @SuppressWarnings("ConstantConditions")
-public class DynamicDeviceView extends AppCompatActivity {
+public class DynamicDeviceView extends ViewActivity {
 
     private DeviceViewInflater rowInflater;
     private boolean firstCreate = true;
@@ -39,11 +43,7 @@ public class DynamicDeviceView extends AppCompatActivity {
         String type = b.getString(Config.STRING_INTENT_TYPE);
         setTitle(b.getString(Config.STRING_ACTIVITY_TITLE));
         LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        int positionToDelete=1;
-        if (room!=null){
-            positionToDelete=0;
-        }
-        rowInflater = new DeviceViewInflater(parentView,inflater,this,type,room,positionToDelete,getSupportFragmentManager());
+        rowInflater = new DeviceViewInflater(parentView, inflater, this, type, room, getSupportFragmentManager());
     }
 
     /**
@@ -53,12 +53,18 @@ public class DynamicDeviceView extends AppCompatActivity {
     @Override
     public void onResume() {
         super.onResume();
-        if(!firstCreate) {
+        if (!firstCreate) {
             rowInflater.buttonChanger(Config.INT_UNSET_ID, Config.STRING_EMPTY);
         }
         firstCreate = false;
     }
 
+    /**
+     * Hinzufügen der Elemente die in der ActionBar sind
+     *
+     * @param menu Menü
+     * @return Menüauswahl
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -66,9 +72,11 @@ public class DynamicDeviceView extends AppCompatActivity {
         return true;
     }
 
+
     /**
      * Ausführung  beim klick der Elemente in der Actionbar
      * Wechel der View einleiten oder Aktualisierung der zurzeit angezeigten Werte
+     *
      * @param item Auswahl im Menü
      * @return gewählte Menü
      */
@@ -76,10 +84,13 @@ public class DynamicDeviceView extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menuRefresh:
-                rowInflater.buttonChanger(Config.INT_UNSET_ID,Config.STRING_EMPTY);
+                rowInflater.buttonChanger(Config.INT_UNSET_ID, Config.STRING_EMPTY);
                 return true;
             case android.R.id.home:
                 NavUtils.navigateUpFromSameTask(this);
+                return true;
+            case R.id.menuSpeak:
+                startSpeechRecognition();
                 return true;
         }
         return super.onOptionsItemSelected(item);

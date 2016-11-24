@@ -5,23 +5,23 @@ import android.content.Context;
 import android.support.annotation.Nullable;
 
 import com.example.hal9000.smarthome.Abstract.DataManager;
-import com.example.hal9000.smarthome.Database.RequestHandler;
 import com.example.hal9000.smarthome.Helper.Config;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-import static com.example.hal9000.smarthome.Helper.ErrorHandler.fatalError;
+
+/**
+ * The type Over view data manager.
+ */
+public class OverViewDataManager extends DataManager {
 
 
-class OverViewDataManager extends DataManager{
-
-
-
-    public OverViewDataManager(Context context) {
+    /**
+     * Instantiates a new Over view data manager.
+     *
+     * @param context the context
+     */
+    OverViewDataManager(Context context) {
         fillRoomList(context);
         fillDeviceList(context);
     }
@@ -30,10 +30,10 @@ class OverViewDataManager extends DataManager{
      * Liste aller Räume oder Gerätetypen
      *
      * @param category Raum oder Typ-Liste
-     * @return Liste
+     * @return Liste list
      */
     @Nullable
-    public ArrayList<String> getList(String category) {
+    ArrayList<String> getList(String category) {
         switch (category) {
             case Config.STRING_INTENT_TYPE:
                 return devices;
@@ -44,21 +44,14 @@ class OverViewDataManager extends DataManager{
         }
     }
 
-
-
-
-
-
-
     /**
      * Übersetzt Wörter von Deutsch nach Englisch und umgekehrt
      *
      * @param text Zu übersetzendes Wort
      * @return übersetzter Text
      */
-
-    public String uebersetzer(String text) {
-        switch(text){
+    public static String uebersetzer(String text) {
+        switch (text) {
             case Config.STRING_TYPE_EN_HEATER:
                 return Config.STRING_TYPE_GER_HEATER;
             case Config.STRING_TYPE_EN_CAMERA:

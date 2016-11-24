@@ -27,31 +27,37 @@
         <activity
             android:name=".Views.DeviceView.DynamicDeviceView"
             android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"
             tools:ignore="InnerclassSeparator" />
         <activity
             android:name=".Views.OverView.DynamicOverView"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:parentActivityName=".Views.HomeScreen.HomeScreen"
+            android:screenOrientation="portrait"
             tools:ignore="InnerclassSeparator" />
         <activity
             android:name=".Views.TimestampView.DynamicTimeView"
             android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"
             tools:ignore="InnerclassSeparator" />
         <activity
             android:name=".Views.ScenarioView.ScenarioView"
             android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"
             tools:ignore="InnerclassSeparator" />
         <activity
             android:name=".Views.ScenarioDeviceView.DynamicScenarioDeviceView"
             android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"
             tools:ignore="InnerclassSeparator" />
 
-        <service android:name=".MyFirebaseMessagingService">
+        <service android:name=".Firebase.MyFirebaseMessagingService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
-        <service android:name=".MyFirebaseInstanceIDService">
+
+        <service android:name=".Firebase.MyFirebaseInstanceIDService">
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>

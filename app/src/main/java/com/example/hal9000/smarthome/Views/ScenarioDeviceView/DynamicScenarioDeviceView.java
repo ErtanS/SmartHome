@@ -14,6 +14,9 @@ import com.example.hal9000.smarthome.Helper.Config;
 import com.example.hal9000.smarthome.R;
 import com.example.hal9000.smarthome.Views.ScenarioView.ScenarioView;
 
+/**
+ * The type Dynamic scenario device view.
+ */
 @SuppressWarnings("ConstantConditions")
 public class DynamicScenarioDeviceView extends AppCompatActivity {
 
@@ -42,6 +45,7 @@ public class DynamicScenarioDeviceView extends AppCompatActivity {
 
     /**
      * Hinzufügen der Elemente die in der ActionBar sind
+     *
      * @param menu Menü
      * @return Menüauswahl
      */
@@ -52,6 +56,7 @@ public class DynamicScenarioDeviceView extends AppCompatActivity {
 
     /**
      * Auswahlt eines Elements aus der ActionBar
+     *
      * @param item Auswahl des Menüs
      * @return Menüauswahl
      */
@@ -71,7 +76,7 @@ public class DynamicScenarioDeviceView extends AppCompatActivity {
     @Override
     public void onResume() {
         super.onResume();
-        if(!firstCreate) {
+        if (!firstCreate) {
             rowInflater.buttonChanger(Config.INT_UNSET_ID, Config.STRING_EMPTY);
         }
         firstCreate = false;

@@ -11,20 +11,23 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.LinearLayout;
 
+import com.example.hal9000.smarthome.Abstract.ViewActivity;
 import com.example.hal9000.smarthome.Views.HomeScreen.HomeScreen;
 import com.example.hal9000.smarthome.Helper.Config;
 import com.example.hal9000.smarthome.R;
 
 
+/**
+ * The type Scenario view.
+ */
 @SuppressWarnings("ConstantConditions")
-public class ScenarioView extends AppCompatActivity {
+public class ScenarioView extends ViewActivity {
 
     private ScenarioViewInflater rowInflater;
     private boolean firstCreate = true;
 
     /**
      * Activity Start
-     *
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,6 +73,9 @@ public class ScenarioView extends AppCompatActivity {
                 return true;
             case android.R.id.home:
                 NavUtils.navigateUpFromSameTask(this);
+                return true;
+            case R.id.menuSpeak:
+                startSpeechRecognition();
                 return true;
         }
         return super.onOptionsItemSelected(item);

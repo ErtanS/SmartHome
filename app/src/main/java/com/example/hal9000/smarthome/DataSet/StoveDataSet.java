@@ -1,23 +1,40 @@
 package com.example.hal9000.smarthome.DataSet;
 
+
 /**
- * Created by Ertan on 14.07.2016.
+ * The type Stove data set.
  */
 public class StoveDataSet extends DeviceDataSet {
-    private int duration;
-    // TODO: 19.07.2016 überall ändern!!!!!!!!!!!!!!!!!!!!!!!
-    private int temperature;
+    private final int duration;
+    private final int temperature;
 
-    public StoveDataSet(DeviceDataSet values,int temperature, int duration) {
+    /**
+     * Instantiates a new Stove data set.
+     *
+     * @param values      the values
+     * @param temperature the temperature
+     * @param duration    the duration
+     */
+    StoveDataSet(DeviceDataSet values, int temperature, int duration) {
         super(values);
         this.duration = duration;
         this.temperature = temperature;
     }
 
+    /**
+     * Gets duration.
+     *
+     * @return the duration
+     */
     public int getDuration() {
         return duration;
     }
 
+    /**
+     * Gets temperature.
+     *
+     * @return the temperature
+     */
     public int getTemperature() {
         return temperature;
     }

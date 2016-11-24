@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.hal9000.smarthome.DataSet.ScenarioDataSet;
@@ -23,30 +22,36 @@ import static com.example.hal9000.smarthome.Dialogs.TimeSettings.formatTimeStrin
 import static com.example.hal9000.smarthome.Helper.Config.*;
 import static com.example.hal9000.smarthome.Helper.ErrorHandler.catchError;
 
+/**
+ * The type Scenario timestamp row inflater.
+ */
 @SuppressWarnings({"unchecked", "JavaDoc"})
 public class ScenarioTimestampRowInflater extends Inflater {
     private final ScenarioTimestampManager manager;
     private final RequestHandler rh;
 
     /**
-     * @param inflater
-     * @param parentView
-     * @param context
-     * @param scenarioName
+     * Instantiates a new Scenario timestamp row inflater.
+     *
+     * @param inflater        the inflater
+     * @param parentView      the parent view
+     * @param context         the context
+     * @param scenarioName    the scenario name
+     * @param fragmentManager the fragment manager
      */
-    public ScenarioTimestampRowInflater(LayoutInflater inflater, LinearLayout parentView, Context context, String scenarioName,android.support.v4.app.FragmentManager fragmentManager) {
-        super(R.layout.dynamic_time_row, parentView, inflater, scenarioName,context,fragmentManager);
-        manager = new ScenarioTimestampManager(scenarioName, getContext());
+    ScenarioTimestampRowInflater(LayoutInflater inflater, LinearLayout parentView, Context context, String scenarioName, android.support.v4.app.FragmentManager fragmentManager) {
+        super(R.layout.dynamic_time_row, parentView, inflater, scenarioName, context, fragmentManager);
+        manager = new ScenarioTimestampManager(scenarioName, context);
         rh = new RequestHandler();
     }
 
     /**
      * Alle Timestamps eines Szenarios durchlaufen und Inflaten
      */
-    public void createRows() {
+    void createRows() {
         ArrayList<ScenarioDataSet> times = manager.getDataSet();
         for (ScenarioDataSet item : times) {
-            getParentView().addView(inflateScenarioTimestampRow(item));
+            parentView.addView(inflateScenarioTimestampRow(item));
         }
     }
 
@@ -57,7 +62,7 @@ public class ScenarioTimestampRowInflater extends Inflater {
      * @return Zeile die Inflatet werden soll
      */
     private View inflateScenarioTimestampRow(ScenarioDataSet scenario) {
-        View rowView = getInflater().inflate(getRowID(), null);
+        View rowView = inflater.inflate(rowID, null);
 
         int hour = scenario.getHour();
         int minute = scenario.getMinute();
@@ -108,7 +113,7 @@ public class ScenarioTimestampRowInflater extends Inflater {
                     }
 
                     String msgState = rh.updateSingleValue(TAG_SCENARIO, TAG_STATE, Integer.toString(state), id);
-                    if (!catchError(getContext(), msgState)) {
+                    if (!catchError(context, msgState)) {
                         switchImage(STRING_TAG_SWITCH_IMAGE, state, (ImageView) v);
                         dataSet.setState(state);
                         buttonTag.setScenarioDataSet(dataSet);
@@ -131,14 +136,14 @@ public class ScenarioTimestampRowInflater extends Inflater {
         return new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                DialogListener builder = new DialogListener(getContext());
+                DialogListener builder = new DialogListener(context);
                 builder.setMessage(DELETE_TIMESTAMP);
                 builder.setPositiveButton(BUTTON_YES, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         String msg = rh.deleteTimestamp(id, TAG_SCENARIO);
-                        if (!catchError(getContext(), msg)) {
-                            getParentView().removeView((View) v.getParent());
+                        if (!catchError(context, msg)) {
+                            parentView.removeView((View) v.getParent());
                         }
                         buttonChanger(INT_UNSET_ID);
                     }
@@ -172,7 +177,7 @@ public class ScenarioTimestampRowInflater extends Inflater {
     private void onClickListener(View v) {
         Tag tag = (Tag) v.getTag();
         ScenarioDataSet dataSet = tag.getScenarioDataSet();
-        TimeSettings editTime = new TimeSettings(getContext(), dataSet, getInflater(), (TextView) v, manager, this);
+        TimeSettings editTime = new TimeSettings(context, dataSet, inflater, (TextView) v, manager, this);
         editTime.setOnDismissListener(this);
         editTime.show();
     }
@@ -180,17 +185,16 @@ public class ScenarioTimestampRowInflater extends Inflater {
     /**
      * Hinzufügen eines neuen Timestamps zum Szenario
      */
-    public void addTimestamp() {
-        String insertReply = rh.insertTimestamp(getScenarioName(), TAG_SCENARIO);
-        if (!catchError(getContext(), insertReply)) {
+    void addTimestamp() {
+        String insertReply = rh.insertTimestamp(scenarioName, TAG_SCENARIO);
+        if (!catchError(context, insertReply)) {
             int nextId = Integer.parseInt(insertReply);
-            manager.manageTimestampsOfScenario(getScenarioName());
+            manager.manageTimestampsOfScenario(scenarioName);
             ScenarioDataSet newRow = manager.updateScenario(nextId);
-            if(newRow!=null) {
-                getParentView().addView(inflateScenarioTimestampRow(newRow));
+            if (newRow != null) {
+                parentView.addView(inflateScenarioTimestampRow(newRow));
             }
         }
-        //buttonChanger(Config.INT_UNSET_ID);
     }
 
     /**
@@ -201,9 +205,9 @@ public class ScenarioTimestampRowInflater extends Inflater {
      * @param clickedId Geklickte id die nicht verändert werden soll
      */
     public void buttonChanger(int clickedId) {
-        manager.manageTimestampsOfScenario(getScenarioName());
-        ArrayList<View> buttons = findViewWithTagRecursively(getParentView());
-        for (View button:buttons) {
+        manager.manageTimestampsOfScenario(scenarioName);
+        ArrayList<View> buttons = findViewWithTagRecursively(parentView);
+        for (View button : buttons) {
             Tag buttonTag = (Tag) button.getTag();
             ScenarioDataSet dataSet = buttonTag.getScenarioDataSet();
             int id = dataSet.getId();
@@ -217,31 +221,5 @@ public class ScenarioTimestampRowInflater extends Inflater {
                 }
             }
         }
-        /*for (int i = 0; i < getParentView().getChildCount(); i++) {
-            View v = getParentView().getChildAt(i);
-            if (v instanceof RelativeLayout) {
-                RelativeLayout rl = (RelativeLayout) v;
-                for (int j = 0; j < rl.getChildCount(); j++) {
-                    View view = rl.getChildAt(j);
-                    if (view.getTag() != null) {
-
-                        Tag buttonTag = (Tag) view.getTag();
-                        ScenarioDataSet dataSet = buttonTag.getScenarioDataSet();
-                        int id = dataSet.getId();
-
-                        ScenarioDataSet newDataSet = manager.updateScenario(id);
-                        if (newDataSet != null) {
-                            buttonTag.setScenarioDataSet(newDataSet);
-                            view.setTag(buttonTag);
-
-                            if ((id != clickedId) && buttonTag.getType().equals(STRING_TAG_POWER)) {
-                                int state = newDataSet.getState();
-                                switchImage(STRING_TAG_SWITCH_IMAGE, state, (ImageView) view);
-                            }
-                        }
-                    }
-                }
-            }
-        }*/
     }
 }

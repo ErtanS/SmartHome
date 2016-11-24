@@ -6,62 +6,55 @@ import android.content.DialogInterface;
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.NumberPicker;
 import android.widget.SeekBar;
 
 import com.example.hal9000.smarthome.Abstract.Inflater;
 import com.example.hal9000.smarthome.ColorPicker.ColorPickerDialog;
 import com.example.hal9000.smarthome.DataSet.LightDataSet;
-import com.example.hal9000.smarthome.DataSet.TvDataSet;
 import com.example.hal9000.smarthome.Database.RequestHandler;
 import com.example.hal9000.smarthome.Helper.Config;
 import com.example.hal9000.smarthome.R;
-import com.squareup.picasso.Picasso;
 
 import static com.example.hal9000.smarthome.Helper.Config.BUTTON_ABBRUCH;
 import static com.example.hal9000.smarthome.Helper.Config.BUTTON_OK;
 import static com.example.hal9000.smarthome.Helper.Config.STRING_TYPE_EN_LIGHT;
-import static com.example.hal9000.smarthome.Helper.Config.STRING_TYPE_EN_TV;
-import static com.example.hal9000.smarthome.Helper.Config.STRING_TYPE_EN_WALL;
-import static com.example.hal9000.smarthome.Helper.Config.TAG_CHANNEL;
 import static com.example.hal9000.smarthome.Helper.Config.TAG_COLOR;
 import static com.example.hal9000.smarthome.Helper.ErrorHandler.catchError;
 
 
-public class LightSettings extends DialogListener {
+/**
+ * The type Light settings.
+ */
+class LightSettings extends DialogListener {
 
     private SeekBar skIntensity;
-    private ColorPickerDialog dialog;
-
-
     private final RequestHandler rh;
+
     /**
      * Konstruktor
      *
-     * @param context     Kontext
-     * @param layoutInflater    Inflater
+     * @param context        Kontext
+     * @param dataSet        the data set
+     * @param layoutInflater Inflater
+     * @param inflater       the inflater
      */
-    public LightSettings(Context context, LightDataSet dataSet, LayoutInflater layoutInflater, Inflater inflater ) {
-        super(context,inflater);
+    LightSettings(Context context, LightDataSet dataSet, LayoutInflater layoutInflater, Inflater inflater) {
+        super(context, inflater);
         rh = new RequestHandler();
-        @SuppressLint("InflateParams") View layout = layoutInflater.inflate(R.layout.dialog_color_picker, null,false);
-        dialog = new ColorPickerDialog(Color.parseColor(dataSet.getColor()),layout);
+        @SuppressLint("InflateParams") View layout = layoutInflater.inflate(R.layout.light_settings, null, false);
+        ColorPickerDialog dialog = new ColorPickerDialog(Color.parseColor(dataSet.getColor()), layout);
 
-        createIntensityBar(layout,dataSet.getId(),dataSet.getIntensity());
+        createIntensityBar(layout, dataSet.getId(), dataSet.getIntensity());
         setView(layout);
         setPositiveButton(BUTTON_OK, setOkButton(dialog, dataSet.getId()));
         setNegativeButton(BUTTON_ABBRUCH, setCancelButton());
-        //createButton(layout,dataSet.getPictureid(),dataSet.getId());
-
     }
-
 
     /**
      * OnClicklistener hinzufügen
      *
-     * @param input      Numberpicker aus dem Dialog das die akutelle Temperatur beinhaltet
-     * @param id         Id
+     * @param input ColorPicker aus dem Dialog das die akutelle Farbe beinhaltet
+     * @param id    Id
      * @return OnClickListener
      */
     private DialogInterface.OnClickListener setOkButton(final ColorPickerDialog input, final int id) {

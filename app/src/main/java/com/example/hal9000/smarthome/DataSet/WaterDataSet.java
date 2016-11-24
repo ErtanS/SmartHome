@@ -1,22 +1,40 @@
 package com.example.hal9000.smarthome.DataSet;
 
+
 /**
- * Created by Ertan on 14.07.2016.
+ * The type Water data set.
  */
 public class WaterDataSet extends DeviceDataSet {
-    private int intensity;
-    private int temperature;
+    private final int intensity;
+    private final int temperature;
 
-    public WaterDataSet(DeviceDataSet values, int intensity, int temperature) {
+    /**
+     * Instantiates a new Water data set.
+     *
+     * @param values      the values
+     * @param intensity   the intensity
+     * @param temperature the temperature
+     */
+    WaterDataSet(DeviceDataSet values, int intensity, int temperature) {
         super(values);
         this.intensity = intensity;
         this.temperature = temperature;
     }
 
+    /**
+     * Gets intensity.
+     *
+     * @return the intensity
+     */
     public int getIntensity() {
         return intensity;
     }
 
+    /**
+     * Gets temperature.
+     *
+     * @return the temperature
+     */
     public int getTemperature() {
         return temperature;
     }

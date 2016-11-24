@@ -8,16 +8,20 @@ import com.example.hal9000.smarthome.Helper.Config;
 
 import java.util.ArrayList;
 
+/**
+ * The type Scenario timestamp manager.
+ */
 @SuppressWarnings("unchecked")
 public class ScenarioTimestampManager extends DataManager {
     private final Context context;
+
     /**
      * Konstruktor
      *
-     * @param name Name des Szenarios
+     * @param name    Name des Szenarios
      * @param context aktueller Context
      */
-    public ScenarioTimestampManager(String name, Context context) {
+    ScenarioTimestampManager(String name, Context context) {
         this.context = context;
         manageTimestampsOfScenario(name);
     }
@@ -27,17 +31,16 @@ public class ScenarioTimestampManager extends DataManager {
      *
      * @param name Name des Szenarios
      */
-    public void manageTimestampsOfScenario(String name) {
+    void manageTimestampsOfScenario(String name) {
         fillDataSet(Config.TAG_SCENARIO, name, Config.STRING_EMPTY, Config.CATEGORY_TIMESTAMP, context);
     }
 
     /**
      * Überprüft ob die angegebene Zeit für dieses Szenario schon verwendet wird
      *
-     * @param hour Stunde
+     * @param hour   Stunde
      * @param minute Minute
-     * @return true wenn Zeit noch nicht belegt
-     * false wenn Zeit schon belegt
+     * @return true wenn Zeit noch nicht belegt false wenn Zeit schon belegt
      */
     public boolean compareTime(int hour, int minute) {
         ArrayList<ScenarioDataSet> timeList = getDataSet();

@@ -14,13 +14,18 @@ import com.example.hal9000.smarthome.DataSet.DeviceDataSet;
 import com.example.hal9000.smarthome.DataSet.ScenarioDataSet;
 import com.example.hal9000.smarthome.Database.RequestHandler;
 import com.example.hal9000.smarthome.Helper.ErrorHandler;
+
 import static com.example.hal9000.smarthome.Helper.Config.*;
+
 import com.example.hal9000.smarthome.R;
 import com.example.hal9000.smarthome.Views.TimestampView.DeviceTimestampManager;
 import com.example.hal9000.smarthome.Views.TimestampView.ScenarioTimestampManager;
 
 import static com.example.hal9000.smarthome.Helper.ErrorHandler.catchError;
 
+/**
+ * The type Time settings.
+ */
 @SuppressWarnings("deprecation")
 public class TimeSettings extends DialogListener {
 
@@ -34,14 +39,15 @@ public class TimeSettings extends DialogListener {
     /**
      * Konstruktor für den ScenarioTimestampManager
      *
-     * @param context  Kontext
-     * @param scenario Szenariodatensatz
+     * @param context        Kontext
+     * @param scenario       Szenariodatensatz
      * @param layoutInflater infalter
-     * @param time     Textview
-     * @param manager  ScenarioTimestampManager
+     * @param time           Textview
+     * @param manager        ScenarioTimestampManager
+     * @param inflater       the inflater
      */
-    public TimeSettings(Context context, ScenarioDataSet scenario, LayoutInflater layoutInflater, TextView time, ScenarioTimestampManager manager, Inflater inflater){
-        super(context,inflater);
+    public TimeSettings(Context context, ScenarioDataSet scenario, LayoutInflater layoutInflater, TextView time, ScenarioTimestampManager manager, Inflater inflater) {
+        super(context, inflater);
         oldHour = scenario.getHour();
         oldMinute = scenario.getMinute();
         fillVars(context, layoutInflater, time);
@@ -51,14 +57,15 @@ public class TimeSettings extends DialogListener {
     /**
      * Konstruktor für den DeviceTimestampManager
      *
-     * @param context  Kontext
-     * @param device   Gerätedatensatz
+     * @param context        Kontext
+     * @param device         Gerätedatensatz
      * @param layoutInflater infalter
-     * @param time     Textview
-     * @param manager  DeviceTimestampManager
+     * @param time           Textview
+     * @param manager        DeviceTimestampManager
+     * @param inflater       the inflater
      */
     public TimeSettings(Context context, DeviceDataSet device, LayoutInflater layoutInflater, TextView time, DeviceTimestampManager manager, Inflater inflater) {
-        super(context,inflater);
+        super(context, inflater);
         oldHour = device.getHour();
         oldMinute = device.getMinute();
         fillVars(context, layoutInflater, time);
@@ -102,8 +109,7 @@ public class TimeSettings extends DialogListener {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             tp.setHour(oldHour);
             tp.setMinute(oldMinute);
-        }
-        else {
+        } else {
             tp.setCurrentHour(oldHour);
             tp.setCurrentMinute(oldMinute);
         }
@@ -114,7 +120,7 @@ public class TimeSettings extends DialogListener {
     /**
      * Erzeugt OnlickListener
      *
-     * @param id    Id
+     * @param id      Id
      * @param manager Manager
      * @return OnClickManager
      */
@@ -132,8 +138,7 @@ public class TimeSettings extends DialogListener {
                 if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
                     hour = tp.getHour();
                     minute = tp.getMinute();
-                }
-                else {
+                } else {
                     hour = tp.getCurrentHour();
                     minute = tp.getCurrentMinute();
                 }
@@ -145,8 +150,7 @@ public class TimeSettings extends DialogListener {
                         if (!catchError(context, msgHour) && !catchError(context, msgMinute)) {
                             time.setText(formatTimeString(hour, minute));
                         }
-                    }
-                    else {
+                    } else {
                         ErrorHandler.createToast(context, ERROR_SAME_TIME);
                     }
                 }
@@ -176,8 +180,7 @@ public class TimeSettings extends DialogListener {
                 if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
                     hour = tp.getHour();
                     minute = tp.getMinute();
-                }
-                else {
+                } else {
                     hour = tp.getCurrentHour();
                     minute = tp.getCurrentMinute();
                 }
@@ -189,8 +192,7 @@ public class TimeSettings extends DialogListener {
                         if (!catchError(context, msgHour) && !catchError(context, msgMinute)) {
                             time.setText(formatTimeString(hour, minute));
                         }
-                    }
-                    else {
+                    } else {
                         ErrorHandler.createToast(context, ERROR_SAME_TIME);
                     }
                 }

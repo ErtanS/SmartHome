@@ -57,14 +57,18 @@
             android:gravity="center"
             android:orientation="horizontal"
             android:layout_below="@+id/space8"
-            android:layout_alignParentStart="true">
+            android:layout_alignParentStart="true"
+            android:background="@color/common_action_bar_splitter">
 
 
             <View
                 android:id="@+id/ambilwarna_oldColor"
                 android:layout_width="120dp"
                 android:layout_height="fill_parent"
-                android:background="#faa" />
+                android:background="#faa"
+                android:layout_marginLeft="3dp"
+                android:layout_marginTop="3dp"
+                android:layout_marginBottom="3dp" />
 
 
             <TextView
@@ -84,7 +88,10 @@
                 android:id="@+id/ambilwarna_newColor"
                 android:layout_width="120dp"
                 android:layout_height="fill_parent"
-                android:background="#aaf" />
+                android:background="#aaf"
+                android:layout_marginRight="3dp"
+                android:layout_marginTop="3dp"
+                android:layout_marginBottom="3dp" />
 
         </LinearLayout>
 
